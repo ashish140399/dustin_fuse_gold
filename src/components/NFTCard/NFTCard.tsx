@@ -4,7 +4,6 @@ import NFTCardDetails from "./NFTCardDetails";
 import MoreDetailsButton from "./MoreDetailsButton";
 import NFTImage from "./NFTImage";
 import Countdown from "react-countdown";
-import { useNavigate } from "react-router-dom";
 
 // Random component
 const Completionist = () => <span>Done!</span>;
@@ -41,13 +40,8 @@ const NFTCard: React.FC<NFTCardProps> = ({
     likes,
     timeLeft,
 }) => {
-    const navigate = useNavigate();
-    // Function to handle click event
-    const handleClick = () => {
-        navigate("/nftdetailedview"); // Update '/your-target-route' with your desired path
-    };
     return (
-        <Card onClick={handleClick} style={{ cursor: "pointer" }}>
+        <Card>
             <NFTImage src={imageSrc} alt={title} />
 
             <CountdownBox>

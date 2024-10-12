@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 interface NFTCardDetailsProps {
     title: string;
@@ -14,8 +15,13 @@ const NFTCardDetails: React.FC<NFTCardDetailsProps> = ({
     currency,
     likes,
 }) => {
+    const navigate = useNavigate();
+    // Function to handle click event
+    const handleClick = () => {
+        navigate("/nftdetailedview"); // Update '/your-target-route' with your desired path
+    };
     return (
-        <DetailsWrapper>
+        <DetailsWrapper onClick={handleClick} style={{ cursor: "pointer" }}>
             <Title>{title}</Title>
             <Price>
                 <span className="price-value">{price}</span>{" "}
