@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import MyNFT from "../components/NFTsList";
 import NFTDettails from "./NFTDettails";
 import NFTActivity from "./NFTActivity";
+import DashboardHeader from "../../components/DashboardHeader/DashboardHeader";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -75,6 +76,7 @@ const NFTDetailedView: React.FC<NFTDetailsProps> = ({
     };
     return (
         <>
+            <DashboardHeader />
             <Layout className="paddinglayoutx">
                 <StyledNFTDetails>
                     <StyledNFTImage src={imageUrl} />

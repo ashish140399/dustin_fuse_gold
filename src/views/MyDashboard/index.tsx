@@ -5,6 +5,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import MyNFT from "../components/NFTsList";
+import DashboardHeader from "../../components/DashboardHeader/DashboardHeader";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -46,51 +47,54 @@ const MyDashboard: React.FC<MyNFTProps> = ({}) => {
         setTabValue(newValue);
     };
     return (
-        <Layout>
-            <WelcomeHeader username="John" />
+        <>
+            <DashboardHeader />
+            <Layout>
+                <WelcomeHeader username="John" />
 
-            <Box sx={{ width: "100%", boxSizing: "border-box" }}>
-                <Box
-                    sx={{
-                        borderBottom: 1,
-                        borderColor: "divider",
-                        background: "var(--Brand-Dark, #111);",
-                    }}
-                    className="paddinglayoutx"
-                >
-                    <Tabs
-                        value={tabValue}
-                        onChange={handleChange}
-                        aria-label="basic tabs example"
+                <Box sx={{ width: "100%", boxSizing: "border-box" }}>
+                    <Box
+                        sx={{
+                            borderBottom: 1,
+                            borderColor: "divider",
+                            background: "var(--Brand-Dark, #111);",
+                        }}
+                        className="paddinglayoutx"
                     >
-                        <Tab label="MY NFTS" {...a11yProps(0)} />
-                        <Tab label="GOLDX STATS" {...a11yProps(1)} />
-                        <Tab label="LEADERBOARD" {...a11yProps(2)} />
-                    </Tabs>
+                        <Tabs
+                            value={tabValue}
+                            onChange={handleChange}
+                            aria-label="basic tabs example"
+                        >
+                            <Tab label="MY NFTS" {...a11yProps(0)} />
+                            <Tab label="GOLDX STATS" {...a11yProps(1)} />
+                            <Tab label="LEADERBOARD" {...a11yProps(2)} />
+                        </Tabs>
+                    </Box>
+                    <CustomTabPanelWrapper
+                        value={tabValue}
+                        index={0}
+                        className="paddinglayoutx paddinglayouty"
+                    >
+                        <MyNFT />
+                    </CustomTabPanelWrapper>
+                    <CustomTabPanelWrapper
+                        value={tabValue}
+                        index={1}
+                        className="paddinglayoutx paddinglayouty"
+                    >
+                        Item Two
+                    </CustomTabPanelWrapper>
+                    <CustomTabPanelWrapper
+                        value={tabValue}
+                        index={2}
+                        className="paddinglayoutx paddinglayouty"
+                    >
+                        Item Three
+                    </CustomTabPanelWrapper>
                 </Box>
-                <CustomTabPanelWrapper
-                    value={tabValue}
-                    index={0}
-                    className="paddinglayoutx paddinglayouty"
-                >
-                    <MyNFT />
-                </CustomTabPanelWrapper>
-                <CustomTabPanelWrapper
-                    value={tabValue}
-                    index={1}
-                    className="paddinglayoutx paddinglayouty"
-                >
-                    Item Two
-                </CustomTabPanelWrapper>
-                <CustomTabPanelWrapper
-                    value={tabValue}
-                    index={2}
-                    className="paddinglayoutx paddinglayouty"
-                >
-                    Item Three
-                </CustomTabPanelWrapper>
-            </Box>
-        </Layout>
+            </Layout>
+        </>
     );
 };
 

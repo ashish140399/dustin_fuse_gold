@@ -38,6 +38,7 @@ const ButtonBackground = styled.div`
             #8e5f1e 100%
         )
     );
+
     position: absolute;
     z-index: 0;
     display: flex;
@@ -68,6 +69,13 @@ const ButtonWrapper = styled.div<{ variant: string }>`
     width: ${(props) => (props.variant === "tertiary" ? "64px" : "200px")};
     margin: auto 0;
     &.btnwidth50 {
+        ${ButtonBackground} {
+            width: 100% !important;
+        }
+    }
+    &.btnwidth100 {
+        width: 100% !important;
+        box-sizing: border-box !important;
         ${ButtonBackground} {
             width: 100% !important;
         }

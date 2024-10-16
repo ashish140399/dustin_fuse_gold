@@ -4,15 +4,20 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MyDashboard from "./views/MyDashboard";
 import NFTDetailedView from "./views/NFTDetailedView/NFTDetailedView";
-import DashboardHeader from "./components/DashboardHeader/DashboardHeader";
+import GoldXLandingPage from "./views/Landing/Landing";
+import FeaturesnSecurity from "./views/FeaturesnSecurity/FeaturesnSecurity";
 
 function App() {
     // return <MyDashboard />;
     return (
         <Router>
-            <DashboardHeader />
             <Routes>
-                <Route path="/" element={<MyDashboard />} />
+                <Route path="/" element={<GoldXLandingPage />} />
+                <Route
+                    path="/featuesnsecurity"
+                    element={<FeaturesnSecurity />}
+                />
+                <Route path="/dashboard" element={<MyDashboard />} />
                 <Route
                     path="/nftdetailedview"
                     element={
