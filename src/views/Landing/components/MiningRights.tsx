@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
 import { ArrowTransformIcon } from "../../../assets/icons";
+import { mobileBreakpoint } from "../../../const";
 
 const MiningRights: React.FC = () => {
     return (
-        <MiningRightsSection>
+        <MiningRightsSection className="paddingscbox">
             <ContentWrapper>
                 <TextContent>
                     <SectionTitle>
@@ -36,14 +37,6 @@ const MiningRights: React.FC = () => {
     );
 };
 
-const MiningRightsSection = styled.section`
-    padding: 80px 80px 160px;
-    // background-color: var(--Brand-Dark, #111);
-    @media (max-width: 991px) {
-        padding: 40px 20px 100px;
-    }
-`;
-
 const ContentWrapper = styled.div`
     display: flex;
     justify-content: space-between;
@@ -62,6 +55,7 @@ const TextContent = styled.div`
 `;
 
 const SectionTitle = styled.h2`
+    line-height: 1.2;
     font: 600 64px/64px Conthrax, sans-serif;
     color: #fff;
     text-transform: uppercase;
@@ -92,6 +86,27 @@ const ImageWrapper = styled.div`
 const MiningImage = styled.img`
     max-width: 100%;
     height: auto;
+`;
+const MiningRightsSection = styled.section`
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${SectionDescription} {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        ${SectionTitle} {
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: left;
+            width: 100%;
+        }
+        ${ContentWrapper} {
+            flex-direction: column-reverse;
+            flex-wrap: unset;
+            ${TextContent} {
+                max-width: unset;
+            }
+        }
+    }
 `;
 
 export default MiningRights;

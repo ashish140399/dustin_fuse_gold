@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { GoldXFeaturesTopBG } from "../../../assets/BG/BG";
 import { ArrowTransformIcon } from "../../../assets/icons";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
+import { mobileBreakpoint } from "../../../const";
 
 const CallToAction: React.FC = () => {
     return (
@@ -63,23 +64,6 @@ const CallToAction: React.FC = () => {
     );
 };
 
-const CTASection = styled.section`
-    // background-image: url("https://cdn.builder.io/api/v1/image/assets/TEMP/36b51db74741719471682b2caca8a262981dd720a4caa83e5272336682bec036?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88");
-    background-size: cover;
-    background-position: center;
-    // padding: 136px 16px 16px;
-    .topimgbg {
-        margin-bottom: -10px;
-        transform: scalex(-1);
-        svg {
-            width: 100%;
-        }
-    }
-    @media (max-width: 991px) {
-        padding: 100px 20px 16px;
-    }
-`;
-
 const CTAContent = styled.div`
     display: flex;
     justify-content: space-between;
@@ -116,6 +100,7 @@ const RightColumn = styled(Column)`
 `;
 
 const SectionTitle = styled.h2`
+    line-height: 1.2;
     font: 600 40px/48px Conthrax, sans-serif;
     color: var(--Text-Tertiary, #969696);
     text-transform: uppercase;
@@ -140,47 +125,28 @@ const ButtonGroup = styled.div`
     }
 `;
 
-const Button = styled.button`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border-radius: 32px;
-    padding: 20px 32px;
-    font: 500 16px Telegraf, sans-serif;
-    cursor: pointer;
+const CTASection = styled.section`
+    .topimgbg {
+        margin-bottom: -10px;
+        transform: scalex(-1);
+        svg {
+            width: 100%;
+        }
+    }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${CTAContent} {
+            padding-top: 50px;
+            ${LeftColumn} {
+                border-radius: 32px;
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+            ${RightColumn} {
+                border-radius: 32px;
+                border-top-right-radius: 0;
+                border-top-left-radius: 0;
+            }
+        }
+    }
 `;
-
-const PrimaryButton = styled(Button)`
-    background: var(
-        --Brand-Gold,
-        radial-gradient(
-            458.07% 144.86% at 13.25% 21.87%,
-            #f4e0a3 0%,
-            #dcbc65 37.37%,
-            #ca9f43 63.89%,
-            #fef0a0 79.39%,
-            #8e5f1e 100%
-        )
-    );
-    border: none;
-    color: var(--Brand-Dark, #111);
-`;
-
-const SecondaryButton = styled(Button)`
-    background: transparent;
-    border: 1.5px solid var(--Brand-Gold, #f4e0a3);
-    color: var(--Text-Primary, #fff);
-`;
-
-const LoginButton = styled(PrimaryButton)`
-    width: 100%;
-    max-width: 280px;
-`;
-
-const ButtonIcon = styled.img`
-    width: 24px;
-    height: 24px;
-`;
-
 export default CallToAction;

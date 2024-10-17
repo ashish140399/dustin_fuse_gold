@@ -6,6 +6,7 @@ import {
     GoldXFeaturesTopBG,
 } from "../../../assets/BG/BG";
 import { FeatureRowIcon } from "../../../assets/icons";
+import { mobileBreakpoint } from "../../../const";
 
 const Features: React.FC = () => {
     return (
@@ -23,8 +24,8 @@ const Features: React.FC = () => {
                 <div className="topimgbg">
                     <GoldXFeaturesTopBG />
                 </div>
-                <FeaturesContainer className="paddingsclayoutx">
-                    <FeatureWrapper>
+                <FeaturesContainer>
+                    <FeatureWrapper className="paddingsclayoutx">
                         <FeatureNumber>01</FeatureNumber>
                         <FeatureIcon></FeatureIcon>
                         <FeatureTitle>
@@ -37,7 +38,7 @@ const Features: React.FC = () => {
                             and transaction confirmation costs of under $0.01.
                         </FeatureDescription>
                     </FeatureWrapper>
-                    <FeatureWrapper className="active">
+                    <FeatureWrapper className="paddingsclayoutx active">
                         <FeatureNumber>02</FeatureNumber>
                         <FeatureIcon>
                             <FeatureRowIcon />
@@ -54,7 +55,7 @@ const Features: React.FC = () => {
                             (FIPs).
                         </FeatureDescription>
                     </FeatureWrapper>
-                    <FeatureWrapper>
+                    <FeatureWrapper className="paddingsclayoutx">
                         <FeatureNumber>03</FeatureNumber>
                         <FeatureIcon></FeatureIcon>
                         <FeatureTitle>
@@ -68,7 +69,7 @@ const Features: React.FC = () => {
                             network lies the native token, GOLDX.
                         </FeatureDescription>
                     </FeatureWrapper>
-                    <FeatureWrapper>
+                    <FeatureWrapper className="paddingsclayoutx">
                         <FeatureNumber>04</FeatureNumber>
                         <FeatureIcon></FeatureIcon>
                         <FeatureTitle>
@@ -104,13 +105,6 @@ const FeaturesSectionWrapper = styled.div`
         }
     }
 `;
-const FeaturesSection = styled.section`
-    position: relative;
-
-    @media (max-width: 991px) {
-        padding: 40px 20px;
-    }
-`;
 
 const SectionHeader = styled.div`
     display: flex;
@@ -125,6 +119,7 @@ const SectionHeader = styled.div`
 `;
 
 const SectionTitle = styled.h2`
+    line-height: 1.2;
     font: 600 64px/64px Conthrax, sans-serif;
     color: var(--text-primary, #fff);
     text-transform: uppercase;
@@ -154,7 +149,6 @@ const SectionDescription = styled.p`
 const FeaturesContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 40px;
     position: relative;
     z-index: 2;
     background-color: #171615;
@@ -194,9 +188,11 @@ const FeatureDescription = styled.p`
 const FeatureWrapper = styled.div`
     display: flex;
     color: var(--text-primary, #fff);
-    padding: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     border-bottom: 1px solid var(--Lines-Divider, #383838);
-    border-radius: 32px;
+    // border-radius: 32px;
+
     &.active {
         border-bottom: 1px solid var(--Lines-Gold, #e2b666);
         ${FeatureTitle} {
@@ -204,6 +200,41 @@ const FeatureWrapper = styled.div`
         }
         ${FeatureDescription} {
             color: #fff;
+        }
+    }
+    &:last-child {
+        border-bottom: 0;
+    }
+`;
+const FeaturesSection = styled.section`
+    position: relative;
+
+    @media (max-width: 991px) {
+        padding: 40px 20px;
+    }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${SectionDescription} {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        ${SectionTitle} {
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: left;
+            width: 100%;
+        }
+        ${FeatureWrapper} {
+            flex-direction: column;
+            flex-wrap: unset;
+            ${FeatureIcon} {
+                display: none;
+            }
+            ${FeatureTitle},${FeatureDescription} {
+                width: 100%;
+                div {
+                    max-width: unset;
+                }
+            }
         }
     }
 `;

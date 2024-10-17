@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import { mobileBreakpoint } from "../../../const";
 
 const Testimonials: React.FC = () => {
     return (
         <TestimonialsSectionWrapper>
             <TestimonialsSection>
-                <SectionHeader>
+                <SectionHeader className="paddingsclayoutx">
                     <SectionTitle>
                         <div>
                             What others <WhiteSpan>Say?</WhiteSpan>
@@ -25,16 +26,6 @@ const Testimonials: React.FC = () => {
     );
 };
 
-const TestimonialsSectionWrapper = styled.div`
-    border-radius: 24px;
-    border: 1px solid rgba(237, 206, 139, 0.4);
-    background: linear-gradient(
-        102deg,
-        rgba(231, 214, 162, 0.1) -6.75%,
-        rgba(106, 95, 62, 0.1) 101.51%
-    );
-    margin: 0 14px;
-`;
 const TestimonialsSection = styled.section`
     display: flex;
     // background-color: var(--Brand-Dark, #111);
@@ -44,7 +35,7 @@ const TestimonialsSection = styled.section`
     padding-right: 30px;
     padding-left: 100px;
     @media (max-width: 991px) {
-        padding: 40px 20px;
+        padding: 0px;
     }
 `;
 
@@ -55,12 +46,17 @@ const SectionHeader = styled.div`
     align-items: flex-start;
     margin-bottom: 40px;
     max-width: 80%;
+
+    @media screen and (min-width: ${mobileBreakpoint}px) {
+        padding: 0;
+    }
     @media (max-width: 991px) {
         flex-direction: column;
     }
 `;
 
 const SectionTitle = styled.h2`
+    line-height: 1.2;
     font: 600 56px/60px Conthrax, sans-serif;
     color: var(--Brand-White, rgba(255, 255, 255, 0.4));
     text-transform: uppercase;
@@ -99,6 +95,43 @@ const TestimonialsGrid = styled.div`
         width: 100%;
         // height: 200%;
         object-fit: cover;
+    }
+`;
+const TestimonialsSectionWrapper = styled.div`
+    border-radius: 24px;
+    border: 1px solid rgba(237, 206, 139, 0.4);
+    background: linear-gradient(
+        102deg,
+        rgba(231, 214, 162, 0.1) -6.75%,
+        rgba(106, 95, 62, 0.1) 101.51%
+    );
+    margin: 0 14px;
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${SectionHeader} {
+            margin-bottom: 0;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        ${SectionDescription} {
+            width: 100%;
+            margin-bottom: 0px;
+            padding: 0;
+            max-width: unset;
+        }
+        ${SectionTitle} {
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: left;
+            width: 100%;
+        }
+        ${TestimonialsSection} {
+            flex-direction: column;
+            overflow: hidden;
+            ${TestimonialsGrid} {
+                min-height: 60vh;
+                max-width: unset;
+            }
+        }
     }
 `;
 

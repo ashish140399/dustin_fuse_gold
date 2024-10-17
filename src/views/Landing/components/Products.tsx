@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useWindowSize } from "@react-hook/window-size";
 import styled from "styled-components";
 import {
     GoldXFeaturesBottomBG,
@@ -6,6 +7,7 @@ import {
     ProductCardBG,
 } from "../../../assets/BG/BG";
 import { ProductCardBottomIcon, ProductCardIcon } from "../../../assets/icons";
+import { mobileBreakpoint } from "../../../const";
 
 interface ProductProps {
     name: string;
@@ -18,28 +20,24 @@ interface CardWrapperProps {
     bottomsvgWidth?: string; // Optional prop, defaults to '70px' if not provided
 }
 const Products: React.FC = () => {
-    const cardWrapperRef = useRef(null); // Ref to attach to the CardWrapper
-    const [cardWrapperWidth, setCardWrapperWidth] = useState(0); // State to store the width
-    const [bottomIconWidth, setBottomIconWidth] = useState(0); // State for bottom icon width
+    const cardWrapperRef = useRef(null);
+    const [bottomIconWidth, setBottomIconWidth] = useState(0);
+
+    // Get window size using the hook
+    const [width, height] = useWindowSize();
 
     useEffect(() => {
-        // Function to update width
+        // Function to update width based on the window size
         const updateWidth = () => {
-            const width = cardWrapperRef.current
+            const currentWidth = cardWrapperRef.current
                 ? // @ts-ignore
                   cardWrapperRef.current.offsetWidth
                 : 0;
-            setCardWrapperWidth(width);
-            setBottomIconWidth(width / 5.525); // Example: set bottom icon width as half of card wrapper
+            setBottomIconWidth(currentWidth / 5.525); // Adjust the ratio as needed
         };
 
-        updateWidth(); // Initial check
-        window.addEventListener("resize", updateWidth); // Adjust on window resize
-
-        return () => {
-            window.removeEventListener("resize", updateWidth); // Cleanup listener
-        };
-    }, []);
+        updateWidth();
+    }, [width, height]);
 
     return (
         <ProductsSection>
@@ -219,16 +217,6 @@ const ProductsGridWrapper = styled.div`
     }
 `;
 
-const ProductsSection = styled.section`
-    padding: 160px 16px 80px;
-    // background-image: url("https://cdn.builder.io/api/v1/image/assets/TEMP/1f3e1c11b32a51b901b0d8830c4dfb7d36b8bc6eff26c9389184b10f6e0e51a7?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88");
-    // background-size: cover;
-    // background-position: center;
-    @media (max-width: 991px) {
-        padding: 100px 20px 40px;
-    }
-`;
-
 const SectionHeader = styled.div`
     display: flex;
     justify-content: space-between;
@@ -240,6 +228,7 @@ const SectionHeader = styled.div`
 `;
 
 const SectionTitle = styled.h2`
+    line-height: 1.2;
     font: 600 64px/64px Conthrax, sans-serif;
     color: var(--Text-Primary, #fff);
     text-transform: uppercase;
@@ -274,42 +263,6 @@ const ProductsGridScroll = styled.div`
 const ProductsGrid = styled.div`
     display: flex;
     width: 100%;
-`;
-
-const Card = styled.div`
-    background-color: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(32px);
-    border-radius: 32px;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-`;
-
-const ProductName = styled.h3`
-    font: 600 30px/1 Conthrax, sans-serif;
-    color: var(--Text-Primary, #fff);
-    text-transform: uppercase;
-    margin-bottom: 24px;
-`;
-
-const ProductDescription = styled.p`
-    font: 400 16px/24px Telegraf, sans-serif;
-    color: var(--Text-Secondary, #cfcfcf);
-    margin-bottom: 32px;
-`;
-
-const LearnMoreButton = styled.button`
-    background: transparent;
-    border: 1.5px solid var(--Brand-Gold, #f4e0a3);
-    border-radius: 40px;
-    width: 80px;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    align-self: flex-end;
 `;
 
 const CardWrapper = styled.div<CardWrapperProps>`
@@ -357,12 +310,6 @@ const CardWrapper = styled.div<CardWrapperProps>`
     }
 `;
 
-const CardIcon = styled.img`
-    width: 64px;
-    height: 64px;
-    margin-bottom: 24px;
-`;
-
 const CardContent = styled.div`
     color: var(--text-primary, #fff);
     position: absolute;
@@ -387,6 +334,35 @@ const CardDescription = styled.p`
     font: 400 16px/24px Telegraf, sans-serif;
     color: var(--text-Ssecondary, #cfcfcf);
     margin: 0;
+`;
+const ProductsSection = styled.section`
+    padding: 160px 16px 80px;
+
+    @media (max-width: 991px) {
+        padding: 100px 20px 40px;
+    }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${SectionHeader} {
+            margin-bottom: 0;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        ${SectionDescription} {
+            width: 100%;
+            margin-bottom: 0px;
+            padding: 0;
+            max-width: unset;
+        }
+        ${SectionTitle} {
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: left;
+            width: 100%;
+        }
+        ${ProductsGridScroll} {
+            padding-top: 30px;
+        }
+    }
 `;
 
 export default Products;

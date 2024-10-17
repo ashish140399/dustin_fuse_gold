@@ -145,6 +145,7 @@ const Title = styled.h1`
     color: #fff;
     font-feature-settings: "liga" off, "clig" off;
     text-transform: uppercase;
+    margin: 0;
 
     font: 600 80px/80px Conthrax, sans-serif;
     @media (max-width: 991px) {

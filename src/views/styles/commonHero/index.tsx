@@ -1,25 +1,5 @@
 import styled from "styled-components";
-
-export const StyledHero = styled.main`
-    display: flex;
-    min-height: 100vh;
-
-    .herobag {
-        position: absolute;
-        // 20px for side paddding and 100px for left sidebar
-        width: calc(100% - 100px - 20px);
-        height: calc(100% - 20px);
-        top: 20px;
-        right: 20px;
-        z-index: 0;
-        svg {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-        }
-    }
-`;
+import { mobileBreakpoint } from "../../../const";
 
 export const HeroLeft = styled.div`
     width: 100px;
@@ -38,6 +18,7 @@ export const HeroLeft = styled.div`
             display: flex;
             flex-direction: column;
             .sclicon {
+                cursor: pointer;
             }
         }
     }
@@ -48,6 +29,40 @@ export const HeroRight = styled.div`
     padding-right: 20px;
     position: relative;
     z-index: 2;
+`;
+export const StyledHero = styled.main`
+    display: flex;
+    min-height: 100vh;
+    .herobag {
+        position: absolute;
+        // 20px for side paddding and 100px for left sidebar
+        width: calc(100% - 100px - 20px);
+        height: calc(100% - 20px);
+        top: 20px;
+        right: 20px;
+        z-index: 0;
+        svg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+        }
+    }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        flex-direction: column;
+        .herobag {
+            width: calc(100% - 40px);
+            height: calc(100% - 0px);
+            top: 20px;
+            right: 20px;
+        }
+        ${HeroLeft} {
+            display: none;
+        }
+        ${HeroRight} {
+            width: 100%;
+        }
+    }
 `;
 
 export const HeroContentWrapper = styled.section`
@@ -65,10 +80,20 @@ export const HeroContentWrapper = styled.section`
         max-width: 100%;
         margin-top: 40px;
     }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        min-height: 100vh;
+    }
 `;
 export const InvestButtonWrapper = styled.div`
     position: absolute;
     bottom: 10px;
     left: 10px;
     width: 27.5vw;
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        position: relative;
+        position: relative;
+        width: auto;
+        bottom: unset;
+        left: unset;
+    }
 `;

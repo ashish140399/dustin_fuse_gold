@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { ArrowTransformIcon, GetStartedIcon } from "../../../assets/icons";
-import { LandingHeroBG } from "../../../assets/BG/BG";
+import { LandingHeroBG, LandingHeroMobileBG } from "../../../assets/BG/BG";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
 import NavBar from "../../components/NavBar/NavBar";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -12,12 +12,25 @@ import {
     InvestButtonWrapper,
     StyledHero,
 } from "../../styles/commonHero";
+import { mobileBreakpoint } from "../../../const";
+import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 const Hero: React.FC = () => {
+    const { windowDimensions } = useContext(SiteVariablesContext);
     return (
         <StyledHero>
             <div className="herobag">
-                <LandingHeroBG src="./images/common/herobg.png" alt="Hero BG" />
+                {windowDimensions.width > mobileBreakpoint ? (
+                    <LandingHeroBG
+                        src="./images/common/herobg.png"
+                        alt="Hero BG"
+                    />
+                ) : (
+                    <LandingHeroMobileBG
+                        src="./images/common/herobg.png"
+                        alt="Hero BG"
+                    />
+                )}
             </div>
             <HeroLeft>
                 <Sidebar />
@@ -142,6 +155,7 @@ const Title = styled.h1`
     color: #fff;
     font-feature-settings: "liga" off, "clig" off;
     text-transform: uppercase;
+    margin: 0;
 
     font: 600 80px/80px Conthrax, sans-serif;
     @media (max-width: 991px) {
@@ -174,6 +188,9 @@ const Logo = styled.img`
     position: absolute;
     top: 27vh;
     right: 10vw;
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        display: none;
+    }
 `;
 
 const InvestButton: React.FC = () => {

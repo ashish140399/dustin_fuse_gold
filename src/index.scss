@@ -106,6 +106,12 @@ code {
 }
 
 // paddngs
+.paddingscbox {
+  padding: 80px 80px 160px;
+  @media screen and (max-width: 500px) {
+    padding: 40px 40px 80px;
+  }
+}
 .paddinglayoutx {
   padding-left: 80px;
   padding-right: 80px;
@@ -118,8 +124,17 @@ code {
 .paddingsclayoutx {
   padding-left: 80px;
   padding-right: 80px;
+  @media screen and (max-width: 500px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 .paddingsclayouty {
   padding-top: 30px;
   padding-bottom: 30px;
+}
+
+.marginsclayouty1 {
+  margin-top: 60px;
+  margin-bottom: 60px;
 }

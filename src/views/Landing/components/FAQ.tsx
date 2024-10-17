@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { mobileBreakpoint } from "../../../const";
 
 interface FAQItemProps {
     question: string;
@@ -48,7 +49,7 @@ const FAQ: React.FC = () => {
     ];
 
     return (
-        <FAQSection>
+        <FAQSection className="paddingscbox">
             <SectionHeader>
                 <SectionTitle>
                     FAQs<GoldSpan>.</GoldSpan>
@@ -68,15 +69,6 @@ const FAQ: React.FC = () => {
     );
 };
 
-const FAQSection = styled.section`
-    padding: 80px 80px 160px;
-    // background-color: var(--Brand-Dark, #111);
-    display: flex;
-    @media (max-width: 991px) {
-        padding: 40px 20px 100px;
-    }
-`;
-
 const SectionHeader = styled.div`
     display: flex;
     // justify-content: space-between;
@@ -90,6 +82,7 @@ const SectionHeader = styled.div`
 `;
 
 const SectionTitle = styled.h2`
+    line-height: 1.2;
     font: 600 64px/1 Conthrax, sans-serif;
     color: var(--Text-Primary, #fff);
     text-transform: uppercase;
@@ -151,6 +144,30 @@ const Answer = styled.p`
     font: 400 16px/24px Telegraf, sans-serif;
     color: var(--Text-Secondary, #cfcfcf);
     margin-top: 24px;
+`;
+const FAQSection = styled.section`
+    // background-color: var(--Brand-Dark, #111);
+    display: flex;
+
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        flex-direction: column;
+        ${SectionHeader} {
+            width: 100%;
+        }
+        ${SectionDescription} {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        ${SectionTitle} {
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: left;
+            width: 100%;
+        }
+        ${FAQList} {
+            width: 100%;
+        }
+    }
 `;
 
 export default FAQ;

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { WhyGoldXBG } from "../../../assets/BG/BG";
 import { WhyGoldXBottomIcon } from "../../../assets/icons";
+import { mobileBreakpoint } from "../../../const";
 
 interface BenefitCardProps {
     icon: string;
@@ -130,13 +131,6 @@ const WhyGoldX: React.FC = () => {
     );
 };
 
-const WhyGoldXSection = styled.section`
-    padding: 160px 80px 80px;
-    @media (max-width: 991px) {
-        padding: 100px 20px 0;
-    }
-`;
-
 const SectionHeader = styled.div`
     display: flex;
     justify-content: space-between;
@@ -148,6 +142,7 @@ const SectionHeader = styled.div`
 `;
 
 const SectionTitle = styled.h2`
+    line-height: 1.2;
     font: 600 64px/64px Conthrax, sans-serif;
     color: var(--text-primary, #fff);
     text-transform: uppercase;
@@ -249,4 +244,29 @@ const CardDescription = styled.p`
     margin: 0;
 `;
 
+const WhyGoldXSection = styled.section`
+    padding: 160px 80px 80px;
+    @media (max-width: 991px) {
+        padding: 100px 20px 0;
+    }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${BenefitsContainer} {
+            flex-direction: column;
+            flex-wrap: unset;
+            ${CardWrapperOuter} {
+                margin-bottom: 40px;
+            }
+        }
+        ${SectionDescription} {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        ${SectionTitle} {
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: left;
+            width: 100%;
+        }
+    }
+`;
 export default WhyGoldX;

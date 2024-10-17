@@ -151,6 +151,7 @@ const SectionHeader = styled.div`
 `;
 
 const SectionTitle = styled.h2`
+    line-height: 1.2;
     font: 600 64px/64px Conthrax, sans-serif;
     color: var(--text-primary, #fff);
     text-transform: uppercase;

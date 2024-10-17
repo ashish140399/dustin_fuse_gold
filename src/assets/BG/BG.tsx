@@ -45,6 +45,48 @@ export const LandingHeroBG: React.FC<LandingHeroImageProps> = ({
     );
 };
 
+export const LandingHeroMobileBG: React.FC<LandingHeroImageProps> = ({
+    src,
+    alt,
+}) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 359 620"
+            fill="none"
+            preserveAspectRatio="none"
+            height="auto"
+            width="100%"
+        >
+            <path
+                d="M319 64C301.327 64 287 49.6731 287 32V24C287 10.7452 276.255 0 263 0H181C167.745 0 157 10.7452 157 24V32C157 45.2548 146.255 56 133 56H24C10.7452 56 0 66.7452 0 80V596C0 609.255 10.7452 620 24 620H335C348.255 620 359 609.255 359 596V88C359 74.7452 348.255 64 335 64H319Z"
+                fill="url(#pattern0_464_20149)"
+            />
+            <defs>
+                <pattern
+                    id="pattern0_464_20149"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                >
+                    <use
+                        xlinkHref="#image0_464_20149"
+                        transform="matrix(0.000989419 0 0 0.000572906 -0.217139 -0.0870968)"
+                    />
+                </pattern>
+                <image
+                    id="image0_464_20149"
+                    width="4096"
+                    height="2134"
+                    preserveAspectRatio="xMaxYMin slice"
+                    xlinkHref={src}
+                />
+            </defs>
+        </svg>
+    );
+};
+
 export const WhyGoldXBG: React.FC = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -335,5 +377,22 @@ export const ProtectKeyCardBG: React.FC = () => (
                 <stop offset="1" stop-color="white" stop-opacity="0.04" />
             </linearGradient>
         </defs>
+    </svg>
+);
+
+export const WhyShouldYouBuyBG: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="560"
+        height="272"
+        viewBox="0 0 560 272"
+        fill="none"
+    >
+        <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M560 32C560 14.3269 545.673 0 528 0H32C14.3269 0 0 14.3269 0 32V240C0 257.673 14.3269 272 32 272H436C453.673 272 468 257.673 468 240V228C468 201.49 489.49 180 516 180H528C545.673 180 560 165.673 560 148V32Z"
+            fill="#111111"
+        />
     </svg>
 );

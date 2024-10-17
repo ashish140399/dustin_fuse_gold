@@ -40,13 +40,9 @@ const ProofOfReserve: React.FC = () => {
 };
 
 const MiningRightsSection = styled.section`
-    padding: 80px 80px 160px;
     border-radius: 32px;
     background: var(--Typography-Primary-white, #fff);
     margin: 0 14px;
-    @media (max-width: 991px) {
-        padding: 40px 20px 100px;
-    }
 `;
 
 const ContentWrapper = styled.div`
@@ -67,6 +63,7 @@ const TextContent = styled.div`
 `;
 
 const SectionTitle = styled.h2`
+    line-height: 1.2;
     font: 600 64px/64px Conthrax, sans-serif;
     color: #111;
     text-transform: uppercase;

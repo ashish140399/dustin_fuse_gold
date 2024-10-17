@@ -31,6 +31,44 @@ export const CustomDropdownIcon: React.ElementType = () => (
     </DropDownIconWrapper>
 );
 
+export const HamburgerIcon: React.ElementType = () => (
+    <svg
+        width="56"
+        height="56"
+        viewBox="0 0 56 56"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <rect
+            x="0.75"
+            y="0.75"
+            width="54.5"
+            height="54.5"
+            rx="27.25"
+            stroke="#5D5C5A"
+            stroke-width="1.5"
+        />
+        <path
+            d="M19 21H27"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="square"
+        />
+        <path
+            d="M19 28H32"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="square"
+        />
+        <path
+            d="M19 35H37"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="square"
+        />
+    </svg>
+);
+
 export const GetStartedIcon: React.ElementType = () => (
     <svg
         width="120"
@@ -629,6 +667,34 @@ export const ProtectKeyCardBottomIcon: React.FC = () => (
                 <stop offset="0.7721" stop-color="#FFF1B0" />
                 <stop offset="1" stop-color="#C8A766" />
             </linearGradient>
+        </defs>
+    </svg>
+);
+export const ProductTimelineIcon: React.FC = () => (
+    <svg
+        width="16"
+        height="328"
+        viewBox="0 0 16 328"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="M8 0V320" stroke="#EDCE8B" />
+        <circle cx="8" cy="320" r="8" fill="url(#paint0_radial_464_22727)" />
+        <defs>
+            <radialGradient
+                id="paint0_radial_464_22727"
+                cx="0"
+                cy="0"
+                r="1"
+                gradientUnits="userSpaceOnUse"
+                gradientTransform="translate(2.12 315.5) rotate(42.3859) scale(23.1783 58.4971)"
+            >
+                <stop stop-color="#F4E0A3" />
+                <stop offset="0.373682" stop-color="#DCBC65" />
+                <stop offset="0.638906" stop-color="#CA9F43" />
+                <stop offset="0.79386" stop-color="#FEF0A0" />
+                <stop offset="1" stop-color="#8E5F1E" />
+            </radialGradient>
         </defs>
     </svg>
 );

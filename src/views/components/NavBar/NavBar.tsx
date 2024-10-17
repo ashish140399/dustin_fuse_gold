@@ -1,40 +1,66 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
-import { ArrowTransformIcon } from "../../../assets/icons";
+import { ArrowTransformIcon, HamburgerIcon } from "../../../assets/icons";
+import { useWindowSize } from "@react-hook/window-size";
+import { mobileBreakpoint } from "../../../const";
+import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 const NavBar: React.FC = () => {
+    const { windowDimensions } = useContext(SiteVariablesContext);
     return (
-        <HeaderWrapper>
-            <Nav>
-                <NavList>
-                    <NavItem active>Home</NavItem>
-                    <NavItem>About Goldx NFT</NavItem>
-                    <NavItem>
-                        Browse
-                        <img
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/70021bc9e619c40f487fd312cf0a65ee564965a43aa0526cc277fc2d8463ae8a?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
-                            alt="Browse icon"
-                        />
-                    </NavItem>
-                    <NavItem>Exchange</NavItem>
-                </NavList>
-            </Nav>
-            <ButtonGroup>
-                <ContactButton>Contact Us</ContactButton>
-                <SignUpButton>
-                    <ActionButton
-                        label="Sign Up"
-                        variant="primary"
-                        className="btnwidth100"
-                        // @ts-ignore
-                        icon={<ArrowTransformIcon />}
-                    />
-                </SignUpButton>
-            </ButtonGroup>
-        </HeaderWrapper>
+        <>
+            {windowDimensions.width > mobileBreakpoint ? (
+                <HeaderWrapper>
+                    <Nav>
+                        <NavList>
+                            <NavItem active>Home</NavItem>
+                            <NavItem>About Goldx NFT</NavItem>
+                            <NavItem>
+                                Browse
+                                <img
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/70021bc9e619c40f487fd312cf0a65ee564965a43aa0526cc277fc2d8463ae8a?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
+                                    alt="Browse icon"
+                                />
+                            </NavItem>
+                            <NavItem>Exchange</NavItem>
+                        </NavList>
+                    </Nav>
+                    <ButtonGroup>
+                        <ContactButton>Contact Us</ContactButton>
+                        <SignUpButton>
+                            <ActionButton
+                                label="Sign Up"
+                                variant="primary"
+                                className="btnwidth100"
+                                // @ts-ignore
+                                icon={<ArrowTransformIcon />}
+                            />
+                        </SignUpButton>
+                    </ButtonGroup>
+                </HeaderWrapper>
+            ) : (
+                <MobileWrapper>
+                    <div className="sitelogo">
+                        <img src="images/common/LOGO.svg" alt="" />
+                    </div>
+                    <div className="hamicon">
+                        <HamburgerIcon />
+                    </div>
+                </MobileWrapper>
+            )}
+        </>
     );
 };
+
+const MobileWrapper = styled.header`
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 40px 20px;
+`;
 
 const HeaderWrapper = styled.header`
     display: flex;
@@ -111,15 +137,6 @@ const NavItem = styled.li<{ active?: boolean }>`
     }
 `;
 
-const ButtonGroup = styled.div`
-    align-self: start;
-    display: flex;
-    min-height: 64px;
-    align-items: start;
-    gap: 16px;
-    justify-content: start;
-`;
-
 const ContactButton = styled.button`
     align-self: stretch;
     border-radius: 32px;
@@ -142,5 +159,19 @@ const ContactButton = styled.button`
 const SignUpButton = styled.div`
     width: 200px;
 `;
-
+const ButtonGroup = styled.div`
+    align-self: start;
+    display: flex;
+    min-height: 64px;
+    align-items: start;
+    gap: 16px;
+    justify-content: start;
+    width: 30vw;
+    ${ContactButton} {
+        width: 50%;
+    }
+    ${SignUpButton} {
+        width: 50%;
+    }
+`;
 export default NavBar;

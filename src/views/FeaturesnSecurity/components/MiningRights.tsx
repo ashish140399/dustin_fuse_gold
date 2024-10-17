@@ -5,7 +5,7 @@ import { ArrowTransformIcon } from "../../../assets/icons";
 
 const MiningRights: React.FC = () => {
     return (
-        <MiningRightsSection>
+        <MiningRightsSection className="paddingscbox">
             <ContentWrapper>
                 <TextContent>
                     <SectionTitle>
@@ -37,13 +37,7 @@ const MiningRights: React.FC = () => {
     );
 };
 
-const MiningRightsSection = styled.section`
-    padding: 80px 80px 160px;
-    // background-color: var(--Brand-Dark, #111);
-    @media (max-width: 991px) {
-        padding: 40px 20px 100px;
-    }
-`;
+const MiningRightsSection = styled.section``;
 
 const ContentWrapper = styled.div`
     display: flex;
@@ -63,6 +57,7 @@ const TextContent = styled.div`
 `;
 
 const SectionTitle = styled.h2`
+    line-height: 1.2;
     font: 600 64px/64px Conthrax, sans-serif;
     color: #fff;
     text-transform: uppercase;
