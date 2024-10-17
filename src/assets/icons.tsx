@@ -68,6 +68,70 @@ export const HamburgerIcon: React.ElementType = () => (
         />
     </svg>
 );
+export const AccordionPlusIcon: React.ElementType = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <path
+            d="M6 12H12M12 12H18M12 12V6M12 12V18"
+            stroke="url(#paint0_radial_5115_15646)"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+        />
+        <defs>
+            <radialGradient
+                id="paint0_radial_5115_15646"
+                cx="0"
+                cy="0"
+                r="1"
+                gradientUnits="userSpaceOnUse"
+                gradientTransform="translate(7.59 8.625) rotate(42.3859) scale(17.3837 43.8728)"
+            >
+                <stop stop-color="#F4E0A3" />
+                <stop offset="0.373682" stop-color="#DCBC65" />
+                <stop offset="0.638906" stop-color="#CA9F43" />
+                <stop offset="0.79386" stop-color="#FEF0A0" />
+                <stop offset="1" stop-color="#8E5F1E" />
+            </radialGradient>
+        </defs>
+    </svg>
+);
+export const AccordionMinusIcon: React.ElementType = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <path
+            d="M6 12H12H18"
+            stroke="url(#paint0_radial_5115_15661)"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+        />
+        <defs>
+            <radialGradient
+                id="paint0_radial_5115_15661"
+                cx="0"
+                cy="0"
+                r="1"
+                gradientUnits="userSpaceOnUse"
+                gradientTransform="translate(7.59 12.2187) rotate(4.34933) scale(12.8771 4.9356)"
+            >
+                <stop stop-color="#F4E0A3" />
+                <stop offset="0.373682" stop-color="#DCBC65" />
+                <stop offset="0.638906" stop-color="#CA9F43" />
+                <stop offset="0.79386" stop-color="#FEF0A0" />
+                <stop offset="1" stop-color="#8E5F1E" />
+            </radialGradient>
+        </defs>
+    </svg>
+);
 
 export const GetStartedIcon: React.ElementType = () => (
     <svg

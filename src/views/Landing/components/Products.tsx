@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { useWindowSize } from "@react-hook/window-size";
 import styled from "styled-components";
 import {
@@ -8,6 +8,7 @@ import {
 } from "../../../assets/BG/BG";
 import { ProductCardBottomIcon, ProductCardIcon } from "../../../assets/icons";
 import { mobileBreakpoint } from "../../../const";
+import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 interface ProductProps {
     name: string;
@@ -22,22 +23,20 @@ interface CardWrapperProps {
 const Products: React.FC = () => {
     const cardWrapperRef = useRef(null);
     const [bottomIconWidth, setBottomIconWidth] = useState(0);
-
-    // Get window size using the hook
-    const [width, height] = useWindowSize();
-
+    const { windowDimensions } = useContext(SiteVariablesContext);
     useEffect(() => {
-        // Function to update width based on the window size
+        // Function to update width based on window dimensions
         const updateWidth = () => {
-            const currentWidth = cardWrapperRef.current
+            const width = cardWrapperRef.current
                 ? // @ts-ignore
                   cardWrapperRef.current.offsetWidth
                 : 0;
-            setBottomIconWidth(currentWidth / 5.525); // Adjust the ratio as needed
+
+            setBottomIconWidth(width / 5.525); // Example: adjust bottom icon width calculation as needed
         };
 
-        updateWidth();
-    }, [width, height]);
+        updateWidth(); // Run once on mount and then whenever window dimensions change
+    }, [windowDimensions]); // Dependency on windowDimensions width and height
 
     return (
         <ProductsSection>
@@ -338,9 +337,6 @@ const CardDescription = styled.p`
 const ProductsSection = styled.section`
     padding: 160px 16px 80px;
 
-    @media (max-width: 991px) {
-        padding: 100px 20px 40px;
-    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         ${SectionHeader} {
             margin-bottom: 0;

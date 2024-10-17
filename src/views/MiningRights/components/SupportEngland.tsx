@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
 import { ArrowTransformIcon } from "../../../assets/icons";
+import { mobileBreakpoint } from "../../../const";
 
 const SupportEngland: React.FC = () => {
     return (
@@ -37,10 +38,6 @@ const SupportEngland: React.FC = () => {
         </MiningRightsSection>
     );
 };
-
-const MiningRightsSection = styled.section`
-    position: relative;
-`;
 
 const ContentWrapper = styled.div`
     display: flex;
@@ -97,5 +94,21 @@ const ImageWrapper = styled.div`
         width: 100%;
     }
 `;
+const MiningRightsSection = styled.section`
+    position: relative;
 
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${ContentWrapper} {
+            min-height: 70vh;
+            ${ImageWrapper} {
+                height: 100%;
+                img {
+                    width: auto;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
+        }
+    }
+`;
 export default SupportEngland;

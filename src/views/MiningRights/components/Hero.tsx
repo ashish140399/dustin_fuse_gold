@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { ArrowTransformIcon, GetStartedIcon } from "../../../assets/icons";
-import { LandingHeroBG } from "../../../assets/BG/BG";
+import { LandingHeroBG, LandingHeroMobileBG } from "../../../assets/BG/BG";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
 import NavBar from "../../components/NavBar/NavBar";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -13,15 +13,24 @@ import {
     StyledHero,
 } from "../../styles/commonHero";
 import { mobileBreakpoint } from "../../../const";
+import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 const Hero: React.FC = () => {
+    const { windowDimensions } = useContext(SiteVariablesContext);
     return (
         <StyledHero>
             <div className="herobag">
-                <LandingHeroBG
-                    src="./images/common/miningright.png"
-                    alt="Hero BG"
-                />
+                {windowDimensions?.width > mobileBreakpoint ? (
+                    <LandingHeroBG
+                        src="./images/common/herobg.png"
+                        alt="Hero BG"
+                    />
+                ) : (
+                    <LandingHeroMobileBG
+                        src="./images/common/herobg.png"
+                        alt="Hero BG"
+                    />
+                )}
             </div>
             <HeroLeft>
                 <Sidebar />

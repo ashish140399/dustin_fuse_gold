@@ -11,6 +11,7 @@ import {
     ProductCardIcon,
 } from "../../../assets/icons";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
+import { mobileBreakpoint } from "../../../const";
 
 interface ProductProps {
     name: string;
@@ -153,16 +154,6 @@ const ProductsGridWrapper = styled.div`
     }
 `;
 
-const ProductsSection = styled.section`
-    padding: 160px 16px 80px;
-    // background-image: url("https://cdn.builder.io/api/v1/image/assets/TEMP/1f3e1c11b32a51b901b0d8830c4dfb7d36b8bc6eff26c9389184b10f6e0e51a7?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88");
-    // background-size: cover;
-    // background-position: center;
-    @media (max-width: 991px) {
-        padding: 100px 20px 40px;
-    }
-`;
-
 const SectionHeader = styled.div`
     display: flex;
     justify-content: space-between;
@@ -276,5 +267,35 @@ const CardDescription = styled.p`
     color: var(--text-Ssecondary, #cfcfcf);
     margin: 0;
 `;
+const ProductsSection = styled.section`
+    padding: 160px 16px 80px;
 
+    @media (max-width: 991px) {
+        padding: 100px 0px 40px;
+    }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${SectionDescription} {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        ${SectionTitle} {
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: left;
+            width: 100%;
+        }
+        ${ProductsGrid} {
+            flex-direction: column;
+            padding-top: 60px;
+            padding-bottom: 60px;
+            ${CardWrapper} {
+                width: 100%;
+                margin-bottom: 40px;
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+`;
 export default ProtectPast;

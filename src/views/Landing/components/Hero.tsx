@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
     return (
         <StyledHero>
             <div className="herobag">
-                {windowDimensions.width > mobileBreakpoint ? (
+                {windowDimensions?.width > mobileBreakpoint ? (
                     <LandingHeroBG
                         src="./images/common/herobg.png"
                         alt="Hero BG"

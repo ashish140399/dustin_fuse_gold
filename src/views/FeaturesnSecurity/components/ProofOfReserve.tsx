@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
 import { ArrowTransformIcon } from "../../../assets/icons";
+import { mobileBreakpoint } from "../../../const";
 
 const ProofOfReserve: React.FC = () => {
     return (
@@ -38,12 +39,6 @@ const ProofOfReserve: React.FC = () => {
         </MiningRightsSection>
     );
 };
-
-const MiningRightsSection = styled.section`
-    border-radius: 32px;
-    background: var(--Typography-Primary-white, #fff);
-    margin: 0 14px;
-`;
 
 const ContentWrapper = styled.div`
     display: flex;
@@ -106,6 +101,40 @@ const ImageWrapper = styled.div`
 const MiningImage = styled.img`
     max-width: 100%;
     height: auto;
+`;
+const MiningRightsSection = styled.section`
+    border-radius: 32px;
+    background: var(--Typography-Primary-white, #fff);
+    margin: 0 14px;
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${SectionDescription} {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        ${SectionTitle} {
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: left;
+            width: 100%;
+        }
+        ${ContentWrapper} {
+            flex-direction: column-reverse;
+            padding: 50px 30px;
+            ${ImageWrapper} {
+                width: 100%;
+                img {
+                    width: 100%;
+                }
+                .customer {
+                    display: none;
+                }
+            }
+            ${TextContent} {
+                flex: 1;
+                max-width: unset;
+            }
+        }
+    }
 `;
 
 export default ProofOfReserve;

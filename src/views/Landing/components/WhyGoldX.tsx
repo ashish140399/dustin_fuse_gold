@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
 import { WhyGoldXBG } from "../../../assets/BG/BG";
 import { WhyGoldXBottomIcon } from "../../../assets/icons";
 import { mobileBreakpoint } from "../../../const";
+import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 interface BenefitCardProps {
     icon: string;
@@ -15,27 +16,21 @@ interface CardWrapperProps {
 }
 const WhyGoldX: React.FC = () => {
     const cardWrapperRef = useRef(null); // Ref to attach to the CardWrapper
-    const [cardWrapperWidth, setCardWrapperWidth] = useState(0); // State to store the width
     const [bottomIconWidth, setBottomIconWidth] = useState(0); // State for bottom icon width
-
+    const { windowDimensions } = useContext(SiteVariablesContext);
     useEffect(() => {
-        // Function to update width
+        // Function to update width based on window dimensions
         const updateWidth = () => {
             const width = cardWrapperRef.current
                 ? // @ts-ignore
                   cardWrapperRef.current.offsetWidth
                 : 0;
-            setCardWrapperWidth(width);
-            setBottomIconWidth(width / 5.525); // Example: set bottom icon width as half of card wrapper
+
+            setBottomIconWidth(width / 5.525); // Example: adjust bottom icon width calculation as needed
         };
 
-        updateWidth(); // Initial check
-        window.addEventListener("resize", updateWidth); // Adjust on window resize
-
-        return () => {
-            window.removeEventListener("resize", updateWidth); // Cleanup listener
-        };
-    }, []);
+        updateWidth(); // Run once on mount and then whenever window dimensions change
+    }, [windowDimensions]); // Dependency on windowDimensions width and height
     const benefits: BenefitCardProps[] = [
         {
             icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/4442e46209f0437521b8c1a102bcc3d77abee1bcb8122c60a918e3f4d45b454f?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88",

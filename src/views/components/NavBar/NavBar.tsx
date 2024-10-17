@@ -10,7 +10,7 @@ const NavBar: React.FC = () => {
     const { windowDimensions } = useContext(SiteVariablesContext);
     return (
         <>
-            {windowDimensions.width > mobileBreakpoint ? (
+            {windowDimensions?.width > mobileBreakpoint ? (
                 <HeaderWrapper>
                     <Nav>
                         <NavList>

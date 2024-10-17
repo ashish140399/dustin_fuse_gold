@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { GoldXFeaturesTopBG } from "../../../assets/BG/BG";
 import { ArrowTransformIcon, ProductTimelineIcon } from "../../../assets/icons";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
+import { mobileBreakpoint } from "../../../const";
 
 const ProductHistory: React.FC = () => {
     return (
@@ -88,18 +89,6 @@ const HistoryLayoutBox = styled.div`
     width: 100%;
 `;
 const TimeLineComponent = styled.div``;
-const HistorySection = styled.section`
-    .topimgbg {
-        margin-bottom: -10px;
-        transform: scalex(-1);
-        svg {
-            width: 100%;
-        }
-    }
-    @media (max-width: 991px) {
-        padding: 100px 20px 16px;
-    }
-`;
 
 const HistoryContentWrapper = styled.div`
     background: #171615;
@@ -253,6 +242,46 @@ const TimelineDescription = styled.p`
     margin-top: 0px;
     font: 400 16px/24px Telegraf, sans-serif;
     margin-bottom: 50px;
+`;
+
+const HistorySection = styled.section`
+    .topimgbg {
+        margin-bottom: -10px;
+        transform: scalex(-1);
+        svg {
+            width: 100%;
+        }
+    }
+    @media (max-width: 991px) {
+        padding: 100px 0px 16px;
+    }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${SectionDescription} {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        ${SectionTitle} {
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: left;
+            width: 100%;
+        }
+        ${TimelineContainer} {
+            flex-direction: column;
+            ${TimelineItemWrapper} {
+                flex-direction: column;
+                position: relative;
+                ${TimelineIconWrapper} {
+                    transform: rotate(90deg);
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    transform-origin: top right;
+                    height: 36%;
+                }
+            }
+        }
+    }
 `;
 
 export default ProductHistory;

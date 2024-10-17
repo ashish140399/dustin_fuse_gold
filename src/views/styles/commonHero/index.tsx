@@ -50,6 +50,7 @@ export const StyledHero = styled.main`
     }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
+        margin-top: 0;
         .herobag {
             width: calc(100% - 40px);
             height: calc(100% - 0px);
@@ -81,7 +82,9 @@ export const HeroContentWrapper = styled.section`
         margin-top: 40px;
     }
     @media screen and (max-width: ${mobileBreakpoint}px) {
-        min-height: 100vh;
+        min-height: calc(100vh - 80px);
+        margin-top: 0px;
+        padding-top: 0;
     }
 `;
 export const InvestButtonWrapper = styled.div`

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
 import {
     GoldXFeaturesBottomBG,
@@ -9,6 +9,8 @@ import {
     ProtectKeyCardBottomIcon,
     ProductCardIcon,
 } from "../../../assets/icons";
+import { mobileBreakpoint } from "../../../const";
+import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 interface ProductProps {
     name: string;
@@ -21,28 +23,22 @@ interface CardWrapperProps {
     bottomsvgWidth?: string; // Optional prop, defaults to '70px' if not provided
 }
 const ProtectKey: React.FC = () => {
-    const cardWrapperRef = useRef(null); // Ref to attach to the CardWrapper
-    const [cardWrapperWidth, setCardWrapperWidth] = useState(0); // State to store the width
-    const [bottomIconWidth, setBottomIconWidth] = useState(0); // State for bottom icon width
-
+    const cardWrapperRef = useRef(null);
+    const [bottomIconWidth, setBottomIconWidth] = useState(0);
+    const { windowDimensions } = useContext(SiteVariablesContext);
     useEffect(() => {
-        // Function to update width
+        // Function to update width based on window dimensions
         const updateWidth = () => {
             const width = cardWrapperRef.current
                 ? // @ts-ignore
                   cardWrapperRef.current.offsetWidth
                 : 0;
-            setCardWrapperWidth(width);
-            setBottomIconWidth(width / 5.525); // Example: set bottom icon width as half of card wrapper
+
+            setBottomIconWidth(width / 5.525); // Example: adjust bottom icon width calculation as needed
         };
 
-        updateWidth(); // Initial check
-        window.addEventListener("resize", updateWidth); // Adjust on window resize
-
-        return () => {
-            window.removeEventListener("resize", updateWidth); // Cleanup listener
-        };
-    }, []);
+        updateWidth(); // Run once on mount and then whenever window dimensions change
+    }, [windowDimensions]); // Dependency on windowDimensions width and height
 
     return (
         <ProductsSection>
@@ -183,16 +179,6 @@ const ProductsGridWrapper = styled.div`
         svg {
             width: 100%;
         }
-    }
-`;
-
-const ProductsSection = styled.section`
-    padding: 160px 16px 80px;
-    // background-image: url("https://cdn.builder.io/api/v1/image/assets/TEMP/1f3e1c11b32a51b901b0d8830c4dfb7d36b8bc6eff26c9389184b10f6e0e51a7?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88");
-    // background-size: cover;
-    // background-position: center;
-    @media (max-width: 991px) {
-        padding: 100px 20px 40px;
     }
 `;
 
@@ -355,6 +341,32 @@ const CardDescription = styled.p`
     font: 400 16px/24px Telegraf, sans-serif;
     color: var(--text-Ssecondary, #cfcfcf);
     margin: 0;
+`;
+const ProductsSection = styled.section`
+    padding: 160px 16px 80px;
+
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${SectionHeader} {
+            margin-bottom: 0;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        ${SectionDescription} {
+            width: 100%;
+            margin-bottom: 0px;
+            padding: 0;
+            max-width: unset;
+        }
+        ${SectionTitle} {
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: left;
+            width: 100%;
+        }
+        ${ProductsGridScroll} {
+            padding-top: 30px;
+        }
+    }
 `;
 
 export default ProtectKey;
