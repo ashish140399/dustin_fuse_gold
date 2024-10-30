@@ -25,7 +25,7 @@ const SeeEcosystem: React.FC = () => {
             </SectionHeader>
             <EcoSystemImageWrapper>
                 <img
-                    src="images/common/seeourecosystem.svg"
+                    src="/images/common/seeourecosystem.svg"
                     className="seeecosystem"
                     alt=""
                 />

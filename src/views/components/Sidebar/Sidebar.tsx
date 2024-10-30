@@ -14,7 +14,7 @@ const Sidebar: React.FC = () => {
         <>
             <div className="sidebartop">
                 <img
-                    src="images/common/Goldx-logo.svg"
+                    src="/images/common/Goldx-logo.svg"
                     className="logo"
                     alt=""
                 />

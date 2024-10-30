@@ -29,7 +29,7 @@ const SupportEngland: React.FC = () => {
                 </TextContent>
                 <ImageWrapper>
                     <img
-                        src="images/common/supportengland.svg"
+                        src="/images/common/supportengland.svg"
                         className="supportengland"
                         alt=""
                     />

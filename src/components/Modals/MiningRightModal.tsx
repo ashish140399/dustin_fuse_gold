@@ -224,7 +224,7 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                             <>
                                 <div className="modalbg">
                                     <img
-                                        src="images/common/bg/AddMintingRights/purchaseoptions.png"
+                                        src="/images/common/bg/AddMintingRights/purchaseoptions.png"
                                         alt=""
                                     />
                                 </div>
@@ -277,7 +277,7 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                             <>
                                 <div className="modalbg">
                                     <img
-                                        src="images/common/bg/AddMintingRights/1.png"
+                                        src="/images/common/bg/AddMintingRights/1.png"
                                         alt=""
                                     />
                                 </div>
@@ -472,7 +472,7 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                             <>
                                 <div className="modalbg">
                                     <img
-                                        src="images/common/bg/AddMintingRights/2.png"
+                                        src="/images/common/bg/AddMintingRights/2.png"
                                         alt=""
                                     />
                                 </div>
@@ -594,7 +594,7 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                             <>
                                 <div className="modalbg">
                                     <img
-                                        src="images/common/bg/AddMintingRights/3.png"
+                                        src="/images/common/bg/AddMintingRights/3.png"
                                         alt=""
                                     />
                                 </div>
@@ -759,12 +759,12 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                                 <div className="modalbg">
                                     {type == "purchase_with_wallet" ? (
                                         <img
-                                            src="images/common/bg/AddMintingRights/4_transaction_share.png"
+                                            src="/images/common/bg/AddMintingRights/4_transaction_share.png"
                                             alt=""
                                         />
                                     ) : (
                                         <img
-                                            src="images/common/bg/AddMintingRights/4.png"
+                                            src="/images/common/bg/AddMintingRights/4.png"
                                             alt=""
                                         />
                                     )}
@@ -773,7 +773,7 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                                     className={`transaction_completed type_${type}`}
                                 >
                                     <img
-                                        src="images/common/transaction_completed.svg"
+                                        src="/images/common/transaction_completed.svg"
                                         alt=""
                                         className="transactioncompletedimg"
                                     />

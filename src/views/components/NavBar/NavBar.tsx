@@ -42,7 +42,7 @@ const NavBar: React.FC = () => {
             ) : (
                 <MobileWrapper>
                     <div className="sitelogo">
-                        <img src="images/common/LOGO.svg" alt="" />
+                        <img src="/images/common/LOGO.svg" alt="" />
                     </div>
                     <div className="hamicon">
                         <HamburgerIcon />

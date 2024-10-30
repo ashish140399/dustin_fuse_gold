@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+
 import { ArrowTransformIcon, SuggestionCloseIcon } from "../../assets/icons";
+
 import ActionButton from "../Buttons/ActionButton/ActionButton";
 import {
     ModalControlProps,

@@ -5,8 +5,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import DashboardHeader from "../../components/DashboardHeader/DashboardHeader";
-import { useMatch } from "react-router-dom";
+import { useLocation, useMatch } from "react-router-dom";
 import CreateAccount from "./components/Create";
+import LoginAccount from "./components/Login";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -19,14 +20,15 @@ interface MyNFTProps {}
 
 const Account: React.FC<MyNFTProps> = ({}) => {
     const [tabValue, setTabValue] = React.useState(0);
-    const searchpathvalues = useMatch({
-        path: "/search",
-    });
-    const searchmatch: boolean = searchpathvalues?.pathnameBase === "/search";
+
+    const location = useLocation();
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue);
     };
+    console.log(location);
+    const containsCreate = location.pathname.includes("/create");
+    const containsLogin = location.pathname.includes("/login");
     return (
         <>
             <DashboardHeader />
@@ -38,7 +40,8 @@ const Account: React.FC<MyNFTProps> = ({}) => {
                         boxSizing: "border-box",
                     }}
                 >
-                    <CreateAccount />
+                    {containsCreate && <CreateAccount />}
+                    {containsLogin && <LoginAccount />}
                 </Box>
             </Layout>
         </>

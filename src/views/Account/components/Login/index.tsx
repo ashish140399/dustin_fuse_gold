@@ -16,66 +16,11 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import AccountCreatedModal from "../../../../components/Modals/AccountCreatedModal";
+import { useNavigate } from "react-router-dom";
 
-interface NFTsListProps {}
+interface ComponentProps {}
 
-const CreateAccountBox = () => {
-    return (
-        <CABoxWrapper>
-            <ContentWrapper>
-                <PageHeading>
-                    <PageTitle>Create your account</PageTitle>
-                    <PageDescription>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do...
-                    </PageDescription>
-                </PageHeading>
-                <DataContainer>
-                    <DataBox>
-                        <Label>Email Address</Label>
-                        <InputBox />
-                    </DataBox>
-                </DataContainer>
-            </ContentWrapper>
-        </CABoxWrapper>
-    );
-};
-const PersonalDetailsBox = () => {
-    return (
-        <PersaonalDetailBoxWrapper>
-            <ContentWrapper>
-                <PageHeading>
-                    <PageTitle>enter personal details</PageTitle>
-                    <PageDescription>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </PageDescription>
-                </PageHeading>
-                <DataContainer>
-                    <div className="flexbox">
-                        <DataBox>
-                            <Label>First Name</Label>
-                            <InputBox placeholder="John" />
-                        </DataBox>
-                        <DataBox>
-                            <Label>Last Name</Label>
-                            <InputBox placeholder="Doe" />
-                        </DataBox>
-                    </div>
-                    <DataBox>
-                        <Label>
-                            Wallet Address <span>Optional</span>
-                        </Label>
-                        <InputBox placeholder="Your Wallet Address" />
-                    </DataBox>
-                </DataContainer>
-            </ContentWrapper>
-        </PersaonalDetailBoxWrapper>
-    );
-};
-
-const CreatePasswordBox = () => {
+const LoginPasswordBox = () => {
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -95,7 +40,7 @@ const CreatePasswordBox = () => {
         <PersaonalDetailBoxWrapper>
             <ContentWrapper>
                 <PageHeading>
-                    <PageTitle>create your password</PageTitle>
+                    <PageTitle>Welcome back!</PageTitle>
                     <PageDescription>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
@@ -103,23 +48,16 @@ const CreatePasswordBox = () => {
                     </PageDescription>
                 </PageHeading>
                 <DataContainer>
-                    <div className="flexbox">
-                        <DataBox>
-                            <Label>First Name</Label>
-                            <InputBox placeholder="John" />
-                        </DataBox>
-                        <DataBox>
-                            <Label>Last Name</Label>
-                            <InputBox placeholder="Doe" />
-                        </DataBox>
-                    </div>
                     <DataBox>
-                        <Label>
-                            Wallet Address <span>Optional</span>
-                        </Label>
+                        <Label>Email Address</Label>
+                        <InputBox placeholder="Your Email Address" />
+                    </DataBox>
+                    <DataBox>
+                        <Label>Password</Label>
                         <StyledOutlinedInput
                             id="outlined-adornment-password"
                             type={showPassword ? "text" : "password"}
+                            placeholder="Your Password"
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -225,11 +163,11 @@ const PageDescription = styled.div`
     margin-top: 10px;
 `;
 
-const CreateAccount: React.FC<NFTsListProps> = ({}) => {
+const LoginAccount: React.FC<ComponentProps> = ({}) => {
     const [stepno, setStepno] = React.useState(1);
     const [openAccountCreatedModal, setOpenAccountCreatedModal] =
         React.useState(false);
-
+    const navigate = useNavigate();
     return (
         <>
             <Layout>
@@ -238,40 +176,77 @@ const CreateAccount: React.FC<NFTsListProps> = ({}) => {
                         <TopColumn>
                             <PageControls>
                                 <PageControlLeft>
-                                    <div className="backbutton">
+                                    <div
+                                        className="backbutton"
+                                        onClick={() =>
+                                            stepno > 1
+                                                ? setStepno(stepno - 1)
+                                                : null
+                                        }
+                                    >
                                         <BackArrowIcon /> <span>Go Back</span>
                                     </div>
                                 </PageControlLeft>
                                 <PageControlRight></PageControlRight>
                             </PageControls>
 
-                            {stepno === 1 && <CreateAccountBox />}
-                            {stepno === 2 && <PersonalDetailsBox />}
-                            {stepno === 3 && <CreatePasswordBox />}
+                            {stepno === 1 && (
+                                <AccSelBoxWrapper>
+                                    <ContentWrapper>
+                                        <PageHeading>
+                                            <PageTitle>
+                                                Welcome to goldx!
+                                            </PageTitle>
+                                            <PageDescription>
+                                                Lorem ipsum dolor sit amet,
+                                                consectetur adipiscing elit, sed
+                                                do eiusmod tempor incididunt ut
+                                                labore et dolore magna aliqua.
+                                            </PageDescription>
+                                        </PageHeading>
+                                        <DataContainer>
+                                            <div className="gobackbutton">
+                                                <ActionButton
+                                                    label="Connect Your Wallet"
+                                                    variant="secondary"
+                                                    className="btnwidth100"
+                                                    onClick={() => setStepno(2)}
+                                                    // @ts-ignore
+                                                    icon={
+                                                        <ArrowTransformIcon />
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="buttonbottom">
+                                                <ActionButton
+                                                    label="Continue Without Account"
+                                                    variant="primary"
+                                                    className="btnwidth100"
+                                                    onClick={() => setStepno(2)}
+                                                    // @ts-ignore
+                                                    icon={
+                                                        <ArrowTransformIcon />
+                                                    }
+                                                />
+                                            </div>
+                                        </DataContainer>
+                                    </ContentWrapper>
+                                </AccSelBoxWrapper>
+                            )}
+
+                            {stepno === 2 && <LoginPasswordBox />}
                         </TopColumn>
                         <BottomColumn>
                             <div className="leftcontrol">
                                 Already Have Account?<a href="#"> Sign In</a>
                             </div>
                             <div className="rightcontrol">
-                                {stepno < 3 && (
+                                {stepno === 2 && (
                                     <ActionButton
-                                        label="Next"
+                                        label="Sign In"
                                         variant="primary"
                                         // className="btnwidth100"
-                                        onClick={() => setStepno(stepno + 1)}
-                                        // @ts-ignore
-                                        icon={<ArrowTransformIcon />}
-                                    />
-                                )}
-                                {stepno === 3 && (
-                                    <ActionButton
-                                        label="Next"
-                                        variant="primary"
-                                        // className="btnwidth100"
-                                        onClick={() =>
-                                            setOpenAccountCreatedModal(true)
-                                        }
+                                        onClick={() => navigate("/dashboard")}
                                         // @ts-ignore
                                         icon={<ArrowTransformIcon />}
                                     />
@@ -349,7 +324,10 @@ const LeftColumn = styled.div`
     justify-content: space-between;
 `;
 
-const TopColumn = styled.div``;
+const TopColumn = styled.div`
+    position: relative;
+    height: 100%;
+`;
 const BottomColumn = styled.div`
     display: flex;
     align-items: center;
@@ -410,7 +388,14 @@ const PersaonalDetailBoxWrapper = styled(BoxWrapper)`
         }
     }
 `;
-const CABoxWrapper = styled(BoxWrapper)``;
+const AccSelBoxWrapper = styled(BoxWrapper)`
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    .gobackbutton {
+        margin-bottom: 30px;
+    }
+`;
 const InformationRow = styled.div`
     display: flex;
     justify-content: space-between;
@@ -432,4 +417,4 @@ const InformationRow = styled.div`
         }
     }
 `;
-export default CreateAccount;
+export default LoginAccount;

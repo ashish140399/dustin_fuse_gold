@@ -120,7 +120,7 @@ const Footer: React.FC = () => {
             <TopSection>
                 <LogoSection>
                     <Logo>
-                        <img src="images/common/LOGO.svg" alt="" />
+                        <img src="/images/common/LOGO.svg" alt="" />
                     </Logo>
                     <LogoDescription>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.

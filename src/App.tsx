@@ -33,7 +33,8 @@ function App() {
                         element={<FeaturesnSecurity />}
                     />
                     <Route path="/miningright" element={<MiningRightsPage />} />
-                    <Route path="/account" element={<Account />} />
+                    <Route path="/account/create" element={<Account />} />
+                    <Route path="/account/login" element={<Account />} />
 
                     <Route path="/dashboard" element={<MyDashboard />} />
                     <Route path="/search" element={<MyDashboard />} />

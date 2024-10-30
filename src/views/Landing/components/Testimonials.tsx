@@ -19,7 +19,7 @@ const Testimonials: React.FC = () => {
                     </SectionDescription>
                 </SectionHeader>
                 <TestimonialsGrid>
-                    <img src="images/common/testimonials.svg" alt="" />
+                    <img src="/images/common/testimonials.svg" alt="" />
                 </TestimonialsGrid>
             </TestimonialsSection>
         </TestimonialsSectionWrapper>

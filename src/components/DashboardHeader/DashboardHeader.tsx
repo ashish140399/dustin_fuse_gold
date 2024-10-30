@@ -285,7 +285,7 @@ const LogoDashboard: React.FC = () => {
         <LogoWrapper>
             <LogoImage
                 loading="lazy"
-                src="images/common/LOGO.svg"
+                src="/images/common/LOGO.svg"
                 alt="Dashboard Logo"
             />
         </LogoWrapper>

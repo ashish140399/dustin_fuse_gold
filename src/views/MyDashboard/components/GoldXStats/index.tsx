@@ -120,7 +120,7 @@ const GoldXStats: React.FC<NFTsListProps> = ({}) => {
                     </LeftColumn>
                     <RightColumn>
                         <div className="imgwrapper">
-                            <img src="images/common/goldimg.png" alt="" />
+                            <img src="/images/common/goldimg.png" alt="" />
                         </div>
                     </RightColumn>
                 </BalanceRow>

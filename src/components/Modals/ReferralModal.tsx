@@ -198,7 +198,7 @@ const ReferralModal: React.FC<ModalControlProps> = ({
                 <Box sx={style} ref={cardWrapperRef}>
                     <ModalMainWrapper closeiconsvgWidth={`${closeIconWidth}px`}>
                         <div className="modalbg">
-                            <img src="images/common/bg/referral.png" alt="" />
+                            <img src="/images/common/bg/referral.png" alt="" />
                         </div>
                         <div className="closebutton" onClick={handleClose}>
                             <SuggestionCloseIcon />

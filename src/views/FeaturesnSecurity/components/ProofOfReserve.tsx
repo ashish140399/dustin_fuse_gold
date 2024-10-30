@@ -32,7 +32,7 @@ const ProofOfReserve: React.FC = () => {
                         alt="Mining Rights Illustration"
                     />
                     <div className="customer">
-                        <img src="images/common/250cust.png" alt="" />
+                        <img src="/images/common/250cust.png" alt="" />
                     </div>
                 </ImageWrapper>
             </ContentWrapper>
