@@ -33,7 +33,6 @@ const DashboardTitle = styled.h1`
     font-feature-settings: "liga" off, "clig" off;
     text-transform: uppercase;
     margin: 0;
-    margin-top: 16px;
     // font: 600 40px/1.2 Conthrax, sans-serif;
     font-family: "Conthrax";
     @media (max-width: 991px) {
@@ -69,11 +68,14 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ username }) => {
         },
     ];
     return (
-        <DashboardContainer className="paddinglayoutx paddinglayouty">
-            <HeaderContainer>
-                <WelcomeMessage>Welcome Back, {username}!</WelcomeMessage>
-                <DashboardTitle>Dashboard</DashboardTitle>
-            </HeaderContainer>
+        <DashboardContainer className={`paddinglayoutx paddinglayouty `}>
+            <>
+                <HeaderContainer>
+                    <WelcomeMessage>Welcome Back, {username}!</WelcomeMessage>
+                    <DashboardTitle>Dashboard</DashboardTitle>
+                </HeaderContainer>
+            </>
+
             <ActionButtonsContainer>
                 {actionButtons.map((button, index) => (
                     <ActionButton key={index} {...button} />
@@ -91,6 +93,9 @@ const DashboardContainer = styled.main`
     flex-wrap: wrap;
     // margin-bottom: 40px;
     background: var(--Brand-Dark, #111);
+    ${DashboardTitle} {
+        margin-top: 16px;
+    }
 `;
 
 const ActionButtonsContainer = styled.section`

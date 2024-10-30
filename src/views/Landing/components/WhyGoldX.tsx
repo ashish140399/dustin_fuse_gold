@@ -181,7 +181,7 @@ const CardWrapper = styled.div<CardWrapperProps>`
     // background-color: var(--brand-dark, #111);
     // border-radius: 32px;
     overflow: hidden;
-
+    min-height: 500px;
     // height: 100%;
     box-sizing: border-box;
     position: relative;

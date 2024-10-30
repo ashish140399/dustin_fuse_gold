@@ -3,19 +3,27 @@ import styled from "styled-components";
 
 interface ActionButtonProps {
     label?: string;
-    icon: string;
+    icon?: string;
+    height?: number;
     className?: string;
     variant: "primary" | "secondary" | "tertiary";
+    onClick?: () => void;
 }
 
 const ActionButton: React.FC<ActionButtonProps> = ({
     label,
     icon,
+    height,
     variant,
     className,
+    onClick,
 }) => {
     return (
-        <ButtonWrapper variant={variant} className={className}>
+        <ButtonWrapper
+            variant={variant}
+            className={`${className} ${!icon ? "noicon" : ""}`}
+            onClick={onClick}
+        >
             {variant === "primary" && <ButtonBackground />}
             {label && <ButtonLabel variant={variant}>{label}</ButtonLabel>}
             <IconWrapper variant={variant}>
@@ -47,39 +55,6 @@ const ButtonBackground = styled.div`
     right: 0;
     bottom: 0;
     width: 200px;
-`;
-
-const ButtonWrapper = styled.div<{ variant: string }>`
-    align-items: center;
-    border-radius: 32px;
-    border: 1.5px solid
-        ${(props) =>
-            props.variant === "primary"
-                ? "var(--Lines-Gold, #e2b666)"
-                : props.variant === "secondary"
-                ? "var(--Brand-Gold, #f4e0a3)"
-                : "var(--Lines-Divider, #383838)"};
-    align-self: stretch;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    overflow: hidden;
-    cursor: pointer;
-    justify-content: flex-start;
-    width: ${(props) => (props.variant === "tertiary" ? "64px" : "200px")};
-    margin: auto 0;
-    &.btnwidth50 {
-        ${ButtonBackground} {
-            width: 100% !important;
-        }
-    }
-    &.btnwidth100 {
-        width: 100% !important;
-        box-sizing: border-box !important;
-        ${ButtonBackground} {
-            width: 100% !important;
-        }
-    }
 `;
 
 const ButtonLabel = styled.span<{ variant: string }>`
@@ -136,4 +111,47 @@ const IconInner = styled.div<{ variant: string }>`
     padding: 0 16px;
 `;
 
+const ButtonWrapper = styled.div<{ variant: string }>`
+    align-items: center;
+    border-radius: 32px;
+    border: 1.5px solid
+        ${(props) =>
+            props.variant === "primary"
+                ? "var(--Lines-Gold, #e2b666)"
+                : props.variant === "secondary"
+                ? "var(--Brand-Gold, #f4e0a3)"
+                : "var(--Lines-Divider, #383838)"};
+    align-self: stretch;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    overflow: hidden;
+    cursor: pointer;
+    justify-content: flex-start;
+    width: ${(props) => (props.variant === "tertiary" ? "64px" : "200px")};
+    margin: auto 0;
+    &.noicon {
+        width: fit-content;
+        height: 56px;
+        ${IconWrapper} {
+            display: none;
+        }
+        ${ButtonLabel} {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    }
+    &.btnwidth50 {
+        ${ButtonBackground} {
+            width: 100% !important;
+        }
+    }
+    &.btnwidth100 {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        ${ButtonBackground} {
+            width: 100% !important;
+        }
+    }
+`;
 export default ActionButton;

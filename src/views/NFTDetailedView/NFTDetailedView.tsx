@@ -6,7 +6,7 @@ import PriceCard from "./PriceCard";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import MyNFT from "../components/NFTsList";
+import MyNFT from "../MyDashboard/components/NFTsList";
 import NFTDettails from "./NFTDettails";
 import NFTActivity from "./NFTActivity";
 import DashboardHeader from "../../components/DashboardHeader/DashboardHeader";

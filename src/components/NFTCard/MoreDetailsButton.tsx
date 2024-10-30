@@ -1,24 +1,57 @@
 import React from "react";
 import styled from "styled-components";
-import { ThreeDotsIcon } from "../../assets/icons";
+import {
+    ClipboardIcon,
+    EditIcon,
+    MiningRightsIcon,
+    SellIcon,
+    ThreeDotsIcon,
+    TransferIcon,
+} from "../../assets/icons";
+import MiningRightModal from "../Modals/MiningRightModal";
 
 const MoreDetailsButton: React.FC = () => {
     const [showList, setShowList] = React.useState(false);
+    const [openMiningRightsModal, setOpenMiningRightsModal] =
+        React.useState(false);
     return (
-        <ButtonWrapper>
-            <DotIconWrapper onClick={() => setShowList(!showList)}>
-                <ThreeDotsIcon />
-            </DotIconWrapper>
-            {showList && (
-                <ListBox>
-                    <div className="item">Sell</div>
-                    <div className="item">Transfer</div>
-                    <div className="item">Copy Link</div>
-                    <div className="item">Edit</div>
-                    <div className="item">Add Mining Rights</div>
-                </ListBox>
-            )}
-        </ButtonWrapper>
+        <>
+            <MiningRightModal
+                type="add"
+                modalopen={openMiningRightsModal}
+                handleModal={setOpenMiningRightsModal}
+            />
+            <ButtonWrapper>
+                <DotIconWrapper onClick={() => setShowList(!showList)}>
+                    <ThreeDotsIcon />
+                </DotIconWrapper>
+                {showList && (
+                    <ListBox>
+                        <div className="item">
+                            Sell <SellIcon />
+                        </div>
+                        <div className="item">
+                            Transfer <TransferIcon />
+                        </div>
+                        <div className="item">
+                            Copy Link <ClipboardIcon />
+                        </div>
+                        <div className="item">
+                            Edit <EditIcon />
+                        </div>
+                        <div
+                            className="item"
+                            onClick={() => {
+                                setOpenMiningRightsModal(true);
+                                setShowList(false);
+                            }}
+                        >
+                            Add Mining Rights <MiningRightsIcon />
+                        </div>
+                    </ListBox>
+                )}
+            </ButtonWrapper>
+        </>
     );
 };
 
@@ -29,15 +62,38 @@ const ListBox = styled.div`
     border-radius: 16px;
     border: 1px solid var(--Lines-Divider, #383838);
     background: var(--background-surface-2, #2e2d2a);
-    min-width: 200px;
+    min-width: 240px;
     // z-index: 90;
+    padding: 20px 26px;
+    box-sizing: border-box;
     .item {
-        padding: 12px 20px;
-        color: #fff;
+        padding: 16px 0px;
+
         border-bottom: 1px solid #383838;
+        color: var(--Text-Primary, var(--Typography-Primary-white, #fff));
+
+        /* P2/Regular */
+        font-family: Telegraf;
+        font-size: 16px;
+        font-style: normal;
         font-weight: 400;
-        font-family: "Telegraf", sans-serif;
+        line-height: 24px; /* 150% */
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        svg {
+            path {
+                stroke: #fff;
+            }
+        }
+        &:first-child {
+            padding-top: 0;
+        }
+        &:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
     }
 `;
 

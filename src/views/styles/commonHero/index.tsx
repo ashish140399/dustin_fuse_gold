@@ -18,7 +18,15 @@ export const HeroLeft = styled.div`
             display: flex;
             flex-direction: column;
             .sclicon {
+                width: 64px;
+                height: 64px;
+                background: #2e2d2a;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 cursor: pointer;
+                margin-top: 5px;
             }
         }
     }

@@ -9,6 +9,7 @@ import FeaturesnSecurity from "./views/FeaturesnSecurity/FeaturesnSecurity";
 import MiningRightsPage from "./views/MiningRights/MiningRights";
 import SiteVariablesContext from "./contexts/SiteVariablesContext";
 import { useWindowSize } from "@react-hook/window-size";
+import Account from "./views/Account";
 
 function App() {
     const [width, height] = useWindowSize();
@@ -32,8 +33,10 @@ function App() {
                         element={<FeaturesnSecurity />}
                     />
                     <Route path="/miningright" element={<MiningRightsPage />} />
+                    <Route path="/account" element={<Account />} />
 
                     <Route path="/dashboard" element={<MyDashboard />} />
+                    <Route path="/search" element={<MyDashboard />} />
                     <Route
                         path="/nftdetailedview"
                         element={

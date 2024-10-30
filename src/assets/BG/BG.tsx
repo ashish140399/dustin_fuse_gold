@@ -396,3 +396,93 @@ export const WhyShouldYouBuyBG: React.FC = () => (
         />
     </svg>
 );
+
+// Dahboard BG images
+export const DashboardBalanceBG: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="auto"
+        viewBox="0 0 1032 280"
+        fill="none"
+        preserveAspectRatio="none"
+    >
+        <g filter="url(#filter0_b_261_29306)">
+            <path
+                d="M0 24C0 10.7452 10.7452 0 24 0H936C949.255 0 960 10.7452 960 24V40C960 57.6731 974.327 72 992 72H1008C1021.25 72 1032 82.7452 1032 96V256C1032 269.255 1021.25 280 1008 280H24C10.7452 280 0 269.255 0 256V24Z"
+                fill="#111111"
+                fill-opacity="0.88"
+            />
+        </g>
+        <defs>
+            <filter
+                id="filter0_b_261_29306"
+                x="-32"
+                y="-32"
+                width="1096"
+                height="344"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+            >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="16" />
+                <feComposite
+                    in2="SourceAlpha"
+                    operator="in"
+                    result="effect1_backgroundBlur_261_29306"
+                />
+                <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="effect1_backgroundBlur_261_29306"
+                    result="shape"
+                />
+            </filter>
+        </defs>
+    </svg>
+);
+// -----------------------------------> Modals BG start <-----------------------------------
+export const AddMintingRightBG1: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="auto"
+        viewBox="0 0 1032 280"
+        fill="none"
+        preserveAspectRatio="none"
+    >
+        <g filter="url(#filter0_b_261_29306)">
+            <path
+                d="M0 24C0 10.7452 10.7452 0 24 0H936C949.255 0 960 10.7452 960 24V40C960 57.6731 974.327 72 992 72H1008C1021.25 72 1032 82.7452 1032 96V256C1032 269.255 1021.25 280 1008 280H24C10.7452 280 0 269.255 0 256V24Z"
+                fill="#111111"
+                fill-opacity="0.88"
+            />
+        </g>
+        <defs>
+            <filter
+                id="filter0_b_261_29306"
+                x="-32"
+                y="-32"
+                width="1096"
+                height="344"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+            >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="16" />
+                <feComposite
+                    in2="SourceAlpha"
+                    operator="in"
+                    result="effect1_backgroundBlur_261_29306"
+                />
+                <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="effect1_backgroundBlur_261_29306"
+                    result="shape"
+                />
+            </filter>
+        </defs>
+    </svg>
+);
+// ----------------------------------->  Modals BG end  <-----------------------------------

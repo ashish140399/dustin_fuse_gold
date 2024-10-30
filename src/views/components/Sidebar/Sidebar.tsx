@@ -12,7 +12,6 @@ import {
 const Sidebar: React.FC = () => {
     return (
         <>
-            {" "}
             <div className="sidebartop">
                 <img
                     src="images/common/Goldx-logo.svg"

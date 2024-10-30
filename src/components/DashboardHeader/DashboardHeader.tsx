@@ -1,5 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import {
+    SuggestionCloseIcon,
+    SuggestionTimeIcon,
+    SearchIcon,
+    UserIcon,
+    MYNFTsIcon,
+    FavoritesIcon,
+    MyCollectionsIcon,
+    ReferralsIcon,
+    LogOutIcon,
+} from "../../assets/icons";
+import { useNavigate } from "react-router-dom";
+import ReferralModal from "../Modals/ReferralModal";
 
 interface SearchBarProps {}
 interface ProfileButtonProps {}
@@ -48,18 +61,61 @@ const LeftSection = styled.div`
 `;
 
 const ProfileButton: React.FC<ProfileButtonProps> = () => {
+    const [showList, setShowList] = React.useState(false);
+    const [openRefferalModal, setOpenRefferalModal] = React.useState(false);
     return (
-        <Button>
-            <ButtonIcon
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/e0db4ae9347219f8ad4c122929e6ce0f6e2c36d3366110d494115f44b25badda?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
-                alt="Profile"
+        <>
+            <ProfileWrapper>
+                <div
+                    className="accounticon"
+                    onClick={() => setShowList(!showList)}
+                >
+                    <UserIcon />
+                </div>
+                {showList && (
+                    <ListBox>
+                        <div className="item">
+                            <div>My NFTs</div>
+                            <MYNFTsIcon />
+                        </div>
+                        <div className="item">
+                            <div>Profile</div>
+                            <UserIcon />
+                        </div>
+                        <div className="item">
+                            <div>Favourites</div>
+                            <FavoritesIcon />
+                        </div>
+                        <div className="item">
+                            <div>My Collections</div>
+                            <MyCollectionsIcon />
+                        </div>
+                        <div
+                            className="item"
+                            onClick={() => {
+                                setOpenRefferalModal(true);
+                                setShowList(false);
+                            }}
+                        >
+                            <div>Referrals</div>
+                            <ReferralsIcon />
+                        </div>
+                        <div className="item logout">
+                            <div>Log Out</div>
+                            <LogOutIcon />
+                        </div>
+                    </ListBox>
+                )}
+            </ProfileWrapper>
+            <ReferralModal
+                modalopen={openRefferalModal}
+                handleModal={setOpenRefferalModal}
             />
-        </Button>
+        </>
     );
 };
 
-const Button = styled.button`
+const ProfileWrapper = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 32px;
@@ -68,28 +124,92 @@ const Button = styled.button`
     width: 64px;
     height: 64px;
     padding: 0;
-    background: transparent;
+    background: var(--background-surface-2, #2e2d2a);
     cursor: pointer;
+    position: relative;
 `;
 
-const ButtonIcon = styled.img`
-    aspect-ratio: 1;
-    object-fit: contain;
-    object-position: center;
-    width: 24px;
+const ListBox = styled.div`
+    position: absolute;
+    top: 80px;
+    right: 0;
+    border-radius: 16px;
+    border: 1px solid var(--Lines-Divider, #383838);
+    background: var(--background-surface-2, #2e2d2a);
+    min-width: 240px;
+    z-index: 5;
+    padding: 24px;
+    .item {
+        padding: 20px 0px;
+        color: #fff;
+        border-bottom: 1px solid #383838;
+        font-weight: 400;
+        font-family: "Telegraf", sans-serif;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &.logout {
+            color: var(--Functional-Error, #f14b5d);
+        }
+        &:first-child {
+            padding-top: 0;
+        }
+        &:last-child {
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
+    }
 `;
 
 const SearchBar: React.FC<SearchBarProps> = () => {
+    const [open, setOpen] = React.useState(false);
+    const [iptValue, setIptValue] = React.useState("");
+    const navigate = useNavigate();
     return (
         <SearchWrapper>
-            <SearchInput type="text" placeholder="Input NFT ID..." />
-            <SearchButton>
-                <SearchIcon
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/ffc0ff2da41eb81f598e5eaab0e3a43584ba811db3cc6c1d35f2aa9c620ac2dd?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
-                    alt="Search"
-                />
+            <SearchInput
+                type="text"
+                placeholder="Input NFT ID..."
+                value={iptValue}
+                onChange={(e) => setIptValue(e.target.value)}
+                onClick={() => setOpen(true)}
+            />
+            {iptValue && (
+                <div
+                    className="smallcloseicon"
+                    onClick={() => {
+                        setIptValue("");
+                        setOpen(false);
+                    }}
+                >
+                    <SuggestionCloseIcon />
+                </div>
+            )}
+
+            <SearchButton onClick={() => navigate("/search")}>
+                <SearchIcon />
             </SearchButton>
+            {open && (
+                <SearchSuggestionBox>
+                    <div className="suggestionheader">
+                        <div className="left">Recent Searches</div>
+                        <div className="right">Clear All</div>
+                    </div>
+                    <div className="suggestionlistwrapper">
+                        {[1, 2, 3, 4].map((item: any) => (
+                            <div className="suggestionlistrow" key={item}>
+                                <div className="left">
+                                    <SuggestionTimeIcon /> #242414
+                                </div>
+                                <div className="right">
+                                    <SuggestionCloseIcon />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </SearchSuggestionBox>
+            )}
         </SearchWrapper>
     );
 };
@@ -103,6 +223,23 @@ const SearchWrapper = styled.div`
     padding: 2px 0;
     position: relative;
     min-width: 360px;
+    .smallcloseicon {
+        border-radius: 20px;
+        background: var(--Lines-Divider, #383838);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 70px;
+        width: 26px;
+        height: 26px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        svg path {
+            stroke: #fff;
+        }
+    }
     @media (max-width: 991px) {
         width: 100%;
     }
@@ -143,19 +280,12 @@ const SearchButton = styled.button`
     }
 `;
 
-const SearchIcon = styled.img`
-    aspect-ratio: 1;
-    object-fit: contain;
-    object-position: center;
-    width: 24px;
-`;
-
 const LogoDashboard: React.FC = () => {
     return (
         <LogoWrapper>
             <LogoImage
                 loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/fce9b8f6e651d35ba376a555aeeea54c78e2ec54681b6b0ef7b105e4643a280c?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
+                src="images/common/LOGO.svg"
                 alt="Dashboard Logo"
             />
         </LogoWrapper>
@@ -172,6 +302,74 @@ const LogoImage = styled.img`
     object-fit: contain;
     object-position: center;
     width: 121px;
+`;
+
+const SearchSuggestionBox = styled.div`
+    border-radius: 24px;
+    border: 1px solid var(--Lines-Divider, #383838);
+    background: var(--background-surface-1, #232323);
+    position: absolute;
+    top: 75px;
+    width: 100%;
+    padding: 24px;
+    z-index: 10;
+    box-sizing: border-box;
+    .suggestionheader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        .left {
+            color: var(--Text-Tertiary, #969696);
+            font-family: Telegraf;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 16px; /* 133.333% */
+        }
+        .right {
+            text-align: right;
+            font-family: Telegraf;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 16px; /* 133.333% */
+            text-decoration-line: underline;
+            cursor: pointer;
+            background: var(
+                --Brand-Gold,
+                radial-gradient(
+                    458.07% 144.86% at 13.25% 21.87%,
+                    #f4e0a3 0%,
+                    #dcbc65 37.37%,
+                    #ca9f43 63.89%,
+                    #fef0a0 79.39%,
+                    #8e5f1e 100%
+                )
+            );
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+    .suggestionlistwrapper {
+        .suggestionlistrow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #383838;
+            padding-top: 12px;
+            margin-top: 12px;
+            cursor: pointer;
+            .left {
+                display: flex;
+                align-items: center;
+                svg {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
 `;
 
 export default DashboardHeader;

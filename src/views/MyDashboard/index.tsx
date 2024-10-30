@@ -4,8 +4,10 @@ import WelcomeHeader from "../../components/WelcomeHeader/WelcomeHeader";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import MyNFT from "../components/NFTsList";
+import MyNFT from "./components/NFTsList";
 import DashboardHeader from "../../components/DashboardHeader/DashboardHeader";
+import GoldXStats from "./components/GoldXStats";
+import { useMatch } from "react-router-dom";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -42,6 +44,10 @@ function a11yProps(index: number) {
 
 const MyDashboard: React.FC<MyNFTProps> = ({}) => {
     const [tabValue, setTabValue] = React.useState(0);
+    const searchpathvalues = useMatch({
+        path: "/search",
+    });
+    const searchmatch: boolean = searchpathvalues?.pathnameBase === "/search";
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue);
@@ -50,40 +56,42 @@ const MyDashboard: React.FC<MyNFTProps> = ({}) => {
         <>
             <DashboardHeader />
             <Layout>
-                <WelcomeHeader username="John" />
+                {!searchmatch && <WelcomeHeader username="John" />}
 
                 <Box sx={{ width: "100%", boxSizing: "border-box" }}>
-                    <Box
-                        sx={{
-                            borderBottom: 1,
-                            borderColor: "divider",
-                            background: "var(--Brand-Dark, #111);",
-                        }}
-                        className="paddinglayoutx"
-                    >
-                        <Tabs
-                            value={tabValue}
-                            onChange={handleChange}
-                            aria-label="basic tabs example"
+                    {!searchmatch && (
+                        <Box
+                            sx={{
+                                borderBottom: 1,
+                                borderColor: "divider",
+                                background: "var(--Brand-Dark, #111);",
+                            }}
+                            className="paddinglayoutx"
                         >
-                            <Tab label="MY NFTS" {...a11yProps(0)} />
-                            <Tab label="GOLDX STATS" {...a11yProps(1)} />
-                            <Tab label="LEADERBOARD" {...a11yProps(2)} />
-                        </Tabs>
-                    </Box>
+                            <Tabs
+                                value={tabValue}
+                                onChange={handleChange}
+                                aria-label="basic tabs example"
+                            >
+                                <Tab label="MY NFTS" {...a11yProps(0)} />
+                                <Tab label="GOLDX STATS" {...a11yProps(1)} />
+                                <Tab label="LEADERBOARD" {...a11yProps(2)} />
+                            </Tabs>
+                        </Box>
+                    )}
                     <CustomTabPanelWrapper
                         value={tabValue}
                         index={0}
                         className="paddinglayoutx paddinglayouty"
                     >
-                        <MyNFT />
+                        <MyNFT isSearchPage={searchmatch} />
                     </CustomTabPanelWrapper>
                     <CustomTabPanelWrapper
                         value={tabValue}
                         index={1}
                         className="paddinglayoutx paddinglayouty"
                     >
-                        Item Two
+                        <GoldXStats />
                     </CustomTabPanelWrapper>
                     <CustomTabPanelWrapper
                         value={tabValue}

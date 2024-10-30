@@ -14,6 +14,7 @@ import {
 } from "../../styles/commonHero";
 import { mobileBreakpoint } from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
+import MiningRightModal from "../../../components/Modals/MiningRightModal";
 
 const Hero: React.FC = () => {
     const { windowDimensions } = useContext(SiteVariablesContext);
@@ -194,23 +195,35 @@ const Logo = styled.img`
 `;
 
 const InvestButton: React.FC = () => {
+    const [openMiningRightsModal, setOpenMiningRightsModal] =
+        React.useState(false);
     return (
-        <ButtonWrapper>
-            <ActionButton
-                label="Buy Mining Rights"
-                variant="primary"
-                className="btnwidth100"
-                // @ts-ignore
-                icon={<ArrowTransformIcon />}
+        <>
+            <MiningRightModal
+                type="purchase_with_wallet"
+                modalopen={openMiningRightsModal}
+                handleModal={setOpenMiningRightsModal}
             />
-            <ActionButton
-                label="Marketplace"
-                variant="secondary"
-                className="btnwidth100"
-                // @ts-ignore
-                icon={<ArrowTransformIcon />}
-            />
-        </ButtonWrapper>
+            <ButtonWrapper>
+                <ActionButton
+                    label="Buy Mining Rights"
+                    variant="primary"
+                    className="btnwidth100"
+                    // @ts-ignore
+                    icon={<ArrowTransformIcon />}
+                    onClick={() => {
+                        setOpenMiningRightsModal(true);
+                    }}
+                />
+                <ActionButton
+                    label="Marketplace"
+                    variant="secondary"
+                    className="btnwidth100"
+                    // @ts-ignore
+                    icon={<ArrowTransformIcon />}
+                />
+            </ButtonWrapper>
+        </>
     );
 };
 
@@ -218,6 +231,8 @@ const ButtonWrapper = styled(InvestButtonWrapper)`
     display: flex;
     justify-content: center;
     align-items: center;
+    // position: relative;
+    z-index: 10;
     .btnwidth100 {
         &:first-child {
             margin-right: 20px;
