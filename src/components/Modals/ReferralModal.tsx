@@ -28,6 +28,7 @@ import {
     ModalTitle,
     ModalWrapper,
 } from "./styles";
+import { mobileBreakpoint } from "../../const";
 
 const style = {
     position: "absolute",
@@ -40,7 +41,15 @@ const style = {
     border: 0,
     outline: 0,
 };
-
+const stylemobile = {
+    position: "absolute",
+    bottom: "0",
+    left: "0px",
+    width: "100%",
+    bgcolor: "transparent",
+    border: 0,
+    outline: 0,
+};
 interface SocialShareProps {
     icon: any;
     alt: string;
@@ -195,7 +204,14 @@ const ReferralModal: React.FC<ModalControlProps> = ({
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style} ref={cardWrapperRef}>
+                <Box
+                    sx={
+                        windowDimensions?.width < mobileBreakpoint
+                            ? stylemobile
+                            : style
+                    }
+                    ref={cardWrapperRef}
+                >
                     <ModalMainWrapper closeiconsvgWidth={`${closeIconWidth}px`}>
                         <div className="modalbg">
                             <img src="/images/common/bg/referral.png" alt="" />

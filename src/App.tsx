@@ -10,6 +10,8 @@ import MiningRightsPage from "./views/MiningRights/MiningRights";
 import SiteVariablesContext from "./contexts/SiteVariablesContext";
 import { useWindowSize } from "@react-hook/window-size";
 import Account from "./views/Account";
+import Minting from "./views/Minting";
+import Transfer from "./views/Transfer";
 
 function App() {
     const [width, height] = useWindowSize();
@@ -35,6 +37,9 @@ function App() {
                     <Route path="/miningright" element={<MiningRightsPage />} />
                     <Route path="/account/create" element={<Account />} />
                     <Route path="/account/login" element={<Account />} />
+                    <Route path="/account/transfer" element={<Account />} />
+                    <Route path="/minting" element={<Minting />} />
+                    <Route path="/transfer" element={<Transfer />} />
 
                     <Route path="/dashboard" element={<MyDashboard />} />
                     <Route path="/search" element={<MyDashboard />} />

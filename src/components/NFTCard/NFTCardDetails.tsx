@@ -31,7 +31,7 @@ const NFTCardDetails: React.FC<NFTCardDetailsProps> = ({
                 <LikesWrapper>
                     <LikesIcon
                         loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f7d6fa39ecee14193f14574c9aa4e9f5a92db5027982d672720f1d29a7198704?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
+                        src="/images/common/icons/collection.svg"
                         alt="Likes"
                     />
                     <LikesCount>
@@ -41,7 +41,7 @@ const NFTCardDetails: React.FC<NFTCardDetailsProps> = ({
                 </LikesWrapper>
                 <CollectionIcon
                     loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/416c826abc0fd35680f6b82f33a7b2b9f4265aa15f2f1a4cd0eb759689a0902f?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
+                    src="/images/common/icons/likes.svg"
                     alt="Collection"
                 />
             </StatsWrapper>

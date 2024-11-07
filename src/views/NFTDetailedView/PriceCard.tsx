@@ -4,6 +4,7 @@ import PriceInfo from "./PriceInfo";
 import ActionButton from "../../components/Buttons/ActionButton/ActionButton";
 import { DollarIcon, TransferIcon } from "../../assets/icons";
 import CountdownTimer from "./CountdownTimer";
+import { useNavigate } from "react-router-dom";
 
 interface PriceCardProps {
     saleEndDate: string;
@@ -15,6 +16,7 @@ interface PriceCardProps {
 }
 
 const PriceCard: React.FC<PriceCardProps> = ({ saleEndDate, currentPrice }) => {
+    const navigate = useNavigate();
     return (
         <CardWrapper>
             <CountdownTimer saleEndDate={saleEndDate} />
@@ -31,6 +33,7 @@ const PriceCard: React.FC<PriceCardProps> = ({ saleEndDate, currentPrice }) => {
                     className="btnwidth50"
                     label="transfer"
                     variant="secondary"
+                    onClick={() => navigate("/transfer")}
                     // @ts-ignore
                     icon={<TransferIcon />}
                 />

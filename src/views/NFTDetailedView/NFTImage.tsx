@@ -10,6 +10,11 @@ interface NFTImageProps {
 const NFTImage: React.FC<NFTImageProps> = ({ src, alt, className }) => {
     return (
         <ImageWrapper className={className}>
+            <LikesIcon
+                loading="lazy"
+                src="/images/common/icons/likes.svg"
+                alt="Collection"
+            />
             <div className="sqboxwrapper">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -68,5 +73,14 @@ const ImageWrapper = styled.div`
         }
     }
 `;
-
+const LikesIcon = styled.img`
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 60px;
+    border-radius: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+`;
 export default NFTImage;

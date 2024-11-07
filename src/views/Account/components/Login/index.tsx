@@ -17,6 +17,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import AccountCreatedModal from "../../../../components/Modals/AccountCreatedModal";
 import { useNavigate } from "react-router-dom";
+import { mobileBreakpoint } from "../../../../const";
 
 interface ComponentProps {}
 
@@ -165,9 +166,9 @@ const PageDescription = styled.div`
 
 const LoginAccount: React.FC<ComponentProps> = ({}) => {
     const [stepno, setStepno] = React.useState(1);
-    const [openAccountCreatedModal, setOpenAccountCreatedModal] =
-        React.useState(false);
+
     const navigate = useNavigate();
+
     return (
         <>
             <Layout>
@@ -181,7 +182,7 @@ const LoginAccount: React.FC<ComponentProps> = ({}) => {
                                         onClick={() =>
                                             stepno > 1
                                                 ? setStepno(stepno - 1)
-                                                : null
+                                                : navigate(-1)
                                         }
                                     >
                                         <BackArrowIcon /> <span>Go Back</span>
@@ -261,10 +262,6 @@ const LoginAccount: React.FC<ComponentProps> = ({}) => {
                     </RightColumn>
                 </InformationRow>
             </Layout>
-            <AccountCreatedModal
-                modalopen={openAccountCreatedModal}
-                handleModal={setOpenAccountCreatedModal}
-            />
         </>
     );
 };
@@ -310,11 +307,6 @@ const PageControlLeft = styled.div`
     }
 `;
 const PageControlRight = styled.div``;
-const Layout = styled.section`
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-`;
 
 const LeftColumn = styled.div`
     box-sizing: border-box;
@@ -413,6 +405,23 @@ const InformationRow = styled.div`
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
+            }
+        }
+    }
+`;
+const Layout = styled.section`
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${InformationRow} {
+            flex-direction: column;
+            ${LeftColumn} {
+                width: 100%;
+                height: 100%;
+            }
+            ${RightColumn} {
+                display: none;
             }
         }
     }

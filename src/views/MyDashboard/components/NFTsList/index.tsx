@@ -1,27 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import NFTCard from "../../../../components/NFTCard/NFTCard";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import {
     ArrowTransformIcon,
     BackArrowIcon,
+    ChevronLeftIcon,
+    ChevronRightIcon,
     CustomDropdownIcon,
     LayoutDistributeIcon,
     LayoutGridIcon,
     LayoutListIcon,
 } from "../../../../assets/icons";
 import ActionButton from "../../../../components/Buttons/ActionButton/ActionButton";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { createGlobalStyle } from "styled-components";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import { Box, TableContainer, TableContainerProps } from "@mui/material";
+import { mobileBreakpoint } from "../../../../const";
+interface StyledTableContainerProps extends TableContainerProps {
+    // any additional props here
+}
+
+const GlobalStyle = createGlobalStyle`
+  body {
+ background: url(/images/common/dashboard_distribute_bg.png);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: 100% 80vh;
+    background-size: cover;
+    min-height:100vh
+  }
+
+
+`;
 
 interface NFTsListProps {
     isSearchPage?: boolean;
 }
 
-const SelectorBoxWrapperOuter = () => {
+const SelectorBoxWrapperOuter = (props: any) => {
+    const { className, style } = props;
     const [dropdownBlockchain, setDropdownBlockchain] = React.useState("");
     const [dropdownCategory, setDropdownCategory] = React.useState("");
     const [dropdownCollection, setDropdownCollection] = React.useState("");
     return (
-        <SelectBoxWrapper>
+        <SelectBoxWrapper className={className} style={style}>
             <Select
                 labelId="dropdownBlockchain-select-label"
                 id="dropdownBlockchain-simple-select"
@@ -37,9 +67,9 @@ const SelectorBoxWrapperOuter = () => {
                 }
                 IconComponent={CustomDropdownIcon}
             >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value={10}>Etherum</MenuItem>
+                <MenuItem value={20}>Binance</MenuItem>
+                <MenuItem value={30}>AVL</MenuItem>
             </Select>
             <Select
                 labelId="dropdownCategory-select-label"
@@ -78,16 +108,62 @@ const SelectorBoxWrapperOuter = () => {
     );
 };
 
+function SampleNextArrow(props: any) {
+    const { className, style, onClick } = props;
+    return (
+        <div
+            className={`${className} arrow-next`}
+            style={{ ...style, display: "block" }}
+            onClick={onClick}
+        >
+            <ChevronRightIcon />
+        </div>
+    );
+}
+
+function SamplePrevArrow(props: any) {
+    const { className, style, onClick } = props;
+    return (
+        <div
+            className={`${className} arrow-prev`}
+            style={{ ...style, display: "block" }}
+            onClick={onClick}
+        >
+            <ChevronLeftIcon />
+        </div>
+    );
+}
 const NFTsList: React.FC<NFTsListProps> = ({ isSearchPage }) => {
     const [layoutSelector, setLayoutSelector] = React.useState("grid");
 
     // const [nftcards, setNftcards] = React.useState([
     //     1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     // ]);
-    const [nftcards, setNftcards] = React.useState([1]);
+    const [nftcards, setNftcards] = React.useState(
+        Array.from({ length: 12 }, (_, i) => i + 1)
+    );
+    const settings = {
+        infinite: true,
+        centerMode: true,
+        slidesToShow: 3,
+        speed: 500,
+        slidesToScroll: 1,
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />,
+        responsive: [
+            {
+                breakpoint: 700, // For tablets and small desktops
+                settings: {
+                    slidesToShow: 1,
+                },
+            },
+        ],
+    };
 
     return (
         <Layout>
+            {layoutSelector === "distribute" && <GlobalStyle />}
+
             {nftcards?.length > 0 && (
                 <OptionsWrapper className={isSearchPage ? "searchpage" : ""}>
                     <div className="backbutton">
@@ -102,7 +178,13 @@ const NFTsList: React.FC<NFTsListProps> = ({ isSearchPage }) => {
                         </HeaderContainer>
                     </div>
                     <div className="rightwrapper">
-                        <SelectorBoxWrapperOuter />
+                        <SelectorBoxWrapperOuter
+                            style={
+                                layoutSelector === "distribute"
+                                    ? { opacity: 0 }
+                                    : { opacity: 1 }
+                            }
+                        />
                         <LayoutSelectorWrapper>
                             <div
                                 className={`iconwrapper ${
@@ -137,19 +219,119 @@ const NFTsList: React.FC<NFTsListProps> = ({ isSearchPage }) => {
 
             <NFTCardsWrapper>
                 {nftcards.length > 0 ? (
-                    nftcards.map((item, index) => (
-                        <NFTWidthWrapper>
-                            <NFTCard
-                                key={item}
-                                imageSrc="./img.png"
-                                title="Samurai X #04 #12210"
-                                price="100"
-                                currency="INR"
-                                likes={100}
-                                timeLeft={10000000 * item}
-                            />
-                        </NFTWidthWrapper>
-                    ))
+                    layoutSelector === "grid" ? (
+                        nftcards.map((item, index) => (
+                            <NFTWidthWrapper>
+                                <NFTCard
+                                    key={item}
+                                    imageSrc="./img.png"
+                                    title="Samurai X #04 #12210"
+                                    price="100"
+                                    currency="INR"
+                                    likes={100}
+                                    timeLeft={10000000 * item}
+                                />
+                            </NFTWidthWrapper>
+                        ))
+                    ) : layoutSelector === "distribute" ? (
+                        <SliderStyled {...settings}>
+                            {nftcards.map((item, index) => (
+                                <NFTWidthWrapper>
+                                    <NFTCard
+                                        key={item}
+                                        imageSrc="./img.png"
+                                        title="Samurai X #04 #12210"
+                                        price="100"
+                                        currency="INR"
+                                        likes={100}
+                                        timeLeft={10000000 * item}
+                                    />
+                                </NFTWidthWrapper>
+                            ))}
+                        </SliderStyled>
+                    ) : (
+                        <StyledTableContainer>
+                            <Table
+                                sx={{ minWidth: 650 }}
+                                aria-label="simple table"
+                            >
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>ITEM</TableCell>
+                                        <TableCell align="left">
+                                            CURRENT PRICE
+                                        </TableCell>
+                                        <TableCell align="left">
+                                            BEST OFFER
+                                        </TableCell>
+                                        <TableCell align="left">
+                                            LAST SALE
+                                        </TableCell>
+                                        <TableCell align="left">
+                                            OWNER
+                                        </TableCell>
+                                        <TableCell align="left">
+                                            TIME LISTED
+                                        </TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {[1, 2, 3, 4, 5, 6, 7].map((item) => (
+                                        <TableRow
+                                            key={item}
+                                            sx={{
+                                                "&:last-child td, &:last-child th":
+                                                    {
+                                                        border: 0,
+                                                    },
+                                            }}
+                                        >
+                                            <TableCell
+                                                component="th"
+                                                scope="row"
+                                            >
+                                                <div className="itemdetails">
+                                                    <img
+                                                        src="/images/common/sqimg.png"
+                                                        alt=""
+                                                    />
+                                                    <span>The Cat #10458</span>
+                                                </div>
+                                            </TableCell>
+                                            <TableCell align="left">
+                                                <div className="price">
+                                                    100,000,000{" "}
+                                                    <span>GOLDX</span>
+                                                </div>
+                                            </TableCell>
+                                            <TableCell align="left">
+                                                <div className="price">
+                                                    100,000,000{" "}
+                                                    <span>GOLDX</span>
+                                                </div>
+                                            </TableCell>
+                                            <TableCell align="left">
+                                                <div className="price">
+                                                    100,000,000{" "}
+                                                    <span>GOLDX</span>
+                                                </div>
+                                            </TableCell>
+                                            <TableCell align="left">
+                                                <div className="gradcolor">
+                                                    Jasmin Isio
+                                                </div>
+                                            </TableCell>
+                                            <TableCell align="left">
+                                                <div className="price">
+                                                    15 <span> {` `}m ago</span>
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </StyledTableContainer>
+                    )
                 ) : (
                     <NoNftWrapper>
                         <section className="no-nfts-section">
@@ -199,6 +381,15 @@ const NFTsList: React.FC<NFTsListProps> = ({ isSearchPage }) => {
 const Layout = styled.section`
     width: 100%;
     box-sizing: border-box;
+    position: relative;
+    .dashboard_distribute_bg {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        top: 0;
+        height: 100%;
+        object-fit: cover;
+    }
     .backbutton {
         display: flex;
         align-items: center;
@@ -269,38 +460,7 @@ const DashboardTitle = styled.h1`
         max-width: 100%;
     }
 `;
-const OptionsWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 40px;
-    .leftwrapper,
-    .backbutton {
-        display: none;
-    }
-    .rightwrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-    }
-    &.searchpage {
-        position: relative;
-        padding-top: 40px;
-        .leftwrapper {
-            display: block;
-        }
-        .backbutton {
-            display: flex;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        .rightwrapper {
-            justify-content: flex-end;
-        }
-    }
-`;
+
 const LayoutSelectorWrapper = styled.div`
     display: flex;
     align-items: center;
@@ -329,6 +489,9 @@ const LayoutSelectorWrapper = styled.div`
 const SelectBoxWrapper = styled.div`
     .MuiOutlinedInput-root {
         margin-right: 30px;
+        .MuiSelect-outlined {
+            color: #fff !important;
+        }
     }
 `;
 const NFTCardsWrapper = styled.div`
@@ -396,6 +559,153 @@ const NFTWidthWrapper = styled.div`
     width: 25%;
     min-width: 360px;
     margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
 `;
 
+const SliderStyled = styled(Slider)`
+    margin-top: 4vh;
+    margin-bottom: 7vh;
+    .slick-slide {
+        opacity: 0;
+    }
+    .slick-active {
+        opacity: 1;
+        transition: all 0.2s ease;
+    }
+    .slick-active {
+        transform: skewY(10deg) scale(0.82);
+        opacity: 0.6;
+    }
+    .slick-active.slick-center {
+        transform: skewY(0deg) scale(1);
+        opacity: 1;
+    }
+
+    .slick-center + .slick-active {
+        transform: skewY(-10deg) scale(0.82);
+        opacity: 0.6;
+    }
+    ${NFTWidthWrapper} {
+        margin: auto;
+        display: flex !important;
+        justify-content: center;
+    }
+`;
+
+const StyledTableContainer = styled(TableContainer)<StyledTableContainerProps>`
+    .MuiTableHead-root {
+        .MuiTableRow-root {
+            .MuiTableCell-root {
+                color: var(--Text-Inactive, #707070);
+                font-family: Telegraf;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 16px; /* 133.333% */
+                border-bottom: 1px solid #383838 !important;
+            }
+        }
+    }
+    .MuiTableBody-root {
+        .MuiTableRow-root {
+            .MuiTableCell-root {
+                color: #fff;
+                font-family: Telegraf;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 16px; /* 133.333% */
+                border-bottom: 1px solid #383838 !important;
+            }
+        }
+    }
+    .gradcolor {
+        overflow: hidden;
+        background: var(
+            --Brand-Gold,
+            radial-gradient(
+                458.07% 144.86% at 13.25% 21.87%,
+                #f4e0a3 0%,
+                #dcbc65 37.37%,
+                #ca9f43 63.89%,
+                #fef0a0 79.39%,
+                #8e5f1e 100%
+            )
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .price {
+        span {
+            color: #969696;
+        }
+    }
+    .itemdetails {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        color: var(--Text-Primary, var(--Typography-Primary-white, #fff));
+        text-overflow: ellipsis;
+        font-family: Telegraf;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 24px; /* 150% */
+        img {
+            height: 40px;
+            width: 40px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+    }
+`;
+const OptionsWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    .leftwrapper,
+    .backbutton {
+        display: none;
+    }
+    .rightwrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+    &.searchpage {
+        position: relative;
+        padding-top: 40px;
+        .leftwrapper {
+            display: block;
+        }
+        .backbutton {
+            display: flex;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .rightwrapper {
+            justify-content: flex-end;
+        }
+    }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        flex-direction: row-reverse;
+        overflow-x: auto;
+        scrollbar-width: none;
+        .rightwrapper {
+            flex-direction: row-reverse;
+            ${SelectBoxWrapper} {
+                display: flex;
+                margin-left: 20px;
+                .MuiOutlinedInput-root {
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+`;
 export default NFTsList;

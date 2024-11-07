@@ -86,11 +86,7 @@ const MyDashboard: React.FC<MyNFTProps> = ({}) => {
                     >
                         <MyNFT isSearchPage={searchmatch} />
                     </CustomTabPanelWrapper>
-                    <CustomTabPanelWrapper
-                        value={tabValue}
-                        index={1}
-                        className="paddinglayoutx paddinglayouty"
-                    >
+                    <CustomTabPanelWrapper value={tabValue} index={1}>
                         <GoldXStats />
                     </CustomTabPanelWrapper>
                     <CustomTabPanelWrapper
@@ -98,7 +94,7 @@ const MyDashboard: React.FC<MyNFTProps> = ({}) => {
                         index={2}
                         className="paddinglayoutx paddinglayouty"
                     >
-                        Item Three
+                        Your Leaderboard will show up here!!
                     </CustomTabPanelWrapper>
                 </Box>
             </Layout>
@@ -108,7 +104,7 @@ const MyDashboard: React.FC<MyNFTProps> = ({}) => {
 
 const Layout = styled.section``;
 const CustomTabPanelWrapper = styled(CustomTabPanel)`
-    background: #232323;
+    // background: #232323;
     // padding: 40px 20px;
     width: 100%;
     box-sizing: border-box;

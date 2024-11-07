@@ -403,15 +403,14 @@ export const DashboardBalanceBG: React.FC = () => (
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
         height="auto"
+        preserveAspectRatio="xMaxYMin meet"
         viewBox="0 0 1032 280"
         fill="none"
-        preserveAspectRatio="none"
     >
         <g filter="url(#filter0_b_261_29306)">
             <path
                 d="M0 24C0 10.7452 10.7452 0 24 0H936C949.255 0 960 10.7452 960 24V40C960 57.6731 974.327 72 992 72H1008C1021.25 72 1032 82.7452 1032 96V256C1032 269.255 1021.25 280 1008 280H24C10.7452 280 0 269.255 0 256V24Z"
-                fill="#111111"
-                fill-opacity="0.88"
+                fill="#121212"
             />
         </g>
         <defs>
@@ -441,6 +440,216 @@ export const DashboardBalanceBG: React.FC = () => (
         </defs>
     </svg>
 );
+export const DashboardBalanceMobileBG: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="auto"
+        preserveAspectRatio="xMaxYMin meet"
+        viewBox="0 0 343 328"
+        fill="none"
+    >
+        <g filter="url(#filter0_b_261_28482)">
+            <path
+                d="M0 16C0 7.16345 7.16344 0 16 0H271C279.837 0 287 7.16344 287 16V32C287 45.2548 297.745 56 311 56H327C335.837 56 343 63.1634 343 72V312C343 320.837 335.837 328 327 328H16C7.16345 328 0 320.837 0 312V16Z"
+                fill="#121212"
+            />
+        </g>
+        <defs>
+            <filter
+                id="filter0_b_261_28482"
+                x="-32"
+                y="-32"
+                width="407"
+                height="392"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+            >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="16" />
+                <feComposite
+                    in2="SourceAlpha"
+                    operator="in"
+                    result="effect1_backgroundBlur_261_28482"
+                />
+                <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="effect1_backgroundBlur_261_28482"
+                    result="shape"
+                />
+            </filter>
+        </defs>
+    </svg>
+);
+export const MiningPowerBG: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="auto"
+        preserveAspectRatio="xMaxYMin meet"
+        viewBox="0 0 560 464"
+        fill="none"
+    >
+        <g filter="url(#filter0_b_261_29327)">
+            <path
+                d="M0 24C0 10.7452 10.7452 0 24 0H464C477.255 0 488 10.7452 488 24V40C488 57.6731 502.327 72 520 72H536C549.255 72 560 82.7452 560 96V440C560 453.255 549.255 464 536 464H24C10.7452 464 0 453.255 0 440V24Z"
+                fill="#121212"
+            />
+        </g>
+        <defs>
+            <filter
+                id="filter0_b_261_29327"
+                x="-32"
+                y="-32"
+                width="624"
+                height="528"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+            >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="16" />
+                <feComposite
+                    in2="SourceAlpha"
+                    operator="in"
+                    result="effect1_backgroundBlur_261_29327"
+                />
+                <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="effect1_backgroundBlur_261_29327"
+                    result="shape"
+                />
+            </filter>
+        </defs>
+    </svg>
+);
+export const MiningPowerMobileBG: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="auto"
+        preserveAspectRatio="xMaxYMin meet"
+        viewBox="0 0 343 428"
+        fill="none"
+    >
+        <g filter="url(#filter0_b_261_28504)">
+            <path
+                d="M0 16C0 7.16345 7.16344 0 16 0H271C279.837 0 287 7.16344 287 16V32C287 45.2548 297.745 56 311 56H327C335.837 56 343 63.1634 343 72V412C343 420.837 335.837 428 327 428H16C7.16345 428 0 420.837 0 412V16Z"
+                fill="#121212"
+            />
+        </g>
+        <defs>
+            <filter
+                id="filter0_b_261_28504"
+                x="-32"
+                y="-32"
+                width="407"
+                height="492"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+            >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="16" />
+                <feComposite
+                    in2="SourceAlpha"
+                    operator="in"
+                    result="effect1_backgroundBlur_261_28504"
+                />
+                <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="effect1_backgroundBlur_261_28504"
+                    result="shape"
+                />
+            </filter>
+        </defs>
+    </svg>
+);
+export const GoldXRewardsBG: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="auto"
+        preserveAspectRatio="xMaxYMin meet"
+        viewBox="0 0 784 464"
+        fill="none"
+    >
+        <g filter="url(#filter0_b_261_29352)">
+            <path
+                d="M0 24C0 10.7452 10.7452 0 24 0H519C532.255 0 543 10.7452 543 24V40C543 57.6731 557.327 72 575 72H760C773.255 72 784 82.7452 784 96V440C784 453.255 773.255 464 760 464H24C10.7452 464 0 453.255 0 440V24Z"
+                fill="#121212"
+            />
+        </g>
+        <defs>
+            <filter
+                id="filter0_b_261_29352"
+                x="-32"
+                y="-32"
+                width="848"
+                height="528"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+            >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="16" />
+                <feComposite
+                    in2="SourceAlpha"
+                    operator="in"
+                    result="effect1_backgroundBlur_261_29352"
+                />
+                <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="effect1_backgroundBlur_261_29352"
+                    result="shape"
+                />
+            </filter>
+        </defs>
+    </svg>
+);
+export const GoldXRewardsMobileBG: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="auto"
+        preserveAspectRatio="xMaxYMin meet"
+        viewBox="0 0 343 352"
+        fill="none"
+    >
+        <g filter="url(#filter0_b_261_28528)">
+            <path
+                d="M0 16C0 7.16345 7.16344 0 16 0H271C279.837 0 287 7.16344 287 16V32C287 45.2548 297.745 56 311 56H327C335.837 56 343 63.1634 343 72V336C343 344.837 335.837 352 327 352H16C7.16345 352 0 344.837 0 336V16Z"
+                fill="#121212"
+            />
+        </g>
+        <defs>
+            <filter
+                id="filter0_b_261_28528"
+                x="-32"
+                y="-32"
+                width="407"
+                height="416"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+            >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="16" />
+                <feComposite
+                    in2="SourceAlpha"
+                    operator="in"
+                    result="effect1_backgroundBlur_261_28528"
+                />
+                <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="effect1_backgroundBlur_261_28528"
+                    result="shape"
+                />
+            </filter>
+        </defs>
+    </svg>
+);
 // -----------------------------------> Modals BG start <-----------------------------------
 export const AddMintingRightBG1: React.FC = () => (
     <svg
@@ -454,8 +663,7 @@ export const AddMintingRightBG1: React.FC = () => (
         <g filter="url(#filter0_b_261_29306)">
             <path
                 d="M0 24C0 10.7452 10.7452 0 24 0H936C949.255 0 960 10.7452 960 24V40C960 57.6731 974.327 72 992 72H1008C1021.25 72 1032 82.7452 1032 96V256C1032 269.255 1021.25 280 1008 280H24C10.7452 280 0 269.255 0 256V24Z"
-                fill="#111111"
-                fill-opacity="0.88"
+                fill="#121212"
             />
         </g>
         <defs>
@@ -479,6 +687,93 @@ export const AddMintingRightBG1: React.FC = () => (
                     mode="normal"
                     in="SourceGraphic"
                     in2="effect1_backgroundBlur_261_29306"
+                    result="shape"
+                />
+            </filter>
+        </defs>
+    </svg>
+);
+export const NFTBottomDDMobileBG: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="auto"
+        preserveAspectRatio="xMaxYMin meet"
+        viewBox="0 0 343 428"
+        fill="none"
+    >
+        <g filter="url(#filter0_b_261_28504)">
+            <path
+                d="M0 16C0 7.16345 7.16344 0 16 0H271C279.837 0 287 7.16344 287 16V32C287 45.2548 297.745 56 311 56H327C335.837 56 343 63.1634 343 72V412C343 420.837 335.837 428 327 428H16C7.16345 428 0 420.837 0 412V16Z"
+                fill="#2e2d2a"
+            />
+        </g>
+        <defs>
+            <filter
+                id="filter0_b_261_28504"
+                x="-32"
+                y="-32"
+                width="407"
+                height="492"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+            >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="16" />
+                <feComposite
+                    in2="SourceAlpha"
+                    operator="in"
+                    result="effect1_backgroundBlur_261_28504"
+                />
+                <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="effect1_backgroundBlur_261_28504"
+                    result="shape"
+                />
+            </filter>
+        </defs>
+    </svg>
+);
+export const ModalsMobileBG: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="auto"
+        viewBox="0 0 375 472"
+        fill="none"
+        preserveAspectRatio="xMidYMid meet"
+    >
+        <g filter="url(#filter0_b_5331_10591)">
+            <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M311 24C311 10.7452 300.255 0 287 0H24C10.7452 0 0 10.7452 0 24V79.9999C0 79.9999 5.12369e-05 80 0.000114441 80C0.000177645 80 0.000228882 80.0001 0.000228882 80.0001V384V448C0.000228882 461.255 10.7454 472 24.0002 472H130.826C139.031 472 146.668 467.808 151.073 460.885L185.854 406.23C194.665 392.384 209.938 384 226.35 384H341.667H351C364.255 384 375 373.255 375 360V80.0001C375 80.0001 375 80 375 80C375 80 375 79.9999 375 79.9999V68C375 61.3726 369.627 56 363 56H335C321.745 56 311 45.2548 311 32V24Z"
+                fill="black"
+                fill-opacity="0.24"
+            />
+        </g>
+        <defs>
+            <filter
+                id="filter0_b_5331_10591"
+                x="-64"
+                y="-64"
+                width="503"
+                height="600"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+            >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="32" />
+                <feComposite
+                    in2="SourceAlpha"
+                    operator="in"
+                    result="effect1_backgroundBlur_5331_10591"
+                />
+                <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="effect1_backgroundBlur_5331_10591"
                     result="shape"
                 />
             </filter>

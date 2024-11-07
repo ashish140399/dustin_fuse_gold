@@ -10,6 +10,7 @@ import MyNFT from "../MyDashboard/components/NFTsList";
 import NFTDettails from "./NFTDettails";
 import NFTActivity from "./NFTActivity";
 import DashboardHeader from "../../components/DashboardHeader/DashboardHeader";
+import { mobileBreakpoint } from "../../const";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -138,14 +139,21 @@ const NFTDetailedView: React.FC<NFTDetailsProps> = ({
                         index={2}
                         className="paddinglayoutx paddinglayouty"
                     >
-                        Item Three
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Explicabo perferendis nesciunt nihil beatae fugiat
+                        voluptates maiores illum ab? Pariatur exercitationem
+                        laboriosam ratione, aspernatur maiores id deserunt
+                        fugiat distinctio beatae tempore.
                     </CustomTabPanelWrapper>
                     <CustomTabPanelWrapper
                         value={tabValue}
                         index={3}
                         className="paddinglayoutx paddinglayouty"
                     >
-                        Item Four
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Odit optio dolores maxime aut sapiente nam esse
+                        laboriosam cumque, quod, eos inventore fugiat nobis rem
+                        recusandae velit incidunt itaque, adipisci autem?
                     </CustomTabPanelWrapper>
                     <CustomTabPanelWrapper
                         value={tabValue}
@@ -181,11 +189,6 @@ const StyledNFTDetails = styled.main`
     display: flex;
     gap: 20px;
 
-    @media (max-width: 991px) {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-    }
     ${StyledNFTImage} {
         width: 50vw;
     }
@@ -193,9 +196,28 @@ const StyledNFTDetails = styled.main`
         width: 50vw;
         padding-left: 40px;
     }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        ${StyledNFTImage} {
+            width: 100%;
+        }
+        ${NFTDetailsContent} {
+            width: 100%;
+            padding-left: 0px;
+        }
+    }
 `;
 
-const LayoutOptionWrapper = styled.div``;
+const LayoutOptionWrapper = styled.div`
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        .MuiTabs-scroller {
+            overflow-x: auto !important;
+            scrollbar-width: none;
+        }
+    }
+`;
 const CustomTabPanelWrapper = styled(CustomTabPanel)`
     background: #232323;
     // padding: 40px 20px;

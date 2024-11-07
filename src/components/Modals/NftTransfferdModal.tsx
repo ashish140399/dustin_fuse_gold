@@ -41,7 +41,7 @@ const stylemobile = {
     border: 0,
     outline: 0,
 };
-const AccountCreatedModal: React.FC<ModalControlProps> = ({
+const NftTransfferdModal: React.FC<ModalControlProps> = ({
     type,
     modalopen,
     handleModal,
@@ -86,21 +86,34 @@ const AccountCreatedModal: React.FC<ModalControlProps> = ({
                                     alt=""
                                     className="transactioncompletedimg"
                                 />
-                                <ModalHeading>
-                                    <ModalTitle>
-                                        Account Created Successfully!
-                                    </ModalTitle>
-                                    <ModalDescription>
-                                        Your account is now active, and you’re
-                                        all set to explore our latest
-                                        collections.
-                                    </ModalDescription>
-                                </ModalHeading>
+                                {type === "mint" ? (
+                                    <ModalHeading>
+                                        <ModalTitle>
+                                            nft successfully minted!
+                                        </ModalTitle>
+                                        <ModalDescription>
+                                            Lorem ipsum dolor sit amet,
+                                            consectetur adipiscing elit, sed
+                                            do...
+                                        </ModalDescription>
+                                    </ModalHeading>
+                                ) : (
+                                    <ModalHeading>
+                                        <ModalTitle>
+                                            nft successfully transferred!
+                                        </ModalTitle>
+                                        <ModalDescription>
+                                            Lorem ipsum dolor sit amet,
+                                            consectetur adipiscing elit, sed
+                                            do...
+                                        </ModalDescription>
+                                    </ModalHeading>
+                                )}
 
                                 <ModalFooter>
                                     <div className="gobackbutton">
                                         <ActionButton
-                                            label="Back"
+                                            label="View Transaction"
                                             variant="secondary"
                                         />
                                     </div>
@@ -146,5 +159,16 @@ const StyledModalMainWrapper = styled(ModalMainWrapper)`
             transform: translateY(11px);
         }
     }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${ModalHeading} {
+            margin-bottom: 50px;
+            ${ModalTitle} {
+                max-width: 275px;
+                text-align: center;
+                line-height: 1.6;
+                padding-right: 0;
+            }
+        }
+    }
 `;
-export default AccountCreatedModal;
+export default NftTransfferdModal;

@@ -13,6 +13,7 @@ import {
 } from "../../assets/icons";
 import { useNavigate } from "react-router-dom";
 import ReferralModal from "../Modals/ReferralModal";
+import { mobileBreakpoint } from "../../const";
 
 interface SearchBarProps {}
 interface ProfileButtonProps {}
@@ -26,7 +27,12 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = () => {
                     <LogoDashboard />
                     <SearchBar />
                 </LeftSection>
-                <ProfileButton />
+                <RightSection>
+                    <SearchButton>
+                        <SearchIcon />
+                    </SearchButton>
+                    <ProfileButton />
+                </RightSection>
             </HeaderContent>
         </Header>
     );
@@ -42,27 +48,18 @@ const Header = styled.header`
     }
 `;
 
-const HeaderContent = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-`;
-
 const LeftSection = styled.div`
     display: flex;
     gap: 39px;
     flex-wrap: wrap;
     align-items: center;
-    @media (max-width: 991px) {
-        width: 100%;
-    }
 `;
+const RightSection = styled.div``;
 
 const ProfileButton: React.FC<ProfileButtonProps> = () => {
     const [showList, setShowList] = React.useState(false);
     const [openRefferalModal, setOpenRefferalModal] = React.useState(false);
+    const navigate = useNavigate();
     return (
         <>
             <ProfileWrapper>
@@ -74,7 +71,10 @@ const ProfileButton: React.FC<ProfileButtonProps> = () => {
                 </div>
                 {showList && (
                     <ListBox>
-                        <div className="item">
+                        <div
+                            className="item"
+                            onClick={() => navigate("/dashboard")}
+                        >
                             <div>My NFTs</div>
                             <MYNFTsIcon />
                         </div>
@@ -372,4 +372,44 @@ const SearchSuggestionBox = styled.div`
     }
 `;
 
+const HeaderContent = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    ${RightSection} {
+        ${SearchButton} {
+            display: none;
+        }
+    }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${LeftSection} {
+            ${SearchWrapper} {
+                display: none;
+            }
+        }
+        ${RightSection} {
+            display: flex;
+            align-items: center;
+            ${SearchButton} {
+                position: relative;
+                top: unset;
+                transform: unset;
+                border: 1.5px solid var(--Lines-Divider, #383838);
+                display: flex;
+                width: 64px;
+                height: 64px;
+                padding: 0;
+                background: var(--background-surface-2, #2e2d2a);
+                margin-right: 14px;
+                svg {
+                    path {
+                        stroke: #fff;
+                    }
+                }
+            }
+        }
+    }
+`;
 export default DashboardHeader;

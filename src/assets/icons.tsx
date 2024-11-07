@@ -20,7 +20,7 @@ const DropDownIconWrapper = styled.div`
 `;
 // Correctly define a custom SVG icon component
 export const CustomDropdownIcon: React.ElementType = () => (
-    <DropDownIconWrapper>
+    <DropDownIconWrapper className="ddicon">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -1325,5 +1325,90 @@ export const ArrowDownIcon: React.FC = () => (
             stroke-width="1.5"
             stroke-linecap="square"
         />
+    </svg>
+);
+
+export const ChevronLeftIcon: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <path
+            d="M15 18L9 12L15 6"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="square"
+        />
+    </svg>
+);
+
+export const ChevronRightIcon: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <path
+            d="M9 18L15 12L9 6"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="square"
+        />
+    </svg>
+);
+export const LikesIcon: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="17"
+        viewBox="0 0 18 17"
+        fill="none"
+    >
+        <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M8.99364 3.27985C7.32752 1.332 4.54914 0.808035 2.46159 2.59168C0.374052 4.37532 0.0801554 7.35748 1.71951 9.467C3.08253 11.2209 7.20749 14.9201 8.55943 16.1174C8.71069 16.2513 8.78631 16.3183 8.87453 16.3446C8.95152 16.3676 9.03577 16.3676 9.11276 16.3446C9.20097 16.3183 9.2766 16.2513 9.42785 16.1174C10.7798 14.9201 14.9048 11.2209 16.2678 9.467C17.9071 7.35748 17.6491 4.35656 15.5257 2.59168C13.4023 0.826798 10.6598 1.332 8.99364 3.27985Z"
+            stroke="white"
+            stroke-width="1.2"
+            stroke-linecap="square"
+        />
+    </svg>
+);
+
+export const UploadIcon: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="64"
+        height="64"
+        viewBox="0 0 64 64"
+        fill="none"
+    >
+        <path
+            d="M10.6673 43.3126C7.45136 41.1599 5.33398 37.4939 5.33398 33.3333C5.33398 27.0838 10.1113 21.9501 16.2133 21.385C17.4615 13.7924 24.0546 8 32.0007 8C39.9467 8 46.5398 13.7924 47.788 21.385C53.89 21.9501 58.6673 27.0838 58.6673 33.3333C58.6673 37.4939 56.5499 41.1599 53.334 43.3126M21.334 42.6667L32.0007 32M32.0007 32L42.6673 42.6667M32.0007 32V56"
+            stroke="url(#paint0_radial_261_19015)"
+            stroke-width="3"
+            stroke-linecap="square"
+        />
+        <defs>
+            <radialGradient
+                id="paint0_radial_261_19015"
+                cx="0"
+                cy="0"
+                r="1"
+                gradientUnits="userSpaceOnUse"
+                gradientTransform="translate(12.4007 18.5) rotate(39.3999) scale(73.8503 183.596)"
+            >
+                <stop stop-color="#F4E0A3" />
+                <stop offset="0.373682" stop-color="#DCBC65" />
+                <stop offset="0.638906" stop-color="#CA9F43" />
+                <stop offset="0.79386" stop-color="#FEF0A0" />
+                <stop offset="1" stop-color="#8E5F1E" />
+            </radialGradient>
+        </defs>
     </svg>
 );

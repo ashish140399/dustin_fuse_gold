@@ -26,16 +26,17 @@ const CreateAccountBox = () => {
         <CABoxWrapper>
             <ContentWrapper>
                 <PageHeading>
-                    <PageTitle>Create your account</PageTitle>
+                    <PageTitle>Transfer NFT#12424</PageTitle>
                     <PageDescription>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do...
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
                     </PageDescription>
                 </PageHeading>
                 <DataContainer>
                     <DataBox>
-                        <Label>Email Address</Label>
-                        <InputBox placeholder="Your Email Address" />
+                        <Label>Amount</Label>
+                        <InputBox placeholder="$890.0 USD" />
                     </DataBox>
                 </DataContainer>
             </ContentWrapper>
@@ -227,7 +228,7 @@ const PageDescription = styled.div`
     margin-top: 10px;
 `;
 
-const CreateAccount: React.FC<NFTsListProps> = ({}) => {
+const TransferNFT: React.FC<NFTsListProps> = ({}) => {
     const [stepno, setStepno] = React.useState(1);
     const [openAccountCreatedModal, setOpenAccountCreatedModal] =
         React.useState(false);
@@ -452,4 +453,4 @@ const Layout = styled.section`
         }
     }
 `;
-export default CreateAccount;
+export default TransferNFT;

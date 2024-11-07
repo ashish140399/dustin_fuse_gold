@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ActionButton from "../Buttons/ActionButton/ActionButton";
 import { DollarIcon, ThreeDotsIcon, TransferIcon } from "../../assets/icons";
+import { useNavigate } from "react-router-dom";
 
 const HeaderContainer = styled.header`
     align-self: stretch;
@@ -48,9 +49,11 @@ type ActionButtonType = {
     icon: any;
     variant: "primary" | "secondary" | "tertiary";
     key?: number;
+    onClick?: () => void;
 };
 
 const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ username }) => {
+    const navigate = useNavigate();
     const actionButtons: ActionButtonType[] = [
         {
             label: "Buy",
@@ -61,6 +64,7 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ username }) => {
             label: "Convert",
             icon: <TransferIcon />,
             variant: "secondary",
+            onClick: () => navigate("/transfer"),
         },
         {
             icon: <ThreeDotsIcon />,

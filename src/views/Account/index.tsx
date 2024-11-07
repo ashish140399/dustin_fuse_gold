@@ -8,6 +8,7 @@ import DashboardHeader from "../../components/DashboardHeader/DashboardHeader";
 import { useLocation, useMatch } from "react-router-dom";
 import CreateAccount from "./components/Create";
 import LoginAccount from "./components/Login";
+import TransferNFT from "./components/Transfer";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -29,6 +30,7 @@ const Account: React.FC<MyNFTProps> = ({}) => {
     console.log(location);
     const containsCreate = location.pathname.includes("/create");
     const containsLogin = location.pathname.includes("/login");
+    const containsTransfer = location.pathname.includes("/transfer");
     return (
         <>
             <DashboardHeader />
@@ -42,6 +44,7 @@ const Account: React.FC<MyNFTProps> = ({}) => {
                 >
                     {containsCreate && <CreateAccount />}
                     {containsLogin && <LoginAccount />}
+                    {containsTransfer && <TransferNFT />}
                 </Box>
             </Layout>
         </>

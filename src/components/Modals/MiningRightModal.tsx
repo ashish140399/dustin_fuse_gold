@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -35,6 +35,8 @@ import {
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { Height } from "@mui/icons-material";
+import SiteVariablesContext from "../../contexts/SiteVariablesContext";
+import { mobileBreakpoint } from "../../const";
 
 const style = {
     position: "absolute",
@@ -42,11 +44,17 @@ const style = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "720px",
-    // maxWidth: "700px",
     bgcolor: "transparent",
-    // height: "100%",
-    // maxHeight: "90vh",
-    // overflowY: "scroll",
+    border: 0,
+    outline: 0,
+};
+
+const stylemobile = {
+    position: "absolute",
+    bottom: "0",
+    left: "0px",
+    width: "100%",
+    bgcolor: "transparent",
     border: 0,
     outline: 0,
 };
@@ -54,30 +62,31 @@ const style = {
 interface StepProps {
     icon: string;
     text: string;
-    isActive: boolean;
+    progress: string;
 }
 
 const OrderProgressTracker: React.FC = () => {
+    // value of progress is "finished" , "inprocess" and "notstarted"
     const steps: StepProps[] = [
         {
-            icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/9e1829c0-20bd-4dfe-b1d3-c29756c175b4?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88",
+            icon: "/images/common/icons/green_check_icon.png",
             text: "Order Placed",
-            isActive: true,
+            progress: "inprocess",
         },
         {
-            icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/aba141a6e32c9b27ade3269704389788e2cbd7eae7005169ebaa0a3327c48517?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88",
+            icon: "",
             text: "Awaiting Verification",
-            isActive: false,
+            progress: "notstarted",
         },
         {
             icon: "",
             text: "NFT Being Minted and Mining Rights being granted",
-            isActive: false,
+            progress: "notstarted",
         },
         {
             icon: "",
             text: "Sending to your fortune.gold account",
-            isActive: false,
+            progress: "notstarted",
         },
     ];
 
@@ -86,7 +95,7 @@ const OrderProgressTracker: React.FC = () => {
             <StepList>
                 {steps.map((step, index) => (
                     <React.Fragment key={index}>
-                        <Step>
+                        <Step className={step.progress}>
                             {step.icon ? (
                                 <StepIcon
                                     src={step.icon}
@@ -94,7 +103,7 @@ const OrderProgressTracker: React.FC = () => {
                                     loading="lazy"
                                 />
                             ) : (
-                                <StepCircle isActive={step.isActive} />
+                                <StepCircle />
                             )}
                             {index < steps.length - 1 && <StepConnector />}
                         </Step>
@@ -120,18 +129,13 @@ const TrackerContainer = styled.section`
 const StepList = styled.div`
     display: flex;
     width: 100%;
-    gap: 18px;
+    gap: 4px;
     flex-wrap: wrap;
     padding: 0 63px;
     @media (max-width: 991px) {
         max-width: 100%;
         padding: 0 20px;
     }
-`;
-
-const Step = styled.div`
-    display: flex;
-    align-items: center;
 `;
 
 const StepIcon = styled.img`
@@ -144,22 +148,30 @@ const StepIcon = styled.img`
     height: 24px;
 `;
 
-const StepCircle = styled.div<{ isActive: boolean }>`
+const StepCircle = styled.div`
     width: 24px;
     height: 24px;
     border-radius: 50%;
     border: 2px solid #5d5c5a;
-    background-color: ${(props) =>
-        props.isActive ? "#87d6c3" : "transparent"};
+    background-color: transparent;
 `;
 
 const StepConnector = styled.div`
     width: 108px;
     height: 2px;
-    background-color: #5d5c5a;
+    background: #5d5c5a;
     margin: 0 9px;
 `;
 
+const Step = styled.div`
+    display: flex;
+    align-items: center;
+    &.inprocess {
+        ${StepConnector} {
+            background: linear-gradient(to left, #5d5c5a 50%, #87d6c3 50%);
+        }
+    }
+`;
 const StepTextList = styled.div`
     display: flex;
     margin-top: 8px;
@@ -180,6 +192,15 @@ const StepText = styled.p`
     width: 150px;
     line-height: 16px;
     margin: 0;
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        display: none;
+        &:first-child {
+            display: block;
+        }
+        &:last-child {
+            display: block;
+        }
+    }
 `;
 
 const MiningRightModal: React.FC<ModalControlProps> = ({
@@ -187,8 +208,11 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
     modalopen,
     handleModal,
 }) => {
+    const { windowDimensions } = useContext(SiteVariablesContext);
     const [modalstate, setModalstate] = React.useState("");
     const [dropdownMoreOptions, setDropdownMoreOptions] = React.useState("");
+    const [priceval, setPriceval] = React.useState(0.0005);
+    const increasedecreasevalue = 0.0005;
     // For add mining rights type = "add"
     // 1. buyamountques 2.areyousure 3.finalstep 4.transactioncompleted
 
@@ -207,6 +231,14 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
     useEffect(() => {
         // setModalstate("buyamountques");
     }, [modalopen]);
+    const handleValueIncrease = () => {
+        setPriceval(priceval + increasedecreasevalue);
+    };
+    const handleValueDecrease = () => {
+        if (priceval - increasedecreasevalue > 0)
+            setPriceval(priceval - increasedecreasevalue);
+    };
+
     return (
         <>
             <Modal
@@ -215,7 +247,13 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
+                <Box
+                    sx={
+                        windowDimensions?.width < mobileBreakpoint
+                            ? stylemobile
+                            : style
+                    }
+                >
                     <StyledModalMainWrapper>
                         <div className="closebutton" onClick={handleClose}>
                             <SuggestionCloseIcon />
@@ -223,10 +261,18 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                         {modalstate === "purchaseoptions" && (
                             <>
                                 <div className="modalbg">
-                                    <img
-                                        src="/images/common/bg/AddMintingRights/purchaseoptions.png"
-                                        alt=""
-                                    />
+                                    {windowDimensions?.width <
+                                    mobileBreakpoint ? (
+                                        <img
+                                            src="/images/common/bg/AddMintingRights/mobile.png"
+                                            alt=""
+                                        />
+                                    ) : (
+                                        <img
+                                            src="/images/common/bg/AddMintingRights/purchaseoptions.png"
+                                            alt=""
+                                        />
+                                    )}
                                 </div>
                                 <ModalWrapper className="purchaseoptions">
                                     <ModalHeading>
@@ -276,10 +322,18 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                         {modalstate === "buyamountques" && (
                             <>
                                 <div className="modalbg">
-                                    <img
-                                        src="/images/common/bg/AddMintingRights/1.png"
-                                        alt=""
-                                    />
+                                    {windowDimensions?.width <
+                                    mobileBreakpoint ? (
+                                        <img
+                                            src="/images/common/bg/AddMintingRights/mobile.png"
+                                            alt=""
+                                        />
+                                    ) : (
+                                        <img
+                                            src="/images/common/bg/AddMintingRights/1.png"
+                                            alt=""
+                                        />
+                                    )}
                                 </div>
                                 <ModalWrapper>
                                     <ModalHeading>
@@ -309,15 +363,33 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                                                     $
                                                     <input
                                                         type="text"
-                                                        value={"0.0005"}
-                                                    />{" "}
+                                                        value={priceval.toFixed(
+                                                            4
+                                                        )}
+                                                        onChange={(e) =>
+                                                            setPriceval(
+                                                                Number(
+                                                                    e.target
+                                                                        .value
+                                                                )
+                                                            )
+                                                        }
+                                                    />
                                                     USD
                                                 </div>
                                                 <div className="controlright">
-                                                    <button>
+                                                    <button
+                                                        onClick={
+                                                            handleValueIncrease
+                                                        }
+                                                    >
                                                         <AccordionPlusIcon />
                                                     </button>
-                                                    <button>
+                                                    <button
+                                                        onClick={
+                                                            handleValueDecrease
+                                                        }
+                                                    >
                                                         <AccordionMinusIcon />
                                                     </button>
                                                 </div>
@@ -471,10 +543,18 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                         {modalstate === "areyousure" && (
                             <>
                                 <div className="modalbg">
-                                    <img
-                                        src="/images/common/bg/AddMintingRights/2.png"
-                                        alt=""
-                                    />
+                                    {windowDimensions?.width <
+                                    mobileBreakpoint ? (
+                                        <img
+                                            src="/images/common/bg/AddMintingRights/mobile.png"
+                                            alt=""
+                                        />
+                                    ) : (
+                                        <img
+                                            src="/images/common/bg/AddMintingRights/2.png"
+                                            alt=""
+                                        />
+                                    )}
                                 </div>
                                 <ModalWrapper>
                                     <ModalHeading>
@@ -505,15 +585,25 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                                                     $
                                                     <input
                                                         type="text"
-                                                        value={"0.0005"}
+                                                        value={priceval.toFixed(
+                                                            4
+                                                        )}
                                                     />{" "}
                                                     USD
                                                 </div>
                                                 <div className="controlright">
-                                                    <button>
+                                                    <button
+                                                        onClick={
+                                                            handleValueIncrease
+                                                        }
+                                                    >
                                                         <AccordionPlusIcon />
                                                     </button>
-                                                    <button>
+                                                    <button
+                                                        onClick={
+                                                            handleValueDecrease
+                                                        }
+                                                    >
                                                         <AccordionMinusIcon />
                                                     </button>
                                                 </div>
@@ -593,10 +683,18 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                         {modalstate === "finalstep" && (
                             <>
                                 <div className="modalbg">
-                                    <img
-                                        src="/images/common/bg/AddMintingRights/3.png"
-                                        alt=""
-                                    />
+                                    {windowDimensions?.width <
+                                    mobileBreakpoint ? (
+                                        <img
+                                            src="/images/common/bg/AddMintingRights/mobile_3.png"
+                                            alt=""
+                                        />
+                                    ) : (
+                                        <img
+                                            src="/images/common/bg/AddMintingRights/3.png"
+                                            alt=""
+                                        />
+                                    )}
                                 </div>
                                 <ModalWrapper>
                                     <ModalHeading>
@@ -758,8 +856,22 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                             <>
                                 <div className="modalbg">
                                     {type == "purchase_with_wallet" ? (
+                                        windowDimensions?.width <
+                                        mobileBreakpoint ? (
+                                            <img
+                                                src="/images/common/bg/AddMintingRights/mobile.png"
+                                                alt=""
+                                            />
+                                        ) : (
+                                            <img
+                                                src="/images/common/bg/AddMintingRights/4_transaction_share.png"
+                                                alt=""
+                                            />
+                                        )
+                                    ) : windowDimensions?.width <
+                                      mobileBreakpoint ? (
                                         <img
-                                            src="/images/common/bg/AddMintingRights/4_transaction_share.png"
+                                            src="/images/common/bg/AddMintingRights/mobile.png"
                                             alt=""
                                         />
                                     ) : (
@@ -896,12 +1008,14 @@ const ModalContent = styled.div`
                 display: flex;
                 flex-wrap: nowrap;
                 min-width: 128px;
+
                 button {
                     background: transparent;
                     border: 0;
                     outline: 0;
                     width: 64px;
                     height: 56px;
+                    cursor: pointer;
                     svg path {
                         stroke: #fff;
                     }

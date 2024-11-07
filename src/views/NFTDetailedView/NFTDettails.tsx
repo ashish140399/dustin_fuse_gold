@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { mobileBreakpoint } from "../../const";
 interface NFTsListProps {}
 
 const NFTDettails: React.FC<NFTsListProps> = ({}) => {
@@ -36,18 +37,11 @@ const NFTDettails: React.FC<NFTsListProps> = ({}) => {
     );
 };
 
-const Layout = styled.section`
-    width: 100%;
-    box-sizing: border-box;
-`;
-
 const NFTDetailRow = styled.div`
     display: flex;
     align-items: Center;
     justify-content: space-between;
-    border-bottom: 1px solid #383838;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+
     &:last-child {
         border-bottom: 0;
     }
@@ -58,6 +52,9 @@ const NFTDetailBox = styled.div`
     align-items: Center;
     justify-content: space-between;
     width: calc(50% - 30px);
+    border-bottom: 1px solid #383838;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
 `;
 const Label = styled.div`
     color: var(--Text-Tertiary, #969696);
@@ -79,6 +76,19 @@ const Value = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: 24px; /* 150% */
+`;
+
+const Layout = styled.section`
+    width: 100%;
+    box-sizing: border-box;
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${NFTDetailBox} {
+            width: 100%;
+        }
+        ${NFTDetailRow} {
+            flex-direction: column;
+        }
+    }
 `;
 
 export default NFTDettails;
