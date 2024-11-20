@@ -62,7 +62,7 @@ const HeroContent: React.FC = () => {
                 </div>
             </TextContent>
             <Logo
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/6bf7f61a654dfd7570ffc987876d57a87806ad0d4e8b9e37964537845d7fcecf?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
+                src="/images/common/blockchainlogo.svg"
                 alt="Goldx Blockchain Logo"
             />
         </HeroContentWrapper>
@@ -76,7 +76,7 @@ const HeroStats: React.FC = () => {
                 <StatLabel>CLIENT TRUST US</StatLabel>
             </StatContent>
             <StatImage
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/052c2da166d6ea63882a50b2df2c675f2751d4d6fa29647a71bfedf614f70dd7?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
+                src="/images/common/herograph.svg"
                 alt="Market Cap Illustration"
             />
         </StatsWrapper>
@@ -99,7 +99,7 @@ const StatsWrapper = styled.aside`
     text-transform: uppercase;
     justify-content: center;
     padding: 32px 40px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         margin-top: 40px;
         padding: 0 20px;
     }
@@ -140,13 +140,15 @@ const TextContent = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: start;
+    position: relative;
+    z-index: -1;
     .getstartedicon {
         cursor: pointer;
         svg {
             width: 100px;
         }
     }
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;
@@ -158,7 +160,7 @@ const Title = styled.h1`
     margin: 0;
 
     font: 600 80px/80px Conthrax, sans-serif;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         font-size: 40px;
         line-height: 44px;
@@ -170,7 +172,7 @@ const Description = styled.p`
     margin-top: 32px;
     font: 400 20px/28px Telegraf, sans-serif;
     max-width: 700px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;

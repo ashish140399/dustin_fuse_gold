@@ -37,6 +37,7 @@ const DataContainer = styled.div`
         background: transparent;
         box-shadow: none;
         margin: 0 !important;
+        box-shadow: none;
         .MuiAccordionSummary-root {
             margin-bottom: 20px;
             padding: 0;

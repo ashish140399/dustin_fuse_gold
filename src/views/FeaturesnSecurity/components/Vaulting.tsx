@@ -6,7 +6,6 @@ import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 import { mobileBreakpoint } from "../../../const";
 
 interface BenefitCardProps {
-    icon: string;
     title: string;
     description: string;
 }
@@ -35,19 +34,16 @@ const Vaulting: React.FC = () => {
     }, [windowDimensions]); // Dependency on windowDimensions width and height
     const benefits: BenefitCardProps[] = [
         {
-            icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/4442e46209f0437521b8c1a102bcc3d77abee1bcb8122c60a918e3f4d45b454f?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88",
             title: "Hybrid NFT Utility, Multi-Use case",
             description:
                 "Benefit from contracts with no diminishing power over time, ensuring consistent value and performance.",
         },
         {
-            icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/6cb25a4cf24b35e2fd299e78033c6871e45a5b49d8c3c785d3c96b3865fb00ab?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88",
             title: "High Security Vaults",
             description:
                 "Enjoy seamless investment without the hassle of managing physical assets or hardware.",
         },
         {
-            icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/f3a74c5fca73a050bd768dfff3adaceb01d932dd3159f77bbfbba520706107c9?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88",
             title: "Life Time Mining Rights with no loss of power",
             description:
                 "Transfer, sell, or redeem your assets anytime, offering unmatched liquidity and flexibility.",
@@ -134,7 +130,7 @@ const SectionHeader = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
 `;
@@ -145,7 +141,7 @@ const SectionTitle = styled.h2`
     color: var(--text-primary, #fff);
     text-transform: uppercase;
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 44px;
     }
@@ -162,7 +158,7 @@ const SectionDescription = styled.p`
     width: 50%;
     max-width: 700px;
     margin: 0;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         margin-top: 20px;
     }
@@ -246,7 +242,7 @@ const CardDescription = styled.p`
 `;
 const WhyGoldXSection = styled.section`
     padding: 160px 80px 80px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 100px 20px 0;
     }
     @media screen and (max-width: ${mobileBreakpoint}px) {

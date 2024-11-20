@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ActionButton from "../Buttons/ActionButton/ActionButton";
 import { DollarIcon, ThreeDotsIcon, TransferIcon } from "../../assets/icons";
 import { useNavigate } from "react-router-dom";
+import { mobileBreakpoint } from "../../const";
 
 const HeaderContainer = styled.header`
     align-self: stretch;
@@ -13,7 +14,7 @@ const HeaderContainer = styled.header`
     flex: 1;
     flex-basis: 0%;
     margin: auto 0;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;
@@ -24,7 +25,7 @@ const WelcomeMessage = styled.p`
     font-weight: 400;
     font-family: "Telegraf", sans-serif;
     margin: 0;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;
@@ -36,7 +37,7 @@ const DashboardTitle = styled.h1`
     margin: 0;
     // font: 600 40px/1.2 Conthrax, sans-serif;
     font-family: "Conthrax";
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;

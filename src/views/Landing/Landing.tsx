@@ -30,6 +30,8 @@ const PageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: start;
+    // width: 100vw;
+    // overflow: hidden;
 `;
 
 export default GoldXLandingPage;

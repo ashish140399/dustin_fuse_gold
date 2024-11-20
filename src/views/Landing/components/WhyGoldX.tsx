@@ -2,11 +2,10 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
 import { WhyGoldXBG } from "../../../assets/BG/BG";
 import { WhyGoldXBottomIcon } from "../../../assets/icons";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 interface BenefitCardProps {
-    icon: string;
     title: string;
     description: string;
 }
@@ -33,19 +32,16 @@ const WhyGoldX: React.FC = () => {
     }, [windowDimensions]); // Dependency on windowDimensions width and height
     const benefits: BenefitCardProps[] = [
         {
-            icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/4442e46209f0437521b8c1a102bcc3d77abee1bcb8122c60a918e3f4d45b454f?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88",
             title: "Fast and Cheap Transactions",
             description:
                 "GOLDX blockchain ensures rapid and economical transactions with an average block confirmation time of 5 seconds and transaction costs under $0.01",
         },
         {
-            icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/6cb25a4cf24b35e2fd299e78033c6871e45a5b49d8c3c785d3c96b3865fb00ab?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88",
             title: "Diverse, Stable Tokens",
             description:
                 "This feature empowers developers to create diverse digital tokens and innovative projects, leveraging the stability of tangible assets.",
         },
         {
-            icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/f3a74c5fca73a050bd768dfff3adaceb01d932dd3159f77bbfbba520706107c9?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88",
             title: "PoV Consensus",
             description:
                 "The GOLDX blockchain employs a Proof of Value (PoV) consensus mechanism, supported by independent and company-owned refiners.",
@@ -131,8 +127,9 @@ const SectionHeader = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
+        padding: 0 20px;
     }
 `;
 
@@ -141,7 +138,7 @@ const SectionTitle = styled.h2`
     font: 600 64px/64px Conthrax, sans-serif;
     color: var(--text-primary, #fff);
     text-transform: uppercase;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 44px;
     }
@@ -157,7 +154,7 @@ const SectionDescription = styled.p`
     width: 50%;
     max-width: 700px;
     margin: 0;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         margin-top: 20px;
     }
@@ -178,20 +175,24 @@ const CardWrapperOuter = styled.div`
     }
 `;
 const CardWrapper = styled.div<CardWrapperProps>`
-    // background-color: var(--brand-dark, #111);
-    // border-radius: 32px;
+    background: linear-gradient(to top, transparent 60%, #121212 25%);
     overflow: hidden;
-    min-height: 500px;
+    border-radius: 32px;
+    min-height: 380px;
     // height: 100%;
     box-sizing: border-box;
     position: relative;
+    @media (min-width: ${mobileBreakpoint}px) and (max-width: 1000px) {
+        background: linear-gradient(to top, transparent 40%, #121212 25%);
+    }
     .cardbg {
-        position: relative;
-        top: 0;
+        position: absolute;
+        bottom: 0;
         left: 0;
-        height: 100%;
+        /* height: 100%; */
         width: 100%;
         z-index: 0;
+        object-fit: contain;
         svg {
             height: 100%;
             width: 100%;
@@ -217,7 +218,7 @@ const CardIcon = styled.img`
 
 const CardContent = styled.div`
     color: var(--text-primary, #fff);
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     height: 100%;
@@ -231,6 +232,7 @@ const CardTitle = styled.h3`
     font: 600 30px/40px Conthrax, sans-serif;
     margin: 0;
     margin-bottom: 24px;
+    word-wrap: break-word;
 `;
 
 const CardDescription = styled.p`
@@ -241,10 +243,8 @@ const CardDescription = styled.p`
 
 const WhyGoldXSection = styled.section`
     padding: 160px 80px 80px;
-    @media (max-width: 991px) {
-        padding: 100px 20px 0;
-    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
+        padding: 100px 20px 0;
         ${BenefitsContainer} {
             flex-direction: column;
             flex-wrap: unset;
@@ -261,6 +261,30 @@ const WhyGoldXSection = styled.section`
             margin-bottom: 10px;
             text-align: left;
             width: 100%;
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        padding: 60px 10px 0;
+        ${SectionTitle} {
+            font-size: 32px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+        }
+        ${CardWrapperOuter} {
+            margin-bottom: 20px !important;
+        }
+        ${CardWrapper} {
+            min-height: 270px;
+            ${CardContent} {
+                padding: 26px;
+                ${CardTitle} {
+                    font-size: 20px;
+                }
+                ${CardDescription} {
+                    font-size: 14px;
+                }
+            }
         }
     }
 `;

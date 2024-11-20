@@ -3,11 +3,13 @@ import { useWindowSize } from "@react-hook/window-size";
 import styled from "styled-components";
 import {
     GoldXFeaturesBottomBG,
+    GoldXFeaturesMBBottomBG,
+    GoldXFeaturesMBTopBG,
     GoldXFeaturesTopBG,
     ProductCardBG,
 } from "../../../assets/BG/BG";
 import { ProductCardBottomIcon, ProductCardIcon } from "../../../assets/icons";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 interface ProductProps {
@@ -51,7 +53,11 @@ const Products: React.FC = () => {
             </SectionHeader>
             <ProductsGridWrapper>
                 <div className="topimgbg">
-                    <GoldXFeaturesTopBG />
+                    {windowDimensions?.width > mobileBreakpoint ? (
+                        <GoldXFeaturesTopBG />
+                    ) : (
+                        <GoldXFeaturesMBTopBG />
+                    )}
                 </div>
                 <ProductsGridScroll className="horizontalScroll paddingsclayoutx">
                     <ProductsGrid>
@@ -194,7 +200,11 @@ const Products: React.FC = () => {
                     </ProductsGrid>
                 </ProductsGridScroll>
                 <div className="bottomimgbg">
-                    <GoldXFeaturesBottomBG />
+                    {windowDimensions?.width > mobileBreakpoint ? (
+                        <GoldXFeaturesBottomBG />
+                    ) : (
+                        <GoldXFeaturesMBBottomBG />
+                    )}
                 </div>
             </ProductsGridWrapper>
         </ProductsSection>
@@ -221,7 +231,7 @@ const SectionHeader = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     // margin-bottom: 40px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
 `;
@@ -232,7 +242,7 @@ const SectionTitle = styled.h2`
     color: var(--Text-Primary, #fff);
     text-transform: uppercase;
     margin: 0;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 44px;
     }
@@ -246,8 +256,9 @@ const GoldSpan = styled.span`
 const SectionDescription = styled.p`
     font: 400 20px/28px Telegraf, sans-serif;
     color: var(--Text-Secondary, #cfcfcf);
-    max-width: 50%;
-    @media (max-width: 991px) {
+    width: 100%;
+    max-width: 400px;
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         margin-top: 20px;
     }
@@ -338,6 +349,7 @@ const ProductsSection = styled.section`
     padding: 160px 16px 80px;
 
     @media screen and (max-width: ${mobileBreakpoint}px) {
+        padding: 80px 16px 80px;
         ${SectionHeader} {
             margin-bottom: 0;
             padding-top: 50px;
@@ -357,6 +369,19 @@ const ProductsSection = styled.section`
         }
         ${ProductsGridScroll} {
             padding-top: 30px;
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        // padding: 40px 10px;
+        padding-bottom: 20px;
+        ${SectionTitle} {
+            font-size: 32px;
+            line-height: 40px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+            line-height: 24px;
+            margin-top: 0px;
         }
     }
 `;

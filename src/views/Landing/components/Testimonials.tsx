@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
 
 const Testimonials: React.FC = () => {
     return (
@@ -34,7 +34,7 @@ const TestimonialsSection = styled.section`
     min-height: 400px;
     padding-right: 30px;
     padding-left: 100px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 0px;
     }
 `;
@@ -50,7 +50,7 @@ const SectionHeader = styled.div`
     @media screen and (min-width: ${mobileBreakpoint}px) {
         padding: 0;
     }
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
 `;
@@ -64,7 +64,7 @@ const SectionTitle = styled.h2`
     div {
         max-width: 480px;
     }
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 48px;
     }
@@ -81,7 +81,7 @@ const SectionDescription = styled.p`
     max-width: 80%;
     margin: 0;
     padding-bottom: 40px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         margin-top: 20px;
     }
@@ -131,6 +131,19 @@ const TestimonialsSectionWrapper = styled.div`
                 min-height: 60vh;
                 max-width: unset;
             }
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        // padding: 40px 10px;
+        padding-bottom: 20px;
+        ${SectionTitle} {
+            font-size: 32px;
+            line-height: 40px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+            line-height: 24px;
+            margin-top: 0px;
         }
     }
 `;

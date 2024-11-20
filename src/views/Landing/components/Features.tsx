@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import {
     GoldXFeaturesBG,
     GoldXFeaturesBottomBG,
+    GoldXFeaturesMBBottomBG,
+    GoldXFeaturesMBTopBG,
     GoldXFeaturesTopBG,
 } from "../../../assets/BG/BG";
 import { FeatureRowIcon } from "../../../assets/icons";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
+import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 const Features: React.FC = () => {
+    const { windowDimensions } = useContext(SiteVariablesContext);
     return (
         <FeaturesSection>
             <SectionHeader className="paddingsclayoutx">
@@ -22,7 +26,11 @@ const Features: React.FC = () => {
             </SectionHeader>
             <FeaturesSectionWrapper>
                 <div className="topimgbg">
-                    <GoldXFeaturesTopBG />
+                    {windowDimensions?.width > mobileBreakpoint ? (
+                        <GoldXFeaturesTopBG />
+                    ) : (
+                        <GoldXFeaturesMBTopBG />
+                    )}
                 </div>
                 <FeaturesContainer>
                     <FeatureWrapper className="paddingsclayoutx">
@@ -84,7 +92,11 @@ const Features: React.FC = () => {
                     </FeatureWrapper>
                 </FeaturesContainer>
                 <div className="bottomimgbg">
-                    <GoldXFeaturesBottomBG />
+                    {windowDimensions?.width > mobileBreakpoint ? (
+                        <GoldXFeaturesBottomBG />
+                    ) : (
+                        <GoldXFeaturesMBBottomBG />
+                    )}
                 </div>
             </FeaturesSectionWrapper>
         </FeaturesSection>
@@ -113,7 +125,7 @@ const SectionHeader = styled.div`
     margin-bottom: 0px;
     position: relative;
     z-index: 2;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
 `;
@@ -124,7 +136,7 @@ const SectionTitle = styled.h2`
     color: var(--text-primary, #fff);
     text-transform: uppercase;
     margin: 0;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 44px;
     }
@@ -138,9 +150,9 @@ const GoldSpan = styled.span`
 const SectionDescription = styled.p`
     font: 400 20px/28px Telegraf, sans-serif;
     color: var(--text-secondary, #cfcfcf);
-    width: 50%;
+    width: 40%;
     max-width: 600px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         margin-top: 20px;
     }
@@ -209,10 +221,8 @@ const FeatureWrapper = styled.div`
 const FeaturesSection = styled.section`
     position: relative;
 
-    @media (max-width: 991px) {
-        padding: 40px 20px;
-    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
+        padding: 40px 20px;
         ${SectionDescription} {
             width: 100%;
             margin-bottom: 20px;
@@ -234,6 +244,35 @@ const FeaturesSection = styled.section`
                 div {
                     max-width: unset;
                 }
+            }
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        padding: 40px 10px;
+        ${SectionTitle} {
+            font-size: 32px;
+            line-height: 40px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+            line-height: 24px;
+            margin-top: 0px;
+        }
+        ${FeatureWrapper} {
+            padding: 30px 20px;
+            ${FeatureNumber} {
+                font-size: 14px;
+                line-height: 24px;
+                padding-bottom: 0px;
+            }
+            ${FeatureTitle} {
+                font-size: 20px;
+                line-height: 32px;
+                margin-bottom: 0;
+            }
+            ${FeatureDescription} {
+                font-size: 14px;
+                line-height: 20px;
             }
         }
     }

@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
 import { ArrowTransformIcon } from "../../../assets/icons";
+import { mobileBreakpoint } from "../../../const";
 
 const SeeEcosystem: React.FC = () => {
     return (
@@ -52,7 +53,7 @@ const SectionHeader = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     // margin-bottom: 40px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
 `;
@@ -65,7 +66,7 @@ const SectionTitle = styled.h2`
     margin: 0;
     max-width: 700px;
     line-height: 1.2;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 44px;
     }
@@ -83,7 +84,7 @@ const SectionDescription = styled.p`
         margin-top: 20px;
         width: 240px;
     }
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         margin-top: 20px;
     }

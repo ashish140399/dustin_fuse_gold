@@ -5,6 +5,7 @@ import ActionButton from "../../components/Buttons/ActionButton/ActionButton";
 import { DollarIcon, TransferIcon } from "../../assets/icons";
 import CountdownTimer from "./CountdownTimer";
 import { useNavigate } from "react-router-dom";
+import { mobileBreakpoint } from "../../const";
 
 interface PriceCardProps {
     saleEndDate: string;
@@ -73,7 +74,7 @@ const CardWrapper = styled.section`
     flex-direction: column;
     padding: 24px;
     margin-top: 20px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         margin-top: 40px;
         padding: 20px;
     }

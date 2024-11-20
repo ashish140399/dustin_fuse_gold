@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
+import { AccordionMinusIcon, AccordionPlusIcon } from "../../../assets/icons";
 
 interface FAQItemProps {
     question: string;
@@ -14,14 +15,9 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
         <FAQItemWrapper>
             <QuestionWrapper onClick={() => setIsOpen(!isOpen)}>
                 <Question>{question}</Question>
-                <ToggleIcon
-                    src={
-                        isOpen
-                            ? "https://cdn.builder.io/api/v1/image/assets/TEMP/2664175415f328674e5b8135266b125655dbe198ed3a11045a2f573513d885c6?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
-                            : "https://cdn.builder.io/api/v1/image/assets/TEMP/a6488ef16a395fbbf1871c563496f224bd46a39a4cdd9257d707e1edc2c588e4?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
-                    }
-                    alt={isOpen ? "Close" : "Open"}
-                />
+                <AccordionIcon>
+                    {isOpen ? <AccordionPlusIcon /> : <AccordionMinusIcon />}
+                </AccordionIcon>
             </QuestionWrapper>
             {isOpen && <Answer>{answer}</Answer>}
         </FAQItemWrapper>
@@ -76,7 +72,7 @@ const SectionHeader = styled.div`
     flex-direction: column;
     margin-bottom: 40px;
     width: 35%;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
 `;
@@ -87,7 +83,7 @@ const SectionTitle = styled.h2`
     color: var(--Text-Primary, #fff);
     text-transform: uppercase;
     margin: 0;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
     }
 `;
@@ -100,7 +96,7 @@ const SectionDescription = styled.p`
     font: 400 20px/28px Telegraf, sans-serif;
     color: var(--Text-Secondary, #cfcfcf);
     max-width: 90%;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         margin-top: 20px;
     }
@@ -109,6 +105,12 @@ const SectionDescription = styled.p`
 const FAQItemWrapper = styled.div`
     border-bottom: 1px solid var(--Lines-Border, #5d5c5a);
     padding: 48px 0;
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        padding: 28px 0;
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        padding: 15px 0;
+    }
 `;
 
 const FAQList = styled.div`
@@ -120,6 +122,9 @@ const FAQList = styled.div`
         &:first-child {
             border-top: 1px solid var(--Lines-Border, #5d5c5a);
         }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        gap: 0;
     }
 `;
 
@@ -135,9 +140,14 @@ const Question = styled.h3`
     color: var(--Text-Primary, #fff);
 `;
 
-const ToggleIcon = styled.img`
+const AccordionIcon = styled.div`
     width: 32px;
     height: 32px;
+    svg {
+        path {
+            stroke: #fff;
+        }
+    }
 `;
 
 const Answer = styled.p`
@@ -166,6 +176,32 @@ const FAQSection = styled.section`
         }
         ${FAQList} {
             width: 100%;
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        // padding: 40px 10px;
+        padding-bottom: 20px;
+        ${SectionHeader} {
+            margin-bottom: 20px;
+        }
+        ${SectionTitle} {
+            font-size: 32px;
+            line-height: 40px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+            line-height: 24px;
+            margin-top: 0px;
+        }
+        ${Question} {
+            font-size: 16px;
+            line-height: 24px;
+        }
+        ${Answer} {
+            color: #cfcfcf;
+            font-size: 14px;
+            line-height: 20px;
+            margin-top: 10px;
         }
     }
 `;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
 
 export const HeroLeft = styled.div`
     width: 100px;
@@ -85,14 +85,19 @@ export const HeroContentWrapper = styled.section`
     padding: 50px 0 50px 64px;
     box-sizing: border-box;
     height: calc(100% - 163px);
-    @media (max-width: 991px) {
+
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         margin-top: 40px;
+        padding: 50px 64px;
     }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         min-height: calc(100vh - 80px);
         margin-top: 0px;
         padding-top: 0;
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        padding: 50px 34px;
     }
 `;
 export const InvestButtonWrapper = styled.div`
@@ -103,8 +108,10 @@ export const InvestButtonWrapper = styled.div`
     @media screen and (max-width: ${mobileBreakpoint}px) {
         position: relative;
         position: relative;
-        width: auto;
+        width: 100% !important;
         bottom: unset;
         left: unset;
+        padding: 0 20px;
+        box-sizing: border-box;
     }
 `;

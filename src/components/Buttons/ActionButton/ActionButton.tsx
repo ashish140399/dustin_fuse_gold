@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
 
 interface ActionButtonProps {
     label?: string;
@@ -73,7 +74,7 @@ const ButtonLabel = styled.span<{ variant: string }>`
     font: 500 16px Telegraf, sans-serif;
     position: Relative;
     z-index: 1;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         padding-left: 20px;
         white-space: initial;
     }
@@ -151,6 +152,23 @@ const ButtonWrapper = styled.div<{ variant: string }>`
         box-sizing: border-box !important;
         ${ButtonBackground} {
             width: 100% !important;
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        ${ButtonBackground} {
+            height: 54px;
+            box-sizing: border-box;
+            left: -1px;
+        }
+        ${IconWrapper} ,${IconInner} {
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            // box-sizing: border-box;
+        }
+        ${ButtonLabel} {
+            font-size: 14px;
+            line-height: 20px;
         }
     }
 `;

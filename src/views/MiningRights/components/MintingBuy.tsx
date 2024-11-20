@@ -29,7 +29,7 @@ const MintingBuy: React.FC = () => {
                 </TextContent>
                 <ImageWrapper>
                     <MiningImage
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/68d6dfc25429d5836a4db41cadf6ed2edc083f1d4c9c3a4d59f4f606a415d663?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
+                        src="/images/common/miningimage.png"
                         alt="Mining Rights Illustration"
                     />
                 </ImageWrapper>
@@ -43,7 +43,7 @@ const ContentWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     gap: 78px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
 `;
@@ -60,7 +60,7 @@ const SectionTitle = styled.h2`
     font: 600 64px/64px Conthrax, sans-serif;
     color: #fff;
     text-transform: uppercase;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 44px;
     }

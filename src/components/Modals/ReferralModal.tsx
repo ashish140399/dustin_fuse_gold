@@ -394,7 +394,7 @@ const StepsWrapper = styled.div`
     width: 100%;
     // margin: 32px -24px 0 0;
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;
@@ -406,7 +406,7 @@ const StepContainer = styled.div`
     font-family: Telegraf, sans-serif;
     justify-content: center;
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;
@@ -418,7 +418,7 @@ const StepTitle = styled.h2`
     line-height: 1.4;
     margin: 0;
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;
@@ -430,7 +430,7 @@ const StepDescription = styled.p`
     margin-top: 7px;
     margin-bottom: 0;
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;
@@ -469,7 +469,7 @@ const EmailInput = styled.input`
         color: var(--Text-Tertiary, #969696);
     }
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         // padding: 20px;
     }
@@ -484,7 +484,7 @@ const ShareSection = styled.div`
     justify-content: start;
     flex-wrap: nowrap;
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;
@@ -520,7 +520,7 @@ const ReferralLinkContainer = styled.div`
         outline-offset: 2px;
     }
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 20px;
     }
 `;

@@ -1412,3 +1412,29 @@ export const UploadIcon: React.FC = () => (
         </defs>
     </svg>
 );
+
+export const CloseIcon: React.FC = () => (
+    <svg
+        width="56"
+        height="56"
+        viewBox="0 0 56 56"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <rect
+            x="0.75"
+            y="0.75"
+            width="54.5"
+            height="54.5"
+            rx="27.25"
+            stroke="#5D5C5A"
+            stroke-width="1.5"
+        />
+        <path
+            d="M34 22L22 34M22 22L34 34"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="square"
+        />
+    </svg>
+);

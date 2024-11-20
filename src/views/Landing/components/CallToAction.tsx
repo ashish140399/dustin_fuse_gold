@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { GoldXFeaturesTopBG } from "../../../assets/BG/BG";
+import {
+    GoldXFeaturesMBTopBG,
+    GoldXFeaturesTopBG,
+} from "../../../assets/BG/BG";
 import { ArrowTransformIcon } from "../../../assets/icons";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
+import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 const CallToAction: React.FC = () => {
+    const { windowDimensions } = useContext(SiteVariablesContext);
     return (
         <CTASection>
             <div className="topimgbg">
-                <GoldXFeaturesTopBG />
+                {windowDimensions?.width > mobileBreakpoint ? (
+                    <GoldXFeaturesTopBG />
+                ) : (
+                    <GoldXFeaturesMBTopBG />
+                )}
             </div>
             <CTAContent>
                 <LeftColumn>
@@ -70,7 +79,7 @@ const CTAContent = styled.div`
     // gap: 20px;
     background: #171615;
     padding: 0 20px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
 `;
@@ -79,7 +88,7 @@ const Column = styled.div`
     flex: 1;
     padding: 80px 64px;
     border-radius: 32px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 40px 20px;
     }
 `;
@@ -96,6 +105,9 @@ const RightColumn = styled(Column)`
     border-bottom-left-radius: 0;
     .buttonwrapper {
         width: 50%;
+        @media screen and (max-width: ${mobileBreakpoint}px) {
+            width: 100%;
+        }
     }
 `;
 
@@ -120,7 +132,7 @@ const SectionDescription = styled.p`
 const ButtonGroup = styled.div`
     display: flex;
     gap: 16px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
 `;
@@ -146,6 +158,21 @@ const CTASection = styled.section`
                 border-top-right-radius: 0;
                 border-top-left-radius: 0;
             }
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        // padding: 40px 10px;
+        // padding-bottom: 20px;
+        ${SectionTitle} {
+            font-size: 20px;
+            line-height: 32px;
+            margin-bottom: 10px;
+        }
+        ${SectionDescription} {
+            font-size: 14px;
+            line-height: 20px;
+            margin-top: 0px;
+            margin-bottom: 30px;
         }
     }
 `;

@@ -159,7 +159,7 @@ const SectionHeader = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     // margin-bottom: 40px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
 `;
@@ -171,7 +171,7 @@ const SectionTitle = styled.h2`
     text-transform: uppercase;
     margin: 0;
     max-width: 700px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 44px;
     }
@@ -189,7 +189,7 @@ const SectionDescription = styled.p`
         margin-top: 20px;
         width: 240px;
     }
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         margin-top: 20px;
     }
@@ -270,7 +270,8 @@ const CardDescription = styled.p`
 const ProductsSection = styled.section`
     padding: 160px 16px 80px;
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        padding: 80px 16px 80px;
         padding: 100px 0px 40px;
     }
     @media screen and (max-width: ${mobileBreakpoint}px) {

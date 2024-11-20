@@ -194,6 +194,50 @@ export const GoldXFeaturesBottomBG: React.FC = () => (
         </defs>
     </svg>
 );
+export const GoldXFeaturesMBBottomBG: React.FC = () => (
+    <svg
+        fill="none"
+        viewBox="0 1124.24 377.38853503184714 74.152"
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="auto"
+    >
+        <g filter="url(#filter0_b_5472_9486)">
+            <path
+                fill-opacity="1"
+                fill="#171615"
+                d="M0 56C0 42.7452 10.7452 32 24 32H189.311C195.629 32 201.805 30.13 207.062 26.6256L238.938 5.37439C244.195 1.87001 250.371 0 256.689 0H351C364.255 0 375 10.7452 375 24V64V1132V1140C375 1153.25 364.255 1164 351 1164H185.689C179.371 1164 173.195 1165.87 167.938 1169.37L136.062 1190.63C130.805 1194.13 124.629 1196 118.311 1196H24C10.7452 1196 0 1185.25 0 1172V1132V64V56Z"
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+            />
+        </g>
+        <defs>
+            <filter
+                color-interpolation-filters="sRGB"
+                filterUnits="userSpaceOnUse"
+                height="1836"
+                width="1015"
+                y="-320"
+                x="-320"
+                id="filter0_b_5472_9486"
+            >
+                <feFlood result="BackgroundImageFix" flood-opacity="0" />
+                <feGaussianBlur stdDeviation="160" in="BackgroundImageFix" />
+                <feComposite
+                    result="effect1_backgroundBlur_5472_9486"
+                    operator="in"
+                    in2="SourceAlpha"
+                />
+                <feBlend
+                    result="shape"
+                    in2="effect1_backgroundBlur_5472_9486"
+                    in="SourceGraphic"
+                    mode="normal"
+                />
+            </filter>
+        </defs>
+    </svg>
+);
 
 export const GoldXFeaturesTopBG: React.FC = () => (
     <svg
@@ -232,6 +276,49 @@ export const GoldXFeaturesTopBG: React.FC = () => (
                 <feBlend
                     result="shape"
                     in2="effect1_backgroundBlur_464_19916"
+                    in="SourceGraphic"
+                    mode="normal"
+                />
+            </filter>
+        </defs>
+    </svg>
+);
+export const GoldXFeaturesMBTopBG: React.FC = () => (
+    <svg
+        fill="none"
+        viewBox="0 0 375 62.192"
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="auto"
+    >
+        <g filter="url(#filter0_b_5472_9486)">
+            <path
+                fill="#171615"
+                d="M0 56C0 42.7452 10.7452 32 24 32H189.311C195.629 32 201.805 30.13 207.062 26.6256L238.938 5.37439C244.195 1.87001 250.371 0 256.689 0H351C364.255 0 375 10.7452 375 24V64V1132V1140C375 1153.25 364.255 1164 351 1164H185.689C179.371 1164 173.195 1165.87 167.938 1169.37L136.062 1190.63C130.805 1194.13 124.629 1196 118.311 1196H24C10.7452 1196 0 1185.25 0 1172V1132V64V56Z"
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+            />
+        </g>
+        <defs>
+            <filter
+                color-interpolation-filters="sRGB"
+                filterUnits="userSpaceOnUse"
+                height="1836"
+                width="1015"
+                y="-320"
+                x="-320"
+                id="filter0_b_5472_9486"
+            >
+                <feFlood result="BackgroundImageFix" flood-opacity="0" />
+                <feGaussianBlur stdDeviation="160" in="BackgroundImageFix" />
+                <feComposite
+                    result="effect1_backgroundBlur_5472_9486"
+                    operator="in"
+                    in2="SourceAlpha"
+                />
+                <feBlend
+                    result="shape"
+                    in2="effect1_backgroundBlur_5472_9486"
                     in="SourceGraphic"
                     mode="normal"
                 />

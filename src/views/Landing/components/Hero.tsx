@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { ArrowTransformIcon, GetStartedIcon } from "../../../assets/icons";
 import { LandingHeroBG, LandingHeroMobileBG } from "../../../assets/BG/BG";
@@ -12,14 +12,31 @@ import {
     InvestButtonWrapper,
     StyledHero,
 } from "../../styles/commonHero";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
-
+interface Props {
+    boxWidth: number; // Optional prop, defaults to '70px' if not provided
+}
 const Hero: React.FC = () => {
     const { windowDimensions } = useContext(SiteVariablesContext);
+    const heroWrapperRef = useRef(null);
+    const [heroWidth, setHeroWidth] = useState(0);
+    useEffect(() => {
+        // Function to update width based on window dimensions
+        const updateWidth = () => {
+            const width = heroWrapperRef.current
+                ? // @ts-ignore
+                  heroWrapperRef.current.offsetWidth
+                : 0;
+
+            setHeroWidth(width);
+        };
+
+        updateWidth();
+    }, [windowDimensions]);
     return (
-        <StyledHero>
-            <div className="herobag">
+        <StyledHeroMain boxWidth={heroWidth}>
+            <div className="herobag" ref={heroWrapperRef}>
                 {windowDimensions?.width > mobileBreakpoint ? (
                     <LandingHeroBG
                         src="./images/common/herobg.png"
@@ -41,7 +58,7 @@ const Hero: React.FC = () => {
             </HeroRight>
             <HeroStats />
             <InvestButton />
-        </StyledHero>
+        </StyledHeroMain>
     );
 };
 
@@ -62,7 +79,7 @@ const HeroContent: React.FC = () => {
                 </div>
             </TextContent>
             <Logo
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/6bf7f61a654dfd7570ffc987876d57a87806ad0d4e8b9e37964537845d7fcecf?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
+                src="/images/common/blockchainlogo.svg"
                 alt="Goldx Blockchain Logo"
             />
         </HeroContentWrapper>
@@ -76,7 +93,7 @@ const HeroStats: React.FC = () => {
                 <StatLabel>Market Cap</StatLabel>
             </StatContent>
             <StatImage
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/052c2da166d6ea63882a50b2df2c675f2751d4d6fa29647a71bfedf614f70dd7?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
+                src="/images/common/herograph.svg"
                 alt="Market Cap Illustration"
             />
         </StatsWrapper>
@@ -99,9 +116,11 @@ const StatsWrapper = styled.aside`
     text-transform: uppercase;
     justify-content: center;
     padding: 32px 40px;
-    @media (max-width: 991px) {
-        margin-top: 40px;
-        padding: 0 20px;
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        width: calc(100% - 40px);
+        right: 20px;
+        bottom: -20px;
+        box-sizing: border-box;
     }
 `;
 
@@ -140,13 +159,15 @@ const TextContent = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: start;
+    position: relative;
+    z-index: -1;
     .getstartedicon {
         cursor: pointer;
         svg {
             width: 100px;
         }
     }
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;
@@ -156,12 +177,14 @@ const Title = styled.h1`
     font-feature-settings: "liga" off, "clig" off;
     text-transform: uppercase;
     margin: 0;
-
     font: 600 80px/80px Conthrax, sans-serif;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         font-size: 40px;
         line-height: 44px;
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        font-size: 32px;
     }
 `;
 
@@ -170,8 +193,11 @@ const Description = styled.p`
     margin-top: 32px;
     font: 400 20px/28px Telegraf, sans-serif;
     max-width: 700px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        font-size: 16px;
     }
 `;
 
@@ -207,4 +233,9 @@ const InvestButton: React.FC = () => {
     );
 };
 
+const StyledHeroMain = styled(StyledHero)<Props>`
+    ${InvestButtonWrapper} {
+        width: ${(props) => `${100 + props?.boxWidth / 4.3}px`};
+    }
+`;
 export default Hero;

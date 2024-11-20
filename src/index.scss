@@ -69,8 +69,12 @@ body {
   // background: var(--Brand-Dark, #111);
   background: #232323;
   color: #fff;
+  width: 100vw;
+  overflow-x: hidden;
 }
-
+body.no-scroll {
+  overflow: hidden;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
@@ -112,8 +116,11 @@ code {
 // paddngs
 .paddingscbox {
   padding: 80px 80px 160px;
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 941px) {
     padding: 40px 40px 80px;
+  }
+  @media screen and (max-width: 500px) {
+    padding: 40px 15px 80px;
   }
 }
 .paddinglayoutx {
@@ -128,8 +135,8 @@ code {
     padding-right: 30px;
   }
   @media screen and (max-width: 500px) {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 .paddinglayouty {
@@ -140,9 +147,13 @@ code {
 .paddingsclayoutx {
   padding-left: 80px;
   padding-right: 80px;
+  @media screen and (max-width: 941px) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
   @media screen and (max-width: 500px) {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 .paddingsclayouty {

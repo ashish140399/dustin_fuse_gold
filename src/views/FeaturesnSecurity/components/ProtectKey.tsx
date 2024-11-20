@@ -187,7 +187,7 @@ const SectionHeader = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     // margin-bottom: 40px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
 `;
@@ -198,7 +198,7 @@ const SectionTitle = styled.h2`
     color: var(--Text-Primary, #fff);
     text-transform: uppercase;
     margin: 0;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 44px;
     }
@@ -213,7 +213,7 @@ const SectionDescription = styled.p`
     font: 400 20px/28px Telegraf, sans-serif;
     color: var(--Text-Secondary, #cfcfcf);
     max-width: 50%;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         margin-top: 20px;
     }
@@ -346,6 +346,7 @@ const ProductsSection = styled.section`
     padding: 160px 16px 80px;
 
     @media screen and (max-width: ${mobileBreakpoint}px) {
+        padding: 80px 16px 80px;
         ${SectionHeader} {
             margin-bottom: 0;
             padding-top: 50px;

@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { WhyShouldYouBuyBG } from "../../../assets/BG/BG";
 import { WhyGoldXBottomIcon } from "../../../assets/icons";
+import { mobileBreakpoint } from "../../../const";
 
 interface BenefitCardProps {
-    imageSrc: string;
     title: string;
     description: string;
 }
@@ -38,22 +38,16 @@ const WhyShouldYouBuy: React.FC = () => {
     }, []);
     const benefits: BenefitCardProps[] = [
         {
-            imageSrc:
-                "https://cdn.builder.io/api/v1/image/assets/TEMP/a782d0ceafe6853b75d39b218ed6c50f98b1ac6821f08000efd7604ff5580e5e?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88",
             title: "No Hardware No Hassle",
             description:
                 "Enjoy seamless investment without the hassle of managing physical assets or hardware.",
         },
         {
-            imageSrc:
-                "https://cdn.builder.io/api/v1/image/assets/TEMP/ee2333fa466d4f58c27edda16497049ca30e94a486b8610715d56e18a74ed494?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88",
             title: "Hybrid NFT Utility, Multi-Use case",
             description:
                 "Benefit from contracts with no diminishing power over time, ensuring consistent value and performance.",
         },
         {
-            imageSrc:
-                "https://cdn.builder.io/api/v1/image/assets/TEMP/6418178d5be92cf1e289dbe752d6cae1dd0c45cbb168dde89762545b84ad7b54?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88",
             title: "Life Time Mining Rights with no loss of power",
             description:
                 "Transfer, sell, or redeem your assets anytime, offering unmatched liquidity and flexibility.",
@@ -75,7 +69,7 @@ const WhyShouldYouBuy: React.FC = () => {
                     </SubHeading>
                     <MainImage
                         loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/4e0abf5574358e77450e539e3d2ad2d2b83e53421acfcb17d8b55b5994cdf6da?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
+                        src="/images/common/whyshouldyoubuymain.png"
                         alt="GOLDX blockchain illustration"
                     />
                 </LeftColumn>
@@ -114,7 +108,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
         align-items: stretch;
         gap: 0;
@@ -128,7 +122,7 @@ const MainHeading = styled.h1`
     margin: 0;
     margin-right: 22px;
     margin-bottom: 30px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 44px;
         margin-right: 10px;
@@ -149,7 +143,7 @@ const SubHeading = styled.p`
     font: 400 20px/28px Telegraf, sans-serif;
     margin-top: 24px;
     width: 464px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         width: 100%;
     }
 `;
@@ -160,7 +154,7 @@ const MainImage = styled.img`
     object-fit: contain;
     border-radius: 32px;
     margin-top: 80px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         margin-top: 40px;
     }
 `;
@@ -168,7 +162,7 @@ const LeftColumn = styled.div`
     display: flex;
     flex-direction: column;
     width: 54%;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         width: 100%;
         margin-top: 40px;
     }
@@ -178,7 +172,7 @@ const RightColumn = styled.div`
     flex-direction: column;
     width: 42%;
     margin-left: 20px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         width: 100%;
         margin-left: 0;
         margin-top: 40px;

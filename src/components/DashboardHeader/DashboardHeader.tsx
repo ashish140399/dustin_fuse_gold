@@ -43,7 +43,7 @@ const Header = styled.header`
     padding-top: 16px;
     padding-bottom: 16px;
     background: var(--Brand-Dark, #111);
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 16px 20px;
     }
 `;
@@ -240,7 +240,7 @@ const SearchWrapper = styled.div`
             stroke: #fff;
         }
     }
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         width: 100%;
     }
 `;
@@ -256,7 +256,7 @@ const SearchInput = styled.input`
     border: none;
     width: 100%;
     box-sizing: border-box;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 20px;
     }
 `;
@@ -275,7 +275,7 @@ const SearchButton = styled.button`
     height: 56px;
     border: none;
     cursor: pointer;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         right: 4px;
     }
 `;

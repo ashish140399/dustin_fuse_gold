@@ -132,7 +132,7 @@ const StepList = styled.div`
     gap: 4px;
     flex-wrap: wrap;
     padding: 0 63px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         padding: 0 20px;
     }
@@ -183,7 +183,7 @@ const StepTextList = styled.div`
     justify-content: space-between;
     flex-wrap: wrap;
     font: 500 12px/1 Telegraf, sans-serif;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;
@@ -1129,6 +1129,7 @@ const ModalContent = styled.div`
         .moreinformationbox {
             margin-top: 24px;
             .MuiAccordion-root {
+                box-shadow: none;
                 border-radius: 16px !important;
                 width: 100% !important;
                 font-family: Telegraf !important;

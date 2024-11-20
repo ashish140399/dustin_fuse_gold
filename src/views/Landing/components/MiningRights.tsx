@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
 import { ArrowTransformIcon } from "../../../assets/icons";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
 
 const MiningRights: React.FC = () => {
     return (
@@ -28,7 +28,7 @@ const MiningRights: React.FC = () => {
                 </TextContent>
                 <ImageWrapper>
                     <MiningImage
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/68d6dfc25429d5836a4db41cadf6ed2edc083f1d4c9c3a4d59f4f606a415d663?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
+                        src="/images/common/miningimage.png"
                         alt="Mining Rights Illustration"
                     />
                 </ImageWrapper>
@@ -42,7 +42,7 @@ const ContentWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     gap: 78px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
 `;
@@ -59,7 +59,7 @@ const SectionTitle = styled.h2`
     font: 600 64px/64px Conthrax, sans-serif;
     color: #fff;
     text-transform: uppercase;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 44px;
     }
@@ -105,6 +105,18 @@ const MiningRightsSection = styled.section`
             ${TextContent} {
                 max-width: unset;
             }
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        // padding: 40px 10px;
+        ${SectionTitle} {
+            font-size: 32px;
+            line-height: 40px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+            line-height: 24px;
+            margin-top: 0px;
         }
     }
 `;

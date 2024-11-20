@@ -433,7 +433,7 @@ const HeaderContainer = styled.header`
     flex: 1;
     flex-basis: 0%;
     margin: auto 0;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;
@@ -444,7 +444,7 @@ const WelcomeMessage = styled.p`
     font-family: "Telegraf", sans-serif;
     margin: 0;
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;
@@ -456,7 +456,7 @@ const DashboardTitle = styled.h1`
     margin: 0;
     margin-bottom: 16px;
     font-family: "Conthrax";
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
     }
 `;
@@ -544,7 +544,7 @@ const NoNftWrapper = styled.div`
         flex-wrap: wrap;
     }
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         .no-nfts-header {
             margin-bottom: 40px;
         }

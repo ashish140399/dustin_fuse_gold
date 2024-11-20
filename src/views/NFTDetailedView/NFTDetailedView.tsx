@@ -179,7 +179,7 @@ const NFTDetailsContent = styled.section`
     flex-direction: column;
     justify-content: space-between;
     // width: 45%;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         width: 100%;
         margin-top: 40px;
     }

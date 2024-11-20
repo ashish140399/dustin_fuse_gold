@@ -44,7 +44,7 @@ const ContentWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
 `;
@@ -66,7 +66,7 @@ const SectionTitle = styled.h2`
     color: #fff;
     text-transform: uppercase;
     text-align: center;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 44px;
     }

@@ -5,8 +5,15 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
-import { mobileBreakpoint } from "../../../const";
-import { AccordionMinusIcon, AccordionPlusIcon } from "../../../assets/icons";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
+import {
+    AccordionMinusIcon,
+    AccordionPlusIcon,
+    FaceBookIcon,
+    InstaIcon,
+    LinkedinIcon,
+    TwitterIcon,
+} from "../../../assets/icons";
 
 const menuItems = {
     products: {
@@ -136,10 +143,20 @@ const Footer: React.FC = () => {
             <Divider />
             <BottomSection>
                 <Copyright>2024 © GOLDX</Copyright>
-                <SocialIcons
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/a276ce9b94fc9aee6d6155b51970e19c348dc22415ef08ce0574034233e02a1f?placeholderIfAbsent=true&apiKey=c2eace46523148b195c70f9101a6de88"
-                    alt="Social Media Icons"
-                />
+                <SocialIcons>
+                    <a href="#">
+                        <FaceBookIcon />
+                    </a>
+                    <a href="#">
+                        <InstaIcon />
+                    </a>
+                    <a href="#">
+                        <TwitterIcon />
+                    </a>
+                    <a href="#">
+                        <LinkedinIcon />
+                    </a>
+                </SocialIcons>
             </BottomSection>
         </FooterWrapper>
     );
@@ -149,8 +166,13 @@ const FooterWrapper = styled.footer`
     background: #171615;
     padding: 64px 80px 32px;
     color: var(--Text-Tertiary, #969696);
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 40px 20px;
+    }
+    margin: 0;
+
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        padding-bottom: 10px;
     }
 `;
 
@@ -163,6 +185,9 @@ const TopSection = styled.div`
 
 const LogoSection = styled.div`
     max-width: 300px;
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        max-width: unset;
+    }
 `;
 
 const Logo = styled.h2`
@@ -180,7 +205,7 @@ const LogoDescription = styled.p`
 const MenuSection = styled.div`
     display: flex;
     gap: 64px;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-wrap: wrap;
         gap: 32px;
     }
@@ -213,24 +238,49 @@ const Divider = styled.hr`
     border: none;
     border-top: 1px solid var(--Lines-Border, #5d5c5a);
     margin: 64px 0 32px;
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        margin: 34px 0;
+    }
+`;
+const Copyright = styled.p`
+    font: 400 16px Telegraf, sans-serif;
 `;
 
 const BottomSection = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @media (max-width: 991px) {
+    @media screen and (max-width: ${mobileBreakpoint}px) {
         // flex-direction: column;
         gap: 16px;
     }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        gap: 8px;
+        ${Copyright} {
+            font-size: 12px;
+        }
+    }
 `;
 
-const Copyright = styled.p`
-    font: 400 16px Telegraf, sans-serif;
-`;
-
-const SocialIcons = styled.img`
-    height: 32px;
+const SocialIcons = styled.div`
+    display: flex;
+    align-items: center;
+    a {
+        margin-left: 30px;
+        svg {
+            height: 24px;
+            width: auto;
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        a {
+            margin-left: 10px;
+            svg {
+                height: 14px;
+                width: auto;
+            }
+        }
+    }
 `;
 const MenuSectionMobile = styled(MenuSection)`
     flex-direction: column;
@@ -250,13 +300,14 @@ const MenuSectionMobile = styled(MenuSection)`
     .MuiAccordion-root {
         background: transparent !important;
         border-bottom: 1px solid var(--Lines-Divider, #383838);
+        box-shadow: none;
         .MuiAccordionSummary-root {
             padding: 0 !important;
         }
         &:last-child {
             border-bottom: 0;
             .MuiAccordionSummary-content {
-                margin-bottom: 0 !important;
+                // margin-bottom: 0 !important;
             }
         }
     }
