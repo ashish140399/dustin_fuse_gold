@@ -761,8 +761,8 @@ export const ProtectKeyCardBottomIcon: React.FC = () => (
 );
 export const ProductTimelineIcon: React.FC = () => (
     <svg
-        width="16"
-        height="328"
+        width="auto"
+        height="100%"
         viewBox="0 0 16 328"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -777,6 +777,41 @@ export const ProductTimelineIcon: React.FC = () => (
                 r="1"
                 gradientUnits="userSpaceOnUse"
                 gradientTransform="translate(2.12 315.5) rotate(42.3859) scale(23.1783 58.4971)"
+            >
+                <stop stop-color="#F4E0A3" />
+                <stop offset="0.373682" stop-color="#DCBC65" />
+                <stop offset="0.638906" stop-color="#CA9F43" />
+                <stop offset="0.79386" stop-color="#FEF0A0" />
+                <stop offset="1" stop-color="#8E5F1E" />
+            </radialGradient>
+        </defs>
+    </svg>
+);
+
+export const ProductTimelineMBIcon: React.FC = () => (
+    <svg
+        width="100%"
+        height="auto"
+        viewBox="0 0 359 8"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="M359 4H0" stroke="#EDCE8B" />
+        <circle
+            cx="4"
+            cy="4"
+            r="4"
+            transform="matrix(0 -1 -1 0 8 8)"
+            fill="url(#paint0_radial_464_24068)"
+        />
+        <defs>
+            <radialGradient
+                id="paint0_radial_464_24068"
+                cx="0"
+                cy="0"
+                r="1"
+                gradientUnits="userSpaceOnUse"
+                gradientTransform="translate(1.06 1.75) rotate(42.3859) scale(11.5892 29.2485)"
             >
                 <stop stop-color="#F4E0A3" />
                 <stop offset="0.373682" stop-color="#DCBC65" />

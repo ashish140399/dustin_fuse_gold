@@ -3,7 +3,11 @@ import styled from "styled-components";
 
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
 import { ArrowTransformIcon } from "../../../assets/icons";
-import { mobileBreakpoint } from "../../../const";
+import {
+    mobileBreakpoint,
+    smallmobileBreakpoint,
+    smscreenBreakpoint,
+} from "../../../const";
 
 const SeeEcosystem: React.FC = () => {
     return (
@@ -46,8 +50,6 @@ const EcoSystemImageWrapper = styled.div`
     }
 `;
 
-const EcoSystemSection = styled.section``;
-
 const SectionHeader = styled.div`
     display: flex;
     justify-content: space-between;
@@ -66,6 +68,7 @@ const SectionTitle = styled.h2`
     margin: 0;
     max-width: 700px;
     line-height: 1.2;
+    width: 50%;
     @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 44px;
@@ -77,9 +80,11 @@ const GoldSpan = styled.span`
 `;
 
 const SectionDescription = styled.p`
+    width: 50%;
     font: 400 20px/28px Telegraf, sans-serif;
     color: var(--Text-Secondary, #cfcfcf);
     max-width: 500px;
+    margin-top: 0;
     .btnwidth50 {
         margin-top: 20px;
         width: 240px;
@@ -89,5 +94,28 @@ const SectionDescription = styled.p`
         margin-top: 20px;
     }
 `;
-
+const EcoSystemSection = styled.section`
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        ${SectionDescription},${SectionTitle} {
+            width: 100%;
+            .btnwidth50 {
+                width: 100%;
+            }
+        }
+    }
+    @media screen and (max-width: ${smscreenBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 46px;
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        padding: 60px 10px 0;
+        ${SectionTitle} {
+            font-size: 32px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+        }
+    }
+`;
 export default SeeEcosystem;

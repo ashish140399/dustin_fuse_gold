@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
+import {
+    mobileBreakpoint,
+    smallmobileBreakpoint,
+    smscreenBreakpoint,
+} from "../../../const";
 import { AccordionMinusIcon, AccordionPlusIcon } from "../../../assets/icons";
 
 interface FAQItemProps {
@@ -158,7 +162,11 @@ const Answer = styled.p`
 const FAQSection = styled.section`
     // background-color: var(--Brand-Dark, #111);
     display: flex;
-
+    @media screen and (max-width: ${smscreenBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 46px;
+        }
+    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
         ${SectionHeader} {

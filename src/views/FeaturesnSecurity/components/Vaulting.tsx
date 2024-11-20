@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { WhyGoldXBG } from "../../../assets/BG/BG";
 import { WhyGoldXBottomIcon } from "../../../assets/icons";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
-import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
+import {
+    mobileBreakpoint,
+    smallmobileBreakpoint,
+    smscreenBreakpoint,
+} from "../../../const";
 
 interface BenefitCardProps {
     title: string;
@@ -255,6 +259,11 @@ const WhyGoldXSection = styled.section`
     padding: 160px 80px 80px;
     @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 100px 20px 0;
+    }
+    @media screen and (max-width: ${smscreenBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 46px;
+        }
     }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         ${BenefitsContainer} {

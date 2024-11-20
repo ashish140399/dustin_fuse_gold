@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
 import { ArrowTransformIcon } from "../../../assets/icons";
-import { mobileBreakpoint } from "../../../const";
+import {
+    mobileBreakpoint,
+    smallmobileBreakpoint,
+    smscreenBreakpoint,
+} from "../../../const";
 
 const MintingInterest: React.FC = () => {
     return (
@@ -93,6 +97,11 @@ const MiningImage = styled.img`
     height: auto;
 `;
 const MiningRightsSection = styled.section`
+    @media screen and (max-width: ${smscreenBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 46px;
+        }
+    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         ${SectionDescription} {
             width: 100%;
@@ -110,6 +119,15 @@ const MiningRightsSection = styled.section`
             ${TextContent} {
                 max-width: unset;
             }
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 32px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+            margin-top: 10px;
         }
     }
 `;

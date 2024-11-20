@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
+import {
+    mobileBreakpoint,
+    smallmobileBreakpoint,
+    smscreenBreakpoint,
+} from "../../../const";
 
 const Testimonials: React.FC = () => {
     return (
@@ -106,6 +110,11 @@ const TestimonialsSectionWrapper = styled.div`
         rgba(106, 95, 62, 0.1) 101.51%
     );
     margin: 0 14px;
+    @media screen and (max-width: ${smscreenBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 46px;
+        }
+    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         ${SectionHeader} {
             margin-bottom: 0;

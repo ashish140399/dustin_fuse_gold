@@ -59,6 +59,8 @@ export const StyledHero = styled.main`
     @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
         margin-top: 0;
+        max-width: 100vw;
+        overflow: hidden;
         .herobag {
             width: calc(100% - 40px);
             height: calc(100% - 0px);

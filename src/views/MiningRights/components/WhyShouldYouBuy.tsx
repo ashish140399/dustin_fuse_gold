@@ -2,7 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { WhyShouldYouBuyBG } from "../../../assets/BG/BG";
 import { WhyGoldXBottomIcon } from "../../../assets/icons";
-import { mobileBreakpoint } from "../../../const";
+import {
+    mobileBreakpoint,
+    smallmobileBreakpoint,
+    smscreenBreakpoint,
+} from "../../../const";
 
 interface BenefitCardProps {
     title: string;
@@ -99,10 +103,6 @@ const WhyShouldYouBuy: React.FC = () => {
         </WhyShouldYouBuySection>
     );
 };
-const WhyShouldYouBuySection = styled.div`
-    padding-top: 120px;
-    padding-bottom: 120px;
-`;
 
 const Container = styled.div`
     display: flex;
@@ -184,16 +184,24 @@ const CardWrapper = styled.div<CardWrapperProps>`
     box-sizing: border-box;
     position: relative;
     margin-bottom: 40px;
+    position: relative;
+    background: linear-gradient(to top, transparent 60%, #121212 25%);
+    overflow: hidden;
+    border-radius: 32px;
+    @media (min-width: ${mobileBreakpoint}px) and (max-width: 1000px) {
+        background: linear-gradient(to top, transparent 40%, #121212 25%);
+    }
     &:last-child {
         margin-bottom: 0;
     }
     .cardbg {
-        position: relative;
-        top: 0;
+        position: absolute;
+        bottom: 0;
         left: 0;
-        height: 100%;
+        /* height: 100%; */
         width: 100%;
         z-index: 0;
+        object-fit: contain;
         svg {
             height: 100%;
             width: 100%;
@@ -213,7 +221,7 @@ const CardWrapper = styled.div<CardWrapperProps>`
 
 const CardContent = styled.div`
     color: var(--text-primary, #fff);
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     height: 100%;
@@ -228,7 +236,7 @@ const CardTitle = styled.h3`
     margin: 0;
     margin-bottom: 24px;
     text-transform: uppercase;
-    height: 80px;
+    // height: 80px;
 `;
 
 const CardDescription = styled.p`
@@ -236,5 +244,41 @@ const CardDescription = styled.p`
     color: var(--text-Ssecondary, #cfcfcf);
     margin: 0;
 `;
-
+const WhyShouldYouBuySection = styled.div`
+    padding-top: 120px;
+    padding-bottom: 120px;
+    @media (min-width: ${smallmobileBreakpoint}px) and (max-width: ${mobileBreakpoint}px) {
+        ${CardWrapper} {
+            min-height: 350px;
+        }
+    }
+    @media screen and (max-width: ${smscreenBreakpoint}px) {
+        padding-top: 70px;
+        padding-bottom: 70px;
+        ${MainHeading} {
+            font-size: 46px;
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        padding: 60px 10px 0;
+        ${MainHeading} {
+            font-size: 32px;
+            margin-right: 0;
+            margin-bottom: 0;
+        }
+        ${CardWrapper} {
+            min-height: 270px;
+            ${CardContent} {
+                padding: 26px;
+                ${CardTitle} {
+                    font-size: 20px;
+                    margin-bottom: 10px;
+                }
+                ${CardDescription} {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+`;
 export default WhyShouldYouBuy;

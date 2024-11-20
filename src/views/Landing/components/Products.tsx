@@ -9,7 +9,11 @@ import {
     ProductCardBG,
 } from "../../../assets/BG/BG";
 import { ProductCardBottomIcon, ProductCardIcon } from "../../../assets/icons";
-import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
+import {
+    mobileBreakpoint,
+    smallmobileBreakpoint,
+    smscreenBreakpoint,
+} from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 interface ProductProps {
@@ -347,7 +351,11 @@ const CardDescription = styled.p`
 `;
 const ProductsSection = styled.section`
     padding: 160px 16px 80px;
-
+    @media screen and (max-width: ${smscreenBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 46px;
+        }
+    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 80px 16px 80px;
         ${SectionHeader} {

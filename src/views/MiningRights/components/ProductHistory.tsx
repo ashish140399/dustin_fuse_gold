@@ -1,15 +1,32 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { GoldXFeaturesTopBG } from "../../../assets/BG/BG";
-import { ArrowTransformIcon, ProductTimelineIcon } from "../../../assets/icons";
+import {
+    GoldXFeaturesMBTopBG,
+    GoldXFeaturesTopBG,
+} from "../../../assets/BG/BG";
+import {
+    ArrowTransformIcon,
+    ProductTimelineIcon,
+    ProductTimelineMBIcon,
+} from "../../../assets/icons";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
-import { mobileBreakpoint } from "../../../const";
+import {
+    mobileBreakpoint,
+    smallmobileBreakpoint,
+    smscreenBreakpoint,
+} from "../../../const";
+import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 const ProductHistory: React.FC = () => {
+    const { windowDimensions } = useContext(SiteVariablesContext);
     return (
         <HistorySection>
             <div className="topimgbg">
-                <GoldXFeaturesTopBG />
+                {windowDimensions?.width > mobileBreakpoint ? (
+                    <GoldXFeaturesTopBG />
+                ) : (
+                    <GoldXFeaturesMBTopBG />
+                )}
             </div>
             <SectionHeader className="paddingsclayoutx">
                 <SectionTitle>
@@ -26,7 +43,11 @@ const ProductHistory: React.FC = () => {
                     <TimelineContainer>
                         <TimelineItemWrapper>
                             <TimelineIconWrapper>
-                                <ProductTimelineIcon />
+                                {windowDimensions?.width > mobileBreakpoint ? (
+                                    <ProductTimelineIcon />
+                                ) : (
+                                    <ProductTimelineMBIcon />
+                                )}
                             </TimelineIconWrapper>
 
                             <TimelineContent>
@@ -42,9 +63,13 @@ const ProductHistory: React.FC = () => {
                                 </TimelineDetails>
                             </TimelineContent>
                         </TimelineItemWrapper>
-                        <TimelineItemWrapper>
+                        <TimelineItemWrapper className="disabled">
                             <TimelineIconWrapper>
-                                <ProductTimelineIcon />
+                                {windowDimensions?.width > mobileBreakpoint ? (
+                                    <ProductTimelineIcon />
+                                ) : (
+                                    <ProductTimelineMBIcon />
+                                )}
                             </TimelineIconWrapper>
 
                             <TimelineContent>
@@ -60,9 +85,13 @@ const ProductHistory: React.FC = () => {
                                 </TimelineDetails>
                             </TimelineContent>
                         </TimelineItemWrapper>
-                        <TimelineItemWrapper>
+                        <TimelineItemWrapper className="disabled">
                             <TimelineIconWrapper>
-                                <ProductTimelineIcon />
+                                {windowDimensions?.width > mobileBreakpoint ? (
+                                    <ProductTimelineIcon />
+                                ) : (
+                                    <ProductTimelineMBIcon />
+                                )}
                             </TimelineIconWrapper>
 
                             <TimelineContent>
@@ -109,6 +138,7 @@ const HistoryContentWrapper = styled.div`
     }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
+        padding-bottom: 70px;
     }
 `;
 
@@ -174,6 +204,9 @@ const TimelineItemWrapper = styled.div`
     align-items: flex-start;
     justify-content: flex-start;
     width: 33.3%;
+    &.disabled {
+        opacity: 0.5;
+    }
 `;
 
 const TimelineContent = styled.div`
@@ -252,10 +285,14 @@ const HistorySection = styled.section`
             width: 100%;
         }
     }
-    @media screen and (max-width: ${mobileBreakpoint}px) {
-        padding: 100px 0px 16px;
+    @media screen and (max-width: ${smscreenBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 46px;
+        }
     }
+
     @media screen and (max-width: ${mobileBreakpoint}px) {
+        padding: 70px 0px 16px;
         ${SectionDescription} {
             width: 100%;
             margin-bottom: 20px;
@@ -266,20 +303,51 @@ const HistorySection = styled.section`
             text-align: left;
             width: 100%;
         }
+        ${TimelineItemWrapper} {
+            width: 100%;
+        }
+        ${TimelineIconWrapper} {
+            margin-right: 0;
+            width: 100%;
+        }
         ${TimelineContainer} {
             flex-direction: column;
+            ${TimelineContent} {
+                width: 100%;
+                flex-direction: column-reverse;
+            }
+            ${TimelineDetails} {
+                margin-top: 50px;
+                ${TimelineTitle} {
+                    margin-bottom: 20px;
+                }
+            }
+            ${YearBadge} {
+                margin-top: 0;
+                margin-bottom: 50px;
+            }
             ${TimelineItemWrapper} {
                 flex-direction: column;
                 position: relative;
                 ${TimelineIconWrapper} {
-                    transform: rotate(90deg);
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    transform-origin: top right;
-                    height: 36%;
+                    // transform: rotate(90deg);
+                    // position: absolute;
+                    // top: 0;
+                    // right: -58px;
+                    // transform-origin: top right;
+                    // height: calc(100vw - 0px);
+                    // margin: 0;
                 }
             }
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 32px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+            margin-top: 10px;
         }
     }
 `;

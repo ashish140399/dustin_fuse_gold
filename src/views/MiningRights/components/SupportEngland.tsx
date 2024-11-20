@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
 import { ArrowTransformIcon } from "../../../assets/icons";
-import { mobileBreakpoint } from "../../../const";
+import {
+    mobileBreakpoint,
+    smallmobileBreakpoint,
+    smscreenBreakpoint,
+} from "../../../const";
 
 const SupportEngland: React.FC = () => {
     return (
@@ -96,7 +100,14 @@ const ImageWrapper = styled.div`
 `;
 const MiningRightsSection = styled.section`
     position: relative;
-
+    overflow-x: hidden;
+    max-width: 100vw;
+    @media screen and (max-width: ${smscreenBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 46px;
+            margin-top: 0;
+        }
+    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         ${ContentWrapper} {
             min-height: 70vh;
@@ -108,6 +119,18 @@ const MiningRightsSection = styled.section`
                     object-fit: contain;
                 }
             }
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 32px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        ${TextContent} {
+            width: calc(100% - 30px);
         }
     }
 `;

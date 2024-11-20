@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
 import { ArrowTransformIcon } from "../../../assets/icons";
-import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
+import {
+    mobileBreakpoint,
+    smallmobileBreakpoint,
+    smscreenBreakpoint,
+} from "../../../const";
 
 const ProofOfReserve: React.FC = () => {
     return (
@@ -106,6 +110,11 @@ const MiningRightsSection = styled.section`
     border-radius: 32px;
     background: var(--Typography-Primary-white, #fff);
     margin: 0 14px;
+    @media screen and (max-width: ${smscreenBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 46px;
+        }
+    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         ${SectionDescription} {
             width: 100%;

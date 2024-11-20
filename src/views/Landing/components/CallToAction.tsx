@@ -6,7 +6,11 @@ import {
 } from "../../../assets/BG/BG";
 import { ArrowTransformIcon } from "../../../assets/icons";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
-import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
+import {
+    mobileBreakpoint,
+    smallmobileBreakpoint,
+    smscreenBreakpoint,
+} from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 const CallToAction: React.FC = () => {
@@ -143,6 +147,11 @@ const CTASection = styled.section`
         transform: scalex(-1);
         svg {
             width: 100%;
+        }
+    }
+    @media screen and (max-width: ${smscreenBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 46px;
         }
     }
     @media screen and (max-width: ${mobileBreakpoint}px) {

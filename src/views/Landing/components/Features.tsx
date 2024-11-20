@@ -8,7 +8,11 @@ import {
     GoldXFeaturesTopBG,
 } from "../../../assets/BG/BG";
 import { FeatureRowIcon } from "../../../assets/icons";
-import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
+import {
+    mobileBreakpoint,
+    smallmobileBreakpoint,
+    smscreenBreakpoint,
+} from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 const Features: React.FC = () => {
@@ -220,7 +224,11 @@ const FeatureWrapper = styled.div`
 `;
 const FeaturesSection = styled.section`
     position: relative;
-
+    @media screen and (max-width: ${smscreenBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 46px;
+        }
+    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 40px 20px;
         ${SectionDescription} {

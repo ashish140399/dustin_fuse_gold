@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { mobileBreakpoint } from "../../../const";
+import {
+    mobileBreakpoint,
+    smallmobileBreakpoint,
+    smscreenBreakpoint,
+} from "../../../const";
 
 const Testimonials: React.FC = () => {
     return (
@@ -106,7 +110,14 @@ const TestimonialsSectionWrapper = styled.div`
         rgba(106, 95, 62, 0.1) 101.51%
     );
     margin: 0 14px;
+    @media screen and (max-width: ${smscreenBreakpoint}px) {
+        ${SectionTitle} {
+            font-size: 46px;
+        }
+    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
+        margin-bottom: 50px;
+        margin-top: 50px;
         ${SectionHeader} {
             margin-bottom: 0;
             padding-top: 50px;
@@ -131,6 +142,19 @@ const TestimonialsSectionWrapper = styled.div`
                 min-height: 60vh;
                 max-width: unset;
             }
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        // padding: 40px 10px;
+        padding-bottom: 20px;
+        ${SectionTitle} {
+            font-size: 32px;
+            line-height: 40px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+            line-height: 24px;
+            margin-top: 0px;
         }
     }
 `;
