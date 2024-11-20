@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
 import { ArrowTransformIcon } from "../../../assets/icons";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
 
 const ProofOfReserve: React.FC = () => {
     return (
-        <MiningRightsSection>
+        <MiningRightsSection className="paddingsclayoutx paddingsclayouty">
             <ContentWrapper>
                 <TextContent>
                     <SectionTitle>
@@ -119,7 +119,7 @@ const MiningRightsSection = styled.section`
         }
         ${ContentWrapper} {
             flex-direction: column-reverse;
-            padding: 50px 30px;
+            // padding: 50px 30px;
             ${ImageWrapper} {
                 width: 100%;
                 img {
@@ -133,6 +133,12 @@ const MiningRightsSection = styled.section`
                 flex: 1;
                 max-width: unset;
             }
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        margin-top: 60px;
+        ${ContentWrapper} {
+            gap: 40px;
         }
     }
 `;

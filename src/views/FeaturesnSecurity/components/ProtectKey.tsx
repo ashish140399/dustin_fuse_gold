@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
 import {
     GoldXFeaturesBottomBG,
+    GoldXFeaturesMBBottomBG,
+    GoldXFeaturesMBTopBG,
     GoldXFeaturesTopBG,
     ProtectKeyCardBG,
 } from "../../../assets/BG/BG";
@@ -9,7 +11,7 @@ import {
     ProtectKeyCardBottomIcon,
     ProductCardIcon,
 } from "../../../assets/icons";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 interface ProductProps {
@@ -53,7 +55,11 @@ const ProtectKey: React.FC = () => {
             </SectionHeader>
             <ProductsGridWrapper>
                 <div className="topimgbg">
-                    <GoldXFeaturesTopBG />
+                    {windowDimensions?.width > mobileBreakpoint ? (
+                        <GoldXFeaturesTopBG />
+                    ) : (
+                        <GoldXFeaturesMBTopBG />
+                    )}
                 </div>
                 <ProductsGridScroll className="horizontalScroll paddingsclayoutx">
                     <ProductsGrid>
@@ -160,7 +166,11 @@ const ProtectKey: React.FC = () => {
                     </ProductsGrid>
                 </ProductsGridScroll>
                 <div className="bottomimgbg">
-                    <GoldXFeaturesBottomBG />
+                    {windowDimensions?.width > mobileBreakpoint ? (
+                        <GoldXFeaturesBottomBG />
+                    ) : (
+                        <GoldXFeaturesMBBottomBG />
+                    )}
                 </div>
             </ProductsGridWrapper>
         </ProductsSection>
@@ -273,17 +283,19 @@ const CardWrapper = styled.div<CardWrapperProps>`
     width: 25vw;
     max-width: 450px;
     min-width: 450px;
+    min-height: 533px;
     // height: 100%;
     box-sizing: border-box;
     position: relative;
     margin-right: 30px;
     .cardbg {
-        position: relative;
-        top: 0;
+        position: absolute;
+        bottom: 0;
         left: 0;
-        height: 100%;
+        /* height: 100%; */
         width: 100%;
         z-index: 0;
+        object-fit: contain;
         svg {
             height: 100%;
             width: 100%;
@@ -319,7 +331,7 @@ const CardIcon = styled.img`
 
 const CardContent = styled.div`
     color: var(--text-primary, #fff);
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     height: 100%;
@@ -366,6 +378,36 @@ const ProductsSection = styled.section`
         }
         ${ProductsGridScroll} {
             padding-top: 30px;
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        padding: 30px 10px 0;
+        //   ${SectionHeader} {
+        //     margin-bottom: 0;
+        //     padding-top: 50px;
+        //     padding-bottom: 50px;
+        // }
+        ${SectionTitle} {
+            font-size: 32px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+        }
+
+        ${CardWrapper} {
+            // min-height: 270px;
+            // width: 25vw;
+            // max-width: 270px;
+            // min-width: 270px;
+            ${CardContent} {
+                padding: 26px;
+                ${CardTitle} {
+                    font-size: 20px;
+                }
+                ${CardDescription} {
+                    font-size: 14px;
+                }
+            }
         }
     }
 `;

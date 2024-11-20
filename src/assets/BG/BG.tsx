@@ -397,10 +397,11 @@ export const ProductCardBG: React.FC = () => (
 export const ProtectKeyCardBG: React.FC = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="424"
-        height="498"
+        width="100%"
+        height="100%"
         viewBox="0 0 424 498"
         fill="none"
+        // preserveAspectRatio="xMaxYMin"
     >
         <g filter="url(#filter0_b_464_22928)">
             <path

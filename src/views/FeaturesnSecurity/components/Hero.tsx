@@ -12,7 +12,7 @@ import {
     InvestButtonWrapper,
     StyledHero,
 } from "../../styles/commonHero";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 
 const Hero: React.FC = () => {
@@ -99,9 +99,12 @@ const StatsWrapper = styled.aside`
     text-transform: uppercase;
     justify-content: center;
     padding: 32px 40px;
-    @media screen and (max-width: ${mobileBreakpoint}px) {
-        margin-top: 40px;
-        padding: 0 20px;
+
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        width: calc(100% - 40px);
+        right: 20px;
+        bottom: -20px;
+        box-sizing: border-box;
     }
 `;
 
@@ -165,6 +168,9 @@ const Title = styled.h1`
         font-size: 40px;
         line-height: 44px;
     }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        font-size: 32px;
+    }
 `;
 
 const Description = styled.p`
@@ -174,6 +180,9 @@ const Description = styled.p`
     max-width: 700px;
     @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        font-size: 16px;
     }
 `;
 
@@ -223,6 +232,12 @@ const ButtonWrapper = styled(InvestButtonWrapper)`
     .btnwidth100 {
         &:first-child {
             margin-right: 20px;
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        flex-direction: column;
+        .btnwidth100 {
+            margin-top: 14px;
         }
     }
 `;

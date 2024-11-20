@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { WhyGoldXBG } from "../../../assets/BG/BG";
 import { WhyGoldXBottomIcon } from "../../../assets/icons";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
 
 interface BenefitCardProps {
     title: string;
@@ -133,6 +133,9 @@ const SectionHeader = styled.div`
     @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        padding: 0 20px;
+    }
 `;
 
 const SectionTitle = styled.h2`
@@ -180,20 +183,24 @@ const CardWrapperOuter = styled.div`
 `;
 
 const CardWrapper = styled.div<CardWrapperProps>`
-    // background-color: var(--brand-dark, #111);
-    // border-radius: 32px;
+    background: linear-gradient(to top, transparent 55%, #121212 25%);
     overflow: hidden;
-
+    border-radius: 32px;
+    min-height: 380px;
     // height: 100%;
     box-sizing: border-box;
     position: relative;
+    @media (min-width: ${mobileBreakpoint}px) and (max-width: 1000px) {
+        background: linear-gradient(to top, transparent 40%, #121212 25%);
+    }
     .cardbg {
-        position: relative;
-        top: 0;
+        position: absolute;
+        bottom: 0;
         left: 0;
-        height: 100%;
+        /* height: 100%; */
         width: 100%;
         z-index: 0;
+        object-fit: contain;
         svg {
             height: 100%;
             width: 100%;
@@ -233,6 +240,10 @@ const CardTitle = styled.h3`
     font: 600 30px/40px Conthrax, sans-serif;
     margin: 0;
     margin-bottom: 24px;
+    @media screen and (max-width: 1300px) {
+        font-size: 24px;
+        margin-bottom: 18px;
+    }
 `;
 
 const CardDescription = styled.p`
@@ -262,6 +273,30 @@ const WhyGoldXSection = styled.section`
             margin-bottom: 10px;
             text-align: left;
             width: 100%;
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        padding: 60px 10px 0;
+        ${SectionTitle} {
+            font-size: 32px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+        }
+        ${CardWrapperOuter} {
+            margin-bottom: 20px !important;
+        }
+        ${CardWrapper} {
+            min-height: 270px;
+            ${CardContent} {
+                padding: 26px;
+                ${CardTitle} {
+                    font-size: 20px;
+                }
+                ${CardDescription} {
+                    font-size: 14px;
+                }
+            }
         }
     }
 `;

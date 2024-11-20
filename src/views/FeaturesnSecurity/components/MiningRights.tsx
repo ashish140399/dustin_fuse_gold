@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ActionButton from "../../../components/Buttons/ActionButton/ActionButton";
 import { ArrowTransformIcon } from "../../../assets/icons";
-import { mobileBreakpoint } from "../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
 
 const MiningRights: React.FC = () => {
     return (
@@ -53,6 +53,9 @@ const TextContent = styled.div`
     flex: 1;
     max-width: 600px;
     .fullwidth {
+    }
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+        padding: 0 20px;
     }
 `;
 
@@ -107,6 +110,15 @@ const MiningRightsSection = styled.section`
             ${TextContent} {
                 max-width: unset;
             }
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        padding: 60px 10px 60px;
+        ${SectionTitle} {
+            font-size: 32px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
         }
     }
 `;
