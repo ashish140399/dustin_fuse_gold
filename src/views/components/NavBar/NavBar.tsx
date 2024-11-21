@@ -15,6 +15,8 @@ import Accordion from "@mui/material/Accordion";
 import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 interface Props {
     boxWidth: number; // Optional prop, defaults to '70px' if not provided
 }
@@ -137,7 +139,16 @@ const NavBar: React.FC = () => {
     }, [opennav]);
 
     return (
-        <NavWrapper className={`${opennav ? "hamOpened" : ""}`}>
+        <FramerNavWrapper
+            className={`${opennav ? "hamOpened" : ""}`}
+            viewport={{ once: false, amount: 0.3 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+                delay: 0.4,
+                duration: 0.5,
+            }}
+        >
             <HeaderWrapper ref={heroWrapperRef}>
                 {opennav && (
                     <MobileWrapper>
@@ -205,7 +216,7 @@ const NavBar: React.FC = () => {
                     </div>
                 </MobileWrapper>
             )}
-        </NavWrapper>
+        </FramerNavWrapper>
     );
 };
 
@@ -582,4 +593,5 @@ const NavWrapper = styled.div`
         }
     }
 `;
+const FramerNavWrapper = motion(NavWrapper);
 export default NavBar;
