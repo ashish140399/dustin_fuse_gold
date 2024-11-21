@@ -8,8 +8,8 @@ import {
 
 const Testimonials: React.FC = () => {
     return (
-        <TestimonialsSectionWrapper>
-            <TestimonialsSection>
+        <TestimonialsSectionWrapper className="marginborderboxx">
+            <TestimonialsSection className=" paddingscbox">
                 <SectionHeader className="paddingsclayoutx">
                     <SectionTitle>
                         <div>
@@ -37,7 +37,8 @@ const TestimonialsSection = styled.section`
     max-height: 700px;
     min-height: 400px;
     padding-right: 30px;
-    padding-left: 100px;
+    padding-top: 0;
+    padding-bottom: 0;
     @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 0px;
     }
@@ -109,7 +110,7 @@ const TestimonialsSectionWrapper = styled.div`
         rgba(231, 214, 162, 0.1) -6.75%,
         rgba(106, 95, 62, 0.1) 101.51%
     );
-    margin: 0 14px;
+    // margin: 0 14px;
     @media screen and (max-width: ${smscreenBreakpoint}px) {
         ${SectionTitle} {
             font-size: 46px;

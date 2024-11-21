@@ -24,7 +24,7 @@ const CallToAction: React.FC = () => {
                     <GoldXFeaturesMBTopBG />
                 )}
             </div>
-            <CTAContent>
+            <CTAContent className="paddingborderboxx">
                 <LeftColumn>
                     <SectionTitle>
                         Buy Your Mining <GoldSpan>Rights.</GoldSpan>
@@ -82,7 +82,8 @@ const CTAContent = styled.div`
     justify-content: space-between;
     // gap: 20px;
     background: #171615;
-    padding: 0 20px;
+
+    padding-top: 10px;
     @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
@@ -91,7 +92,7 @@ const CTAContent = styled.div`
 const Column = styled.div`
     flex: 1;
     padding: 80px 64px;
-    border-radius: 32px;
+    border-radius: 40px;
     @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 40px 20px;
     }

@@ -376,7 +376,7 @@ const NavItem = styled.li<{ active?: boolean }>`
     // }
 `;
 const Nav = styled.nav<Props>`
-    border-radius: 32px;
+    border-radius: 40px;
     background: var(--background-surface-2, #2e2d2a);
     backdrop-filter: blur(32px);
     align-self: start;
@@ -390,6 +390,7 @@ const Nav = styled.nav<Props>`
     // width: 41vw;
     width: ${(props) => `${props.boxWidth}px` || "70px"};
     font: 400 16px Telegraf, sans-serif;
+    box-sizing: border-box;
     ${NavItem} {
         padding: ${(props) => `16px ${props?.boxWidth / 20}px`};
     }

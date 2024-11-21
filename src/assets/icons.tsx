@@ -281,99 +281,105 @@ export const GetStartedIcon: React.ElementType = () => (
         </defs>
     </svg>
 );
-export const FeatureRowIcon: React.ElementType = () => (
-    <svg
-        width="80"
-        height="80"
-        viewBox="0 0 80 80"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <path
-            d="M67.2442 39.9844L40.0078 12.748L12.7714 39.9844L40.0078 67.2208L67.2442 39.9844Z"
-            stroke="url(#paint0_radial_5115_15590)"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        />
-        <path
-            d="M70.2806 48.6517L31.3398 9.71094L9.70258 31.3482L48.6433 70.2889L70.2806 48.6517Z"
-            stroke="url(#paint1_radial_5115_15590)"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        />
-        <path
-            d="M31.3542 70.2903L70.2949 31.3496L48.6577 9.71234L9.71692 48.6531L31.3542 70.2903Z"
-            stroke="url(#paint2_radial_5115_15590)"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        />
-        <path
-            d="M34.2438 46V45.408L38.5798 40.24L34.2438 35.072V34.48H36.5318L39.9878 38.576L43.4118 34.48H45.7158V35.072L41.3638 40.24L45.7158 45.392V46H43.4118L39.9718 41.92L36.5318 46H34.2438Z"
-            fill="url(#paint3_radial_5115_15590)"
-        />
-        <defs>
-            <radialGradient
-                id="paint0_radial_5115_15590"
-                cx="0"
-                cy="0"
-                r="1"
-                gradientUnits="userSpaceOnUse"
-                gradientTransform="translate(37.6587 22.3148) rotate(87.3859) scale(55.799 140.825)"
-            >
-                <stop stop-color="#F4E0A3" />
-                <stop offset="0.373682" stop-color="#DCBC65" />
-                <stop offset="0.638906" stop-color="#CA9F43" />
-                <stop offset="0.79386" stop-color="#FEF0A0" />
-                <stop offset="1" stop-color="#8E5F1E" />
-            </radialGradient>
-            <radialGradient
-                id="paint1_radial_5115_15590"
-                cx="0"
-                cy="0"
-                r="1"
-                gradientUnits="userSpaceOnUse"
-                gradientTransform="translate(31.7663 19.6037) rotate(71.8907) scale(66.0695 135.086)"
-            >
-                <stop stop-color="#F4E0A3" />
-                <stop offset="0.373682" stop-color="#DCBC65" />
-                <stop offset="0.638906" stop-color="#CA9F43" />
-                <stop offset="0.79386" stop-color="#FEF0A0" />
-                <stop offset="1" stop-color="#8E5F1E" />
-            </radialGradient>
-            <radialGradient
-                id="paint2_radial_5115_15590"
-                cx="0"
-                cy="0"
-                r="1"
-                gradientUnits="userSpaceOnUse"
-                gradientTransform="translate(60.4021 31.7761) rotate(161.891) scale(66.0695 135.086)"
-            >
-                <stop stop-color="#F4E0A3" />
-                <stop offset="0.373682" stop-color="#DCBC65" />
-                <stop offset="0.638906" stop-color="#CA9F43" />
-                <stop offset="0.79386" stop-color="#FEF0A0" />
-                <stop offset="1" stop-color="#8E5F1E" />
-            </radialGradient>
-            <radialGradient
-                id="paint3_radial_5115_15590"
-                cx="0"
-                cy="0"
-                r="1"
-                gradientUnits="userSpaceOnUse"
-                gradientTransform="translate(15.01 36.625) rotate(9.1495) scale(73.6977 58.6425)"
-            >
-                <stop stop-color="#F4E0A3" />
-                <stop offset="0.373682" stop-color="#DCBC65" />
-                <stop offset="0.638906" stop-color="#CA9F43" />
-                <stop offset="0.79386" stop-color="#FEF0A0" />
-                <stop offset="1" stop-color="#8E5F1E" />
-            </radialGradient>
-        </defs>
-    </svg>
-);
+export const FeatureRowIcon: React.FC<{ style?: React.CSSProperties }> = (
+    props
+) => {
+    const { style } = props;
+    return (
+        <svg
+            style={style}
+            width="80"
+            height="80"
+            viewBox="0 0 80 80"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M67.2442 39.9844L40.0078 12.748L12.7714 39.9844L40.0078 67.2208L67.2442 39.9844Z"
+                stroke="url(#paint0_radial_5115_15590)"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M70.2806 48.6517L31.3398 9.71094L9.70258 31.3482L48.6433 70.2889L70.2806 48.6517Z"
+                stroke="url(#paint1_radial_5115_15590)"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M31.3542 70.2903L70.2949 31.3496L48.6577 9.71234L9.71692 48.6531L31.3542 70.2903Z"
+                stroke="url(#paint2_radial_5115_15590)"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M34.2438 46V45.408L38.5798 40.24L34.2438 35.072V34.48H36.5318L39.9878 38.576L43.4118 34.48H45.7158V35.072L41.3638 40.24L45.7158 45.392V46H43.4118L39.9718 41.92L36.5318 46H34.2438Z"
+                fill="url(#paint3_radial_5115_15590)"
+            />
+            <defs>
+                <radialGradient
+                    id="paint0_radial_5115_15590"
+                    cx="0"
+                    cy="0"
+                    r="1"
+                    gradientUnits="userSpaceOnUse"
+                    gradientTransform="translate(37.6587 22.3148) rotate(87.3859) scale(55.799 140.825)"
+                >
+                    <stop stop-color="#F4E0A3" />
+                    <stop offset="0.373682" stop-color="#DCBC65" />
+                    <stop offset="0.638906" stop-color="#CA9F43" />
+                    <stop offset="0.79386" stop-color="#FEF0A0" />
+                    <stop offset="1" stop-color="#8E5F1E" />
+                </radialGradient>
+                <radialGradient
+                    id="paint1_radial_5115_15590"
+                    cx="0"
+                    cy="0"
+                    r="1"
+                    gradientUnits="userSpaceOnUse"
+                    gradientTransform="translate(31.7663 19.6037) rotate(71.8907) scale(66.0695 135.086)"
+                >
+                    <stop stop-color="#F4E0A3" />
+                    <stop offset="0.373682" stop-color="#DCBC65" />
+                    <stop offset="0.638906" stop-color="#CA9F43" />
+                    <stop offset="0.79386" stop-color="#FEF0A0" />
+                    <stop offset="1" stop-color="#8E5F1E" />
+                </radialGradient>
+                <radialGradient
+                    id="paint2_radial_5115_15590"
+                    cx="0"
+                    cy="0"
+                    r="1"
+                    gradientUnits="userSpaceOnUse"
+                    gradientTransform="translate(60.4021 31.7761) rotate(161.891) scale(66.0695 135.086)"
+                >
+                    <stop stop-color="#F4E0A3" />
+                    <stop offset="0.373682" stop-color="#DCBC65" />
+                    <stop offset="0.638906" stop-color="#CA9F43" />
+                    <stop offset="0.79386" stop-color="#FEF0A0" />
+                    <stop offset="1" stop-color="#8E5F1E" />
+                </radialGradient>
+                <radialGradient
+                    id="paint3_radial_5115_15590"
+                    cx="0"
+                    cy="0"
+                    r="1"
+                    gradientUnits="userSpaceOnUse"
+                    gradientTransform="translate(15.01 36.625) rotate(9.1495) scale(73.6977 58.6425)"
+                >
+                    <stop stop-color="#F4E0A3" />
+                    <stop offset="0.373682" stop-color="#DCBC65" />
+                    <stop offset="0.638906" stop-color="#CA9F43" />
+                    <stop offset="0.79386" stop-color="#FEF0A0" />
+                    <stop offset="1" stop-color="#8E5F1E" />
+                </radialGradient>
+            </defs>
+        </svg>
+    );
+};
 
 export const ProductCardIcon: React.ElementType = () => (
     <svg

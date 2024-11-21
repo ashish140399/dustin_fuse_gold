@@ -53,15 +53,6 @@ const WhyGoldX: React.FC = () => {
         },
     ];
 
-    // Framer animations
-    // const controls = useAnimation(); // Controls animation
-    // const [ref, inView] = useInView({ threshold: 0.3 }); // Trigger animation when 30% of the element is visible
-    // React.useEffect(() => {
-    //     if (inView) {
-    //         controls.start("visible");
-    //     }
-    // }, [controls, inView]);
-
     const textWavyVariants = {
         hidden: { opacity: 0, y: -40 }, // Start off-screen below
         visible: ({

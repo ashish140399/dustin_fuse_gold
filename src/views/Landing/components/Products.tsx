@@ -45,7 +45,7 @@ const Products: React.FC = () => {
     }, [windowDimensions]); // Dependency on windowDimensions width and height
 
     return (
-        <ProductsSection>
+        <ProductsSection className="marginborderboxx">
             <SectionHeader className="paddingsclayoutx">
                 <SectionTitle>
                     Browse our <GoldSpan>Products.</GoldSpan>
@@ -350,14 +350,14 @@ const CardDescription = styled.p`
     margin: 0;
 `;
 const ProductsSection = styled.section`
-    padding: 160px 16px 80px;
+    padding: 160px 0px 80px;
     @media screen and (max-width: ${smscreenBreakpoint}px) {
         ${SectionTitle} {
             font-size: 46px;
         }
     }
     @media screen and (max-width: ${mobileBreakpoint}px) {
-        padding: 80px 16px 80px;
+        padding: 80px 0px 80px;
         ${SectionHeader} {
             margin-bottom: 0;
             padding-top: 50px;
