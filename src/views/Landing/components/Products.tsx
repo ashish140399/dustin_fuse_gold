@@ -1,6 +1,20 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, {
+    useState,
+    useEffect,
+    useRef,
+    useContext,
+    useLayoutEffect,
+    useCallback,
+} from "react";
 import { useWindowSize } from "@react-hook/window-size";
 import styled from "styled-components";
+import { motion, useInView } from "framer-motion";
+import {
+    Link as ScrollLink,
+    animateScroll as scroll,
+    scroller,
+} from "react-scroll";
+// import ScrollMagicPluginGsap from "scrollmagic-plugin-gsap";
 import {
     GoldXFeaturesBottomBG,
     GoldXFeaturesMBBottomBG,
@@ -15,7 +29,7 @@ import {
     smscreenBreakpoint,
 } from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
-
+import throttle from "lodash.throttle";
 interface ProductProps {
     name: string;
     description: string;
@@ -43,10 +57,109 @@ const Products: React.FC = () => {
 
         updateWidth(); // Run once on mount and then whenever window dimensions change
     }, [windowDimensions]); // Dependency on windowDimensions width and height
+    const productsGridRef = useRef<HTMLDivElement>(null);
+    const productsTopRef = useRef<HTMLDivElement>(null);
+    const productsBottomRef = useRef<HTMLDivElement>(null);
+    const sectionRef = useRef<HTMLDivElement>(null);
 
+    const isTopInView = useInView(productsTopRef, {
+        margin: "0px 0px -100% 0px",
+    });
+    const isBottomInView = useInView(productsBottomRef, {
+        margin: "0px 0px -100% 0px",
+    });
+    const [isTopVisible, setIsTopVisible] = useState(false);
+    const [isBottomVisible, setIsBottomVisible] = useState(false);
+
+    // Check if any part of the element is in view
+    const isPartiallyInView = useInView(productsGridRef, {
+        margin: "0px", // No viewport adjustment
+        amount: 0, // Trigger when any part of the element is visible
+    });
+    useEffect(() => {
+        const checkVisibility = throttle(() => {
+            if (!productsGridRef.current) return;
+
+            const rect = productsGridRef.current.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Check if the top of the element is visible in the viewport
+            setIsTopVisible(rect.top >= 0 && rect.top <= viewportHeight);
+
+            // Check if the bottom of the element is visible in the viewport
+            setIsBottomVisible(
+                rect.bottom >= 0 && rect.bottom <= viewportHeight
+            );
+        }, 10);
+
+        // Trigger on scroll and resize
+        window.addEventListener("scroll", checkVisibility);
+        window.addEventListener("resize", checkVisibility);
+        checkVisibility();
+        return () => {
+            window.removeEventListener("scroll", checkVisibility);
+            window.removeEventListener("resize", checkVisibility);
+        };
+    }, [isPartiallyInView]);
+    const isInView = isTopVisible && isBottomVisible;
+    console.log("isInView", isInView);
+    useEffect(() => {
+        const container = productsGridRef.current;
+
+        const handleScroll = (event: WheelEvent) => {
+            if (!container) return;
+            console.log("i am in handle scroll");
+            const isEndOfHorizontalScroll =
+                container.scrollLeft + container.clientWidth >=
+                container.scrollWidth;
+            const isStartOfHorizontalScroll = container.scrollLeft <= 0;
+
+            if (isInView) {
+                if (isEndOfHorizontalScroll && event.deltaY > 0) {
+                    document.body.removeEventListener("wheel", handleScroll);
+                    document.body.classList.remove("no-scroll");
+                } else if (isStartOfHorizontalScroll && event.deltaY < 0) {
+                    document.body.removeEventListener("wheel", handleScroll);
+                    document.body.classList.remove("no-scroll");
+                } else {
+                    event.preventDefault();
+                    container.scrollLeft += event.deltaY; // Use mouse wheel delta for horizontal scroll
+                }
+            } else {
+                document.body.removeEventListener("wheel", handleScroll);
+            }
+        };
+
+        if (container) {
+            document.body.addEventListener("wheel", handleScroll, {
+                passive: false,
+            });
+        }
+
+        return () => {
+            if (container) {
+                document.body.removeEventListener("wheel", handleScroll);
+            }
+        };
+    }, [isInView]);
+    useEffect(() => {
+        if (isInView) {
+            document.body.classList.add("no-scroll");
+            if (sectionRef.current) {
+                const topPosition = sectionRef.current.offsetTop; // Get the element's top position
+                const offset = 50; // Define your offset
+
+                // Scroll to the position minus the offset
+                window.scrollTo({
+                    top: topPosition - offset,
+                    behavior: "smooth", // Smooth scrolling
+                });
+            }
+        }
+    }, [isInView]);
     return (
         <ProductsSection className="marginborderboxx">
-            <SectionHeader className="paddingsclayoutx">
+            <SectionHeader className="paddingsclayoutx" ref={sectionRef}>
                 <SectionTitle>
                     Browse our <GoldSpan>Products.</GoldSpan>
                 </SectionTitle>
@@ -54,16 +167,21 @@ const Products: React.FC = () => {
                     Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod
                     tempor incididunt ut
                 </SectionDescription>
-            </SectionHeader>
-            <ProductsGridWrapper>
-                <div className="topimgbg">
+            </SectionHeader>{" "}
+            {/* <button onClick={scrollRight}>button</button> */}
+            <ProductsGridWrapper className="horizontalScroll paddingsclayoutx">
+                <div className="topimgbg" ref={productsTopRef}>
                     {windowDimensions?.width > mobileBreakpoint ? (
                         <GoldXFeaturesTopBG />
                     ) : (
                         <GoldXFeaturesMBTopBG />
                     )}
                 </div>
-                <ProductsGridScroll className="horizontalScroll paddingsclayoutx">
+                <ProductsGridScroll
+                    className=""
+                    id="horizontalScrollContainer"
+                    ref={productsGridRef}
+                >
                     <ProductsGrid>
                         <CardWrapper
                             ref={cardWrapperRef}
@@ -203,7 +321,7 @@ const Products: React.FC = () => {
                         </CardWrapper>
                     </ProductsGrid>
                 </ProductsGridScroll>
-                <div className="bottomimgbg">
+                <div className="bottomimgbg" ref={productsBottomRef}>
                     {windowDimensions?.width > mobileBreakpoint ? (
                         <GoldXFeaturesBottomBG />
                     ) : (

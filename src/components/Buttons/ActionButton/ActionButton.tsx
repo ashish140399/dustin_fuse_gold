@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
-
+import { motion, useAnimation } from "framer-motion";
 interface ActionButtonProps {
     label?: string;
     icon?: string;
@@ -88,6 +88,8 @@ const IconWrapper = styled.div<{ variant: string }>`
     width: 56px;
     height: 56px;
     padding: 4px;
+    border-radius: 50%;
+    overflow: hidden;
 `;
 
 const IconInner = styled.div<{ variant: string }>`
@@ -171,5 +173,32 @@ const ButtonWrapper = styled.div<{ variant: string }>`
             line-height: 20px;
         }
     }
+
+    @keyframes slideAndReset {
+        0% {
+            transform: translate(0, 0);
+            opacity: 1; /* Fully visible */
+        }
+        50% {
+            transform: translate(100px, -100px);
+            opacity: 0; /* Fade out while moving right */
+        }
+        51% {
+            transform: translate(-100px, 100px);
+            opacity: 0; /* Invisible while resetting to the left */
+        }
+        100% {
+            transform: translate(0, 0);
+            opacity: 1; /* Fade back in */
+        }
+    }
+    &:hover {
+        ${IconWrapper} {
+            svg {
+                animation: slideAndReset 0.3s ease-in-out forwards;
+            }
+        }
+    }
 `;
+
 export default ActionButton;

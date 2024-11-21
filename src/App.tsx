@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -12,6 +12,8 @@ import { useWindowSize } from "@react-hook/window-size";
 import Account from "./views/Account";
 import Minting from "./views/Minting";
 import Transfer from "./views/Transfer";
+import { useAnimation } from "framer-motion";
+import styled from "styled-components";
 
 function App() {
     const [width, height] = useWindowSize();
@@ -22,11 +24,43 @@ function App() {
             height: height,
         });
     }, [width, height]);
+    const controls = useAnimation();
+    const progressRef = useRef<HTMLDivElement>(null);
 
+    const handleScroll = () => {
+        const scrollPosition = window.scrollY;
+        const maxScroll =
+            document.documentElement.scrollHeight - window.innerHeight;
+
+        // Animate ProductsGridScroll translation based on scroll position
+        controls.start({
+            transform: `translateX(-${
+                (scrollPosition / maxScroll) *
+                ((100 * (windowDimensions?.width ?? 0)) / 5)
+            }%)`,
+            transition: { type: "spring", stiffness: 100 },
+        });
+
+        // Progress bar animation
+        if (progressRef.current) {
+            const progress = scrollPosition / maxScroll;
+            progressRef.current.style.transform = `scaleX(${progress})`;
+        }
+    };
+
+    useEffect(() => {
+        // Listen for scroll events
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [windowDimensions]);
     return (
         <SiteVariablesContext.Provider
             value={{ windowDimensions, setWindowDimensions }}
         >
+            {" "}
+            <ProgressBar ref={progressRef} />
             <Router>
                 <Routes>
                     <Route path="/" element={<GoldXLandingPage />} />
@@ -67,5 +101,16 @@ function App() {
         </SiteVariablesContext.Provider>
     );
 }
-
+const ProgressBar = styled.div`
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background-color: #e2b666;
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform 0.2s ease-out;
+    z-index: 1000;
+    width: 100%;
+`;
 export default App;

@@ -72,6 +72,9 @@ body {
   width: 100vw;
   overflow-x: hidden;
 }
+body::-webkit-scrollbar {
+  display: none;
+}
 body.no-scroll {
   overflow: hidden;
 }
