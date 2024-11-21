@@ -169,7 +169,7 @@ const Products: React.FC = () => {
                 </SectionDescription>
             </SectionHeader>{" "}
             {/* <button onClick={scrollRight}>button</button> */}
-            <ProductsGridWrapper className="horizontalScroll paddingsclayoutx">
+            <ProductsGridWrapper>
                 <div className="topimgbg" ref={productsTopRef}>
                     {windowDimensions?.width > mobileBreakpoint ? (
                         <GoldXFeaturesTopBG />
@@ -178,9 +178,9 @@ const Products: React.FC = () => {
                     )}
                 </div>
                 <ProductsGridScroll
-                    className=""
                     id="horizontalScrollContainer"
                     ref={productsGridRef}
+                    className="horizontalScroll paddingsclayoutx"
                 >
                     <ProductsGrid>
                         <CardWrapper
