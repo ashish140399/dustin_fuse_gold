@@ -6,6 +6,41 @@ import {
     smscreenBreakpoint,
 } from "../../../const";
 import { motion, useInView } from "framer-motion";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+const TestiMonialSliderBox = ({ rtl }: any) => {
+    const settings = {
+        dots: false,
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        vertical: true,
+        verticalSwiping: true,
+        swipeToSlide: true,
+        autoplay: true,
+        autoplaySpeed: 0,
+        speed: 3400,
+        cssEase: "linear",
+        rtl: rtl,
+    };
+    return (
+        <TestiMonialSliderBoxWrapper>
+            <div className="slider-container">
+                <Slider {...settings}>
+                    {Array.from({ length: 12 }, (_, i) => (
+                        <div className="testicardOuter" key={i}>
+                            <img
+                                src="/images/common/tesimonialcard.png"
+                                alt="Card"
+                            />
+                        </div>
+                    ))}
+                </Slider>
+            </div>
+        </TestiMonialSliderBoxWrapper>
+    );
+};
 const Testimonials: React.FC = () => {
     const textWavyVariants = {
         hidden: { opacity: 0, y: -40 }, // Start off-screen below
@@ -102,13 +137,57 @@ const Testimonials: React.FC = () => {
                     </SectionDescription>
                 </SectionHeader>
                 <TestimonialsGrid>
-                    <img src="/images/common/testimonials.svg" alt="" />
+                    {/* <img src="/images/common/testimonials.svg" alt="" /> */}
+                    <TestiMonialSlider>
+                        <TestiMonialSliderBox rtl={false} />
+                        <TestiMonialSliderBox rtl={true} />
+                    </TestiMonialSlider>
                 </TestimonialsGrid>
             </TestimonialsSection>
         </TestimonialsSectionWrapper>
     );
 };
 
+const TestiMonialSlider = styled.div`
+    box-sizing: border-box;
+    width: 100%;
+`;
+const TestiMonialSliderBoxWrapper = styled.div`
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+    &:first-child {
+        padding-left: 0;
+    }
+    &:last-child {
+        padding-right: 0;
+    }
+    .slick-arrow {
+        display: none !important;
+    }
+    .slider-container,
+    .slick-slider,
+    .slick-list {
+        height: 100% !important;
+    }
+    .testicardOuter {
+        margin-bottom: 15px;
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        padding-left: 8px;
+        padding-right: 8px;
+        .testicardOuter {
+            margin-bottom: 10px;
+        }
+    }
+`;
 const TestimonialsSection = styled.section`
     display: flex;
     // background-color: var(--Brand-Dark, #111);
@@ -134,8 +213,7 @@ const SectionHeader = styled.div`
 
     @media screen and (min-width: ${mobileBreakpoint}px) {
         padding: 0;
-    }
-    @media screen and (max-width: ${mobileBreakpoint}px) {
+        max-width: unset;
         flex-direction: column;
     }
 `;
@@ -201,6 +279,7 @@ const TestimonialsSectionWrapper = styled.div`
             margin-bottom: 0;
             padding-top: 50px;
             padding-bottom: 50px;
+            max-width: unset;
         }
         ${SectionDescription} {
             width: 100%;

@@ -215,7 +215,7 @@ const FooterWrapper = styled.footer`
     margin: 0;
 
     @media screen and (max-width: ${smallmobileBreakpoint}px) {
-        padding-bottom: 10px;
+        padding-bottom: 30px;
     }
 `;
 
