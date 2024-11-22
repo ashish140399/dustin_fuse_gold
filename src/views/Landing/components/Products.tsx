@@ -27,6 +27,7 @@ import {
     mobileBreakpoint,
     smallmobileBreakpoint,
     smscreenBreakpoint,
+    useIsTouchscreen,
 } from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 import throttle from "lodash.throttle";
@@ -40,10 +41,46 @@ interface ProductProps {
 interface CardWrapperProps {
     bottomsvgWidth?: string; // Optional prop, defaults to '70px' if not provided
 }
+
+const cardInfo = [
+    {
+        title: "FUSE.gold",
+        desc: "GOLDX blockchain ensures rapid and economical transactions with an average block confirmation time of 5 seconds and",
+    },
+    {
+        title: "goldx explorer",
+        desc: "GOLDX blockchain ensures rapid and economical transactions with an average block confirmation time of 5 seconds and",
+    },
+    {
+        title: "goldx testnet",
+        desc: "GOLDX blockchain ensures rapid and economical transactions with an average block confirmation time of 5 seconds and",
+    },
+    {
+        title: "goldx explorer",
+        desc: "GOLDX blockchain ensures rapid and economical transactions with an average block confirmation time of 5 seconds and",
+    },
+    {
+        title: "goldx explorer",
+        desc: "GOLDX blockchain ensures rapid and economical transactions with an average block confirmation time of 5 seconds and",
+    },
+    {
+        title: "goldx explorer",
+        desc: "GOLDX blockchain ensures rapid and economical transactions with an average block confirmation time of 5 seconds and",
+    },
+    {
+        title: "goldx explorer",
+        desc: "GOLDX blockchain ensures rapid and economical transactions with an average block confirmation time of 5 seconds and",
+    },
+    {
+        title: "goldx explorer",
+        desc: "GOLDX blockchain ensures rapid and economical transactions with an average block confirmation time of 5 seconds and",
+    },
+];
 const Products: React.FC = () => {
     const cardWrapperRef = useRef(null);
     const [bottomIconWidth, setBottomIconWidth] = useState(0);
     const { windowDimensions } = useContext(SiteVariablesContext);
+    const isTouchscreen = useIsTouchscreen();
     useEffect(() => {
         // Function to update width based on window dimensions
         const updateWidth = () => {
@@ -61,13 +98,6 @@ const Products: React.FC = () => {
     const productsTopRef = useRef<HTMLDivElement>(null);
     const productsBottomRef = useRef<HTMLDivElement>(null);
     const sectionRef = useRef<HTMLDivElement>(null);
-
-    const isTopInView = useInView(productsTopRef, {
-        margin: "0px 0px -100% 0px",
-    });
-    const isBottomInView = useInView(productsBottomRef, {
-        margin: "0px 0px -100% 0px",
-    });
     const [isTopVisible, setIsTopVisible] = useState(false);
     const [isBottomVisible, setIsBottomVisible] = useState(false);
 
@@ -102,48 +132,57 @@ const Products: React.FC = () => {
         };
     }, [isPartiallyInView]);
     const isInView = isTopVisible && isBottomVisible;
-    console.log("isInView", isInView);
+
     useEffect(() => {
-        const container = productsGridRef.current;
+        if (!isTouchscreen) {
+            const container = productsGridRef.current;
 
-        const handleScroll = (event: WheelEvent) => {
-            if (!container) return;
-            console.log("i am in handle scroll");
-            const isEndOfHorizontalScroll =
-                container.scrollLeft + container.clientWidth >=
-                container.scrollWidth;
-            const isStartOfHorizontalScroll = container.scrollLeft <= 0;
+            const handleScroll = (event: WheelEvent) => {
+                if (!container) return;
+                console.log("i am in handle scroll");
+                const isEndOfHorizontalScroll =
+                    container.scrollLeft + container.clientWidth >=
+                    container.scrollWidth;
+                const isStartOfHorizontalScroll = container.scrollLeft <= 0;
 
-            if (isInView) {
-                if (isEndOfHorizontalScroll && event.deltaY > 0) {
-                    document.body.removeEventListener("wheel", handleScroll);
-                    document.body.classList.remove("no-scroll");
-                } else if (isStartOfHorizontalScroll && event.deltaY < 0) {
-                    document.body.removeEventListener("wheel", handleScroll);
-                    document.body.classList.remove("no-scroll");
+                if (isInView) {
+                    if (isEndOfHorizontalScroll && event.deltaY > 0) {
+                        document.body.removeEventListener(
+                            "wheel",
+                            handleScroll
+                        );
+                        document.body.classList.remove("no-scroll");
+                    } else if (isStartOfHorizontalScroll && event.deltaY < 0) {
+                        document.body.removeEventListener(
+                            "wheel",
+                            handleScroll
+                        );
+                        document.body.classList.remove("no-scroll");
+                    } else {
+                        event.preventDefault();
+                        container.scrollLeft += event.deltaY; // Use mouse wheel delta for horizontal scroll
+                    }
                 } else {
-                    event.preventDefault();
-                    container.scrollLeft += event.deltaY; // Use mouse wheel delta for horizontal scroll
+                    document.body.removeEventListener("wheel", handleScroll);
                 }
-            } else {
-                document.body.removeEventListener("wheel", handleScroll);
-            }
-        };
+            };
 
-        if (container) {
-            document.body.addEventListener("wheel", handleScroll, {
-                passive: false,
-            });
-        }
-
-        return () => {
             if (container) {
-                document.body.removeEventListener("wheel", handleScroll);
+                document.body.addEventListener("wheel", handleScroll, {
+                    passive: false,
+                });
             }
-        };
-    }, [isInView]);
+
+            return () => {
+                if (container) {
+                    document.body.removeEventListener("wheel", handleScroll);
+                }
+            };
+        }
+    }, [isInView, isTouchscreen]);
+
     useEffect(() => {
-        if (isInView) {
+        if (isInView && !isTouchscreen) {
             document.body.classList.add("no-scroll");
             if (sectionRef.current) {
                 const topPosition = sectionRef.current.offsetTop; // Get the element's top position
@@ -156,16 +195,95 @@ const Products: React.FC = () => {
                 });
             }
         }
-    }, [isInView]);
+    }, [isInView, isTouchscreen]);
+
+    const textWavyVariants = {
+        hidden: { opacity: 0, y: -40 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: delayOffset + index * 0.1,
+                duration: 0.3,
+            }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const lineVariants = {
+        hidden: { opacity: 0, y: -30 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: { delay: delayOffset + index * 0.5, duration: 0.3 }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const texts = {
+        titlewhite: "Browse our",
+        titlespan: "Products.",
+        descriptionLines: [
+            "Lorem ipsum dolor sit amet, consectetur,",
+            "incididunt ut labore et dolore magna",
+            "veniam, quis a nostrud.",
+        ],
+    };
     return (
         <ProductsSection className="marginborderboxx">
             <SectionHeader className="paddingsclayoutx" ref={sectionRef}>
                 <SectionTitle>
-                    Browse our <GoldSpan>Products.</GoldSpan>
+                    {[...texts.titlewhite].map((char, index) => (
+                        <motion.span
+                            key={index}
+                            custom={{ index: index, delayOffset: 0 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                            variants={textWavyVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                        >
+                            {char}
+                        </motion.span>
+                    ))}{" "}
+                    <GoldSpan>
+                        {" "}
+                        {[...texts.titlespan].map((char, index) => (
+                            <motion.span
+                                key={index}
+                                custom={{ index: index, delayOffset: 0.5 }}
+                                viewport={{ once: false, amount: 0.3 }}
+                                variants={textWavyVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                            >
+                                {char}
+                            </motion.span>
+                        ))}
+                    </GoldSpan>
                 </SectionTitle>
                 <SectionDescription>
-                    Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod
-                    tempor incididunt ut
+                    {[...texts.descriptionLines].map((line, index) => (
+                        <motion.div
+                            key={index}
+                            custom={{ index: index, delayOffset: 0.8 }}
+                            variants={lineVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            {line}
+                        </motion.div>
+                    ))}
                 </SectionDescription>
             </SectionHeader>{" "}
             {/* <button onClick={scrollRight}>button</button> */}
@@ -183,142 +301,42 @@ const Products: React.FC = () => {
                     className="horizontalScroll paddingsclayoutx"
                 >
                     <ProductsGrid>
-                        <CardWrapper
-                            ref={cardWrapperRef}
-                            bottomsvgWidth={`${bottomIconWidth}px`}
-                        >
-                            <CardContent>
-                                <CardTitle>fuse.gold</CardTitle>
-                                <CardDescription>
-                                    GOLDX blockchain ensures rapid and
-                                    economical transactions with an average
-                                    block confirmation time of 5 seconds and
-                                </CardDescription>
-                            </CardContent>
-                            <div className="cardlefticon">
-                                <ProductCardIcon />
-                            </div>
-                            <div className="cardbg">
-                                <ProductCardBG />
-                            </div>
-                            <div className="bottomicon">
-                                <ProductCardBottomIcon />
-                            </div>
-                        </CardWrapper>
-                        <CardWrapper bottomsvgWidth={`${bottomIconWidth}px`}>
-                            <CardContent>
-                                <CardTitle>goldx explorer</CardTitle>
-                                <CardDescription>
-                                    GOLDX blockchain ensures rapid and
-                                    economical transactions with an average
-                                    block confirmation time of 5 seconds and
-                                </CardDescription>
-                            </CardContent>
-                            <div className="cardlefticon">
-                                <ProductCardIcon />
-                            </div>
-                            <div className="cardbg">
-                                <ProductCardBG />
-                            </div>
-                            <div className="bottomicon">
-                                <ProductCardBottomIcon />
-                            </div>
-                        </CardWrapper>
-                        <CardWrapper bottomsvgWidth={`${bottomIconWidth}px`}>
-                            <CardContent>
-                                <CardTitle>goldx testnet</CardTitle>
-                                <CardDescription>
-                                    GOLDX blockchain ensures rapid and
-                                    economical transactions with an average
-                                    block confirmation time of 5 seconds and
-                                </CardDescription>
-                            </CardContent>
-                            <div className="cardlefticon">
-                                <ProductCardIcon />
-                            </div>
-                            <div className="cardbg">
-                                <ProductCardBG />
-                            </div>
-                            <div className="bottomicon">
-                                <ProductCardBottomIcon />
-                            </div>
-                        </CardWrapper>
-                        <CardWrapper bottomsvgWidth={`${bottomIconWidth}px`}>
-                            <CardContent>
-                                <CardTitle>goldx explorer</CardTitle>
-                                <CardDescription>
-                                    GOLDX blockchain ensures rapid and
-                                    economical transactions with an average
-                                    block confirmation time of 5 seconds and
-                                </CardDescription>
-                            </CardContent>
-                            <div className="cardlefticon">
-                                <ProductCardIcon />
-                            </div>
-                            <div className="cardbg">
-                                <ProductCardBG />
-                            </div>
-                            <div className="bottomicon">
-                                <ProductCardBottomIcon />
-                            </div>
-                        </CardWrapper>
-                        <CardWrapper bottomsvgWidth={`${bottomIconWidth}px`}>
-                            <CardContent>
-                                <CardTitle>goldx testnet</CardTitle>
-                                <CardDescription>
-                                    GOLDX blockchain ensures rapid and
-                                    economical transactions with an average
-                                    block confirmation time of 5 seconds and
-                                </CardDescription>
-                            </CardContent>
-                            <div className="cardlefticon">
-                                <ProductCardIcon />
-                            </div>
-                            <div className="cardbg">
-                                <ProductCardBG />
-                            </div>
-                            <div className="bottomicon">
-                                <ProductCardBottomIcon />
-                            </div>
-                        </CardWrapper>
-                        <CardWrapper bottomsvgWidth={`${bottomIconWidth}px`}>
-                            <CardContent>
-                                <CardTitle>goldx explorer</CardTitle>
-                                <CardDescription>
-                                    GOLDX blockchain ensures rapid and
-                                    economical transactions with an average
-                                    block confirmation time of 5 seconds and
-                                </CardDescription>
-                            </CardContent>
-                            <div className="cardlefticon">
-                                <ProductCardIcon />
-                            </div>
-                            <div className="cardbg">
-                                <ProductCardBG />
-                            </div>
-                            <div className="bottomicon">
-                                <ProductCardBottomIcon />
-                            </div>
-                        </CardWrapper>
-                        <CardWrapper bottomsvgWidth={`${bottomIconWidth}px`}>
-                            <CardContent>
-                                <CardTitle>goldx testnet</CardTitle>
-                                <CardDescription>
-                                    GOLDX blockchain ensures rapid and
-                                    economical transactions with an average
-                                    block confirmation time of 5 seconds and
-                                </CardDescription>
-                            </CardContent>
-                            <div className="cardlefticon">
-                                <ProductCardIcon />
-                            </div>
-                            <div className="cardbg">
-                                <ProductCardBG />
-                            </div>
-                            <div className="bottomicon">
-                                <ProductCardBottomIcon />
-                            </div>
-                        </CardWrapper>
+                        {cardInfo.map((item, index) => (
+                            <CardWrapper
+                                key={index}
+                                ref={index === 0 ? cardWrapperRef : null}
+                                bottomsvgWidth={`${bottomIconWidth}px`}
+                                as={motion.div}
+                                // viewport={{ once: true, amount: 0.2 }}
+                                initial={{ opacity: 0, x: "100%" }}
+                                animate={
+                                    isPartiallyInView
+                                        ? { opacity: 1, x: "0%" }
+                                        : {}
+                                }
+                                transition={{
+                                    delay: index * 0.3 + 0.3,
+                                    duration: 0.5,
+                                    ease: "easeInOut",
+                                }}
+                            >
+                                <CardContent>
+                                    <CardTitle>{item.title}</CardTitle>
+                                    <CardDescription>
+                                        {item.desc}
+                                    </CardDescription>
+                                </CardContent>
+                                <div className="cardlefticon">
+                                    <ProductCardIcon />
+                                </div>
+                                <div className="cardbg">
+                                    <ProductCardBG />
+                                </div>
+                                <div className="bottomicon">
+                                    <ProductCardBottomIcon />
+                                </div>
+                            </CardWrapper>
+                        ))}
                     </ProductsGrid>
                 </ProductsGridScroll>
                 <div className="bottomimgbg" ref={productsBottomRef}>

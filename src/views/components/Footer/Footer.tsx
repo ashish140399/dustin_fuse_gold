@@ -14,6 +14,7 @@ import {
     LinkedinIcon,
     TwitterIcon,
 } from "../../../assets/icons";
+import { motion } from "framer-motion";
 
 const menuItems = {
     products: {
@@ -48,7 +49,17 @@ const menuItems = {
 
 const MenuItemsDesktop: React.FC = () => {
     return (
-        <MenuSection>
+        <MenuSection
+            as={motion.div}
+            initial={{ opacity: 0, x: "100%" }}
+            viewport={{ once: false }}
+            whileInView={{ opacity: 1, x: "0" }}
+            transition={{
+                delay: 0.4,
+                duration: 0.3,
+                ease: "easeInOut",
+            }}
+        >
             {Object.values(menuItems).map((item, index) => {
                 return (
                     <MenuColumn key={index}>
@@ -125,7 +136,17 @@ const Footer: React.FC = () => {
     return (
         <FooterWrapper>
             <TopSection>
-                <LogoSection>
+                <LogoSection
+                    as={motion.div}
+                    initial={{ opacity: 0, x: "-100%" }}
+                    viewport={{ once: false }}
+                    whileInView={{ opacity: 1, x: "0" }}
+                    transition={{
+                        delay: 0.3,
+                        duration: 0.3,
+                        ease: "easeInOut",
+                    }}
+                >
                     <Logo>
                         <img src="/images/common/LOGO.svg" alt="" />
                     </Logo>
@@ -142,8 +163,30 @@ const Footer: React.FC = () => {
             </TopSection>
             <Divider />
             <BottomSection>
-                <Copyright>2024 © GOLDX</Copyright>
-                <SocialIcons>
+                <Copyright
+                    as={motion.div}
+                    initial={{ opacity: 0, x: "-100%" }}
+                    viewport={{ once: false }}
+                    whileInView={{ opacity: 1, x: "0" }}
+                    transition={{
+                        delay: 0.5,
+                        duration: 0.3,
+                        ease: "easeInOut",
+                    }}
+                >
+                    2024 © GOLDX
+                </Copyright>
+                <SocialIcons
+                    as={motion.div}
+                    initial={{ opacity: 0, x: "100%" }}
+                    viewport={{ once: false }}
+                    whileInView={{ opacity: 1, x: "0" }}
+                    transition={{
+                        delay: 0.4,
+                        duration: 0.3,
+                        ease: "easeInOut",
+                    }}
+                >
                     <a href="#">
                         <FaceBookIcon />
                     </a>

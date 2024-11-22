@@ -6,17 +6,29 @@ import {
     smscreenBreakpoint,
 } from "../../../const";
 import { AccordionMinusIcon, AccordionPlusIcon } from "../../../assets/icons";
-
+import { motion, useInView } from "framer-motion";
 interface FAQItemProps {
     question: string;
     answer: string;
+    idx?: number;
 }
 
-const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
+const FAQItem: React.FC<FAQItemProps> = ({ question, answer, idx }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <FAQItemWrapper>
+        <FAQItemWrapper
+            as={motion.div}
+            // viewport={{ once: true, amount: 0.2 }}
+            initial={{ opacity: 0, y: "100%" }}
+            viewport={{ once: false }}
+            whileInView={{ opacity: 1, y: "0%" }}
+            transition={{
+                delay: (idx !== undefined ? idx + 1 : 0) * 0.2 + 0.3,
+                duration: 0.3,
+                ease: "easeInOut",
+            }}
+        >
             <QuestionWrapper onClick={() => setIsOpen(!isOpen)}>
                 <Question>{question}</Question>
                 <AccordionIcon>
@@ -47,22 +59,98 @@ const FAQ: React.FC = () => {
             answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit iaculis nisi, consectetur sociis blandit augue aliquam. Tristique sit elementum lacus vitae egestas sit.",
         },
     ];
+    const textWavyVariants = {
+        hidden: { opacity: 0, y: -40 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: delayOffset + index * 0.1,
+                duration: 0.3,
+            }, // Stagger each line by 0.2s
+        }),
+    };
 
+    const lineVariants = {
+        hidden: { opacity: 0, y: -30 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: { delay: delayOffset + index * 0.5, duration: 0.3 }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const texts = {
+        titlewhite: "FAQs",
+        titlespan: ".",
+        descriptionLines: [
+            "Lorem ipsum dolor elit, do eiusmod tempor incididunt ut",
+            "labore et dolore magna aliqua. Ut enim ad minim veniam,",
+            "veniam, quis a nostrud.",
+        ],
+    };
     return (
         <FAQSection className="paddingscbox">
             <SectionHeader>
                 <SectionTitle>
-                    FAQs<GoldSpan>.</GoldSpan>
+                    {[...texts.titlewhite].map((char, index) => (
+                        <motion.span
+                            key={index}
+                            custom={{ index: index, delayOffset: 0 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                            variants={textWavyVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                        >
+                            {char}
+                        </motion.span>
+                    ))}{" "}
+                    <GoldSpan>
+                        {" "}
+                        {[...texts.titlespan].map((char, index) => (
+                            <motion.span
+                                key={index}
+                                custom={{ index: index, delayOffset: 0.3 }}
+                                viewport={{ once: false, amount: 0.3 }}
+                                variants={textWavyVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                            >
+                                {char}
+                            </motion.span>
+                        ))}
+                    </GoldSpan>
                 </SectionTitle>
                 <SectionDescription>
-                    Lorem ipsum dolor elit, do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    a nostrud exercitation ullamco.
+                    {[...texts.descriptionLines].map((line, index) => (
+                        <motion.div
+                            key={index}
+                            custom={{ index: index, delayOffset: 0.4 }}
+                            variants={lineVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            {line}
+                        </motion.div>
+                    ))}
                 </SectionDescription>
             </SectionHeader>
             <FAQList>
                 {faqItems.map((item, index) => (
-                    <FAQItem key={index} {...item} />
+                    <FAQItem key={index} {...item} idx={index} />
                 ))}
             </FAQList>
         </FAQSection>

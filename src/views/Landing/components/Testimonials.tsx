@@ -5,21 +5,100 @@ import {
     smallmobileBreakpoint,
     smscreenBreakpoint,
 } from "../../../const";
-
+import { motion, useInView } from "framer-motion";
 const Testimonials: React.FC = () => {
+    const textWavyVariants = {
+        hidden: { opacity: 0, y: -40 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: delayOffset + index * 0.1,
+                duration: 0.3,
+            }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const lineVariants = {
+        hidden: { opacity: 0, y: -30 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: { delay: delayOffset + index * 0.5, duration: 0.3 }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const texts = {
+        titlewhite: " What others",
+        titlespan: "Say?",
+        descriptionLines: [
+            "Lorem ipsum dolor sit amet, consectetur elit, do eiusmod tempor",
+            "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
+            "veniam, quis a nostrud.",
+        ],
+    };
     return (
         <TestimonialsSectionWrapper className="marginborderboxx">
             <TestimonialsSection className=" paddingscbox">
                 <SectionHeader className="paddingsclayoutx">
                     <SectionTitle>
                         <div>
-                            What others <WhiteSpan>Say?</WhiteSpan>
+                            {[...texts.titlewhite].map((char, index) => (
+                                <motion.span
+                                    key={index}
+                                    custom={{ index: index, delayOffset: 0 }}
+                                    viewport={{ once: false, amount: 0.3 }}
+                                    variants={textWavyVariants}
+                                    initial="hidden"
+                                    whileInView="visible"
+                                >
+                                    {char}
+                                </motion.span>
+                            ))}{" "}
+                            <WhiteSpan>
+                                {[...texts.titlespan].map((char, index) => (
+                                    <motion.span
+                                        key={index}
+                                        custom={{
+                                            index: index,
+                                            delayOffset: 0.3,
+                                        }}
+                                        viewport={{ once: false, amount: 0.3 }}
+                                        variants={textWavyVariants}
+                                        initial="hidden"
+                                        whileInView="visible"
+                                    >
+                                        {char}
+                                    </motion.span>
+                                ))}
+                            </WhiteSpan>
                         </div>
                     </SectionTitle>
                     <SectionDescription>
-                        Lorem ipsum dolor sit amet, consectetur elit, do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut
-                        enim ad minim veniam, quis.
+                        {[...texts.descriptionLines].map((line, index) => (
+                            <motion.div
+                                key={index}
+                                custom={{ index: index, delayOffset: 0.4 }}
+                                variants={lineVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: false, amount: 0.3 }}
+                            >
+                                {line}
+                            </motion.div>
+                        ))}
                     </SectionDescription>
                 </SectionHeader>
                 <TestimonialsGrid>
@@ -39,6 +118,7 @@ const TestimonialsSection = styled.section`
     padding-right: 30px;
     padding-top: 0;
     padding-bottom: 0;
+    justify-content: space-between;
     @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 0px;
     }

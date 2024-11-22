@@ -12,6 +12,7 @@ import {
     smscreenBreakpoint,
 } from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
+import { motion } from "framer-motion";
 
 const CallToAction: React.FC = () => {
     const { windowDimensions } = useContext(SiteVariablesContext);
@@ -25,7 +26,17 @@ const CallToAction: React.FC = () => {
                 )}
             </div>
             <CTAContent className="paddingborderboxx">
-                <LeftColumn>
+                <LeftColumn
+                    as={motion.div}
+                    viewport={{ once: false }}
+                    initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }} // Start fully clipped
+                    whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }} // Reveal completely
+                    transition={{
+                        delay: 0.2,
+                        duration: 0.5,
+                        ease: "easeIn", // Smooth transition
+                    }}
+                >
                     <SectionTitle>
                         Buy Your Mining <GoldSpan>Rights.</GoldSpan>
                     </SectionTitle>
@@ -52,7 +63,17 @@ const CallToAction: React.FC = () => {
                         />
                     </ButtonGroup>
                 </LeftColumn>
-                <RightColumn>
+                <RightColumn
+                    as={motion.div}
+                    viewport={{ once: false }}
+                    initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }} // Start fully clipped
+                    whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }} // Reveal completely
+                    transition={{
+                        delay: 0.2,
+                        duration: 0.5,
+                        ease: "easeIn", // Smooth transition
+                    }}
+                >
                     <SectionTitle>
                         Already a <GoldSpan>Member?</GoldSpan>
                     </SectionTitle>
