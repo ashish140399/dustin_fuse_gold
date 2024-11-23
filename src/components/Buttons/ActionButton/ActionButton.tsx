@@ -133,6 +133,22 @@ const ButtonWrapper = styled.div<{ variant: string }>`
     justify-content: flex-start;
     width: ${(props) => (props.variant === "tertiary" ? "64px" : "200px")};
     margin: auto 0;
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            75deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent
+        );
+        transition: 0.4s;
+        transition-delay: 0.2s;
+    }
     &.noicon {
         width: fit-content;
         height: 56px;
@@ -197,6 +213,9 @@ const ButtonWrapper = styled.div<{ variant: string }>`
             svg {
                 animation: slideAndReset 0.3s ease-in-out forwards;
             }
+        }
+        &:after {
+            left: 100%;
         }
     }
 `;
