@@ -2,13 +2,14 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
 import { WhyGoldXBG } from "../../../assets/BG/BG";
 import { WhyGoldXBottomIcon } from "../../../assets/icons";
-import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 import {
     mobileBreakpoint,
     smallmobileBreakpoint,
     smscreenBreakpoint,
 } from "../../../const";
-
+import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 interface BenefitCardProps {
     title: string;
     description: string;
@@ -54,21 +55,104 @@ const Vaulting: React.FC = () => {
         },
     ];
 
+    const textWavyVariants = {
+        hidden: { opacity: 0, y: -40 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: delayOffset + index * 0.1,
+                duration: 0.3,
+            }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const lineVariants = {
+        hidden: { opacity: 0, y: -30 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: { delay: delayOffset + index * 0.5, duration: 0.3 }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const texts = {
+        titlewhite: "Vaulting",
+        titlespan: "In London",
+        descriptionLines: [
+            "Lorem ipsum dolor sit amet, consectetur ",
+            "tempor incididunt ut labore",
+            "ad minim veniam, quis nostrud .",
+        ],
+    };
     return (
         <WhyGoldXSection>
             <SectionHeader>
-                <SectionTitle>
-                    Vaulting
-                    <GoldSpan>In London</GoldSpan>
-                </SectionTitle>
+                <FramerSectionTitle>
+                    {[...texts.titlewhite].map((char, index) => (
+                        <motion.span
+                            key={index}
+                            custom={{ index: index, delayOffset: 0 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                            variants={textWavyVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                        >
+                            {char}
+                        </motion.span>
+                    ))}
+                    <GoldSpan>
+                        {[...texts.titlespan].map((char, index) => (
+                            <motion.span
+                                key={index}
+                                custom={{ index: index, delayOffset: 0.5 }}
+                                viewport={{ once: false, amount: 0.3 }}
+                                variants={textWavyVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                            >
+                                {char}
+                            </motion.span>
+                        ))}
+                    </GoldSpan>
+                </FramerSectionTitle>
                 <SectionDescription>
-                    Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                    ad minim veniam, quis nostrud exercitation.
+                    {[...texts.descriptionLines].map((line, index) => (
+                        <motion.div
+                            key={index}
+                            custom={{ index: index, delayOffset: 1.2 }}
+                            variants={lineVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            {line}
+                        </motion.div>
+                    ))}
                 </SectionDescription>
             </SectionHeader>
             <BenefitsContainer>
-                <CardWrapperOuter>
+                <MotionCardWrapperOuter
+                    viewport={{ once: false, amount: 0.3 }}
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{
+                        delay: 0.3,
+                        duration: 0.3,
+                    }}
+                >
                     <CardWrapper
                         ref={cardWrapperRef}
                         bottomsvgWidth={`${bottomIconWidth}px`}
@@ -85,9 +169,17 @@ const Vaulting: React.FC = () => {
                         <div className="bottomicon">
                             <WhyGoldXBottomIcon />
                         </div>
-                    </CardWrapper>
-                </CardWrapperOuter>
-                <CardWrapperOuter>
+                    </CardWrapper>{" "}
+                </MotionCardWrapperOuter>{" "}
+                <MotionCardWrapperOuter
+                    viewport={{ once: false, amount: 0.3 }}
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{
+                        delay: 0,
+                        duration: 0.3,
+                    }}
+                >
                     <img
                         src="/images/common/VaultingLondon.svg"
                         className="whygoldximg"
@@ -106,9 +198,17 @@ const Vaulting: React.FC = () => {
                         <div className="bottomicon">
                             <WhyGoldXBottomIcon />
                         </div>
-                    </CardWrapper>
-                </CardWrapperOuter>
-                <CardWrapperOuter>
+                    </CardWrapper>{" "}
+                </MotionCardWrapperOuter>{" "}
+                <MotionCardWrapperOuter
+                    viewport={{ once: false, amount: 0.3 }}
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{
+                        delay: 0.3,
+                        duration: 0.3,
+                    }}
+                >
                     <CardWrapper bottomsvgWidth={`${bottomIconWidth}px`}>
                         <CardContent>
                             <CardTitle>{benefits[2].title}</CardTitle>
@@ -123,7 +223,7 @@ const Vaulting: React.FC = () => {
                             <WhyGoldXBottomIcon />
                         </div>
                     </CardWrapper>
-                </CardWrapperOuter>
+                </MotionCardWrapperOuter>
             </BenefitsContainer>
         </WhyGoldXSection>
     );
@@ -147,16 +247,20 @@ const SectionTitle = styled.h2`
     font: 600 64px/64px Conthrax, sans-serif;
     color: var(--text-primary, #fff);
     text-transform: uppercase;
-
+    div {
+        position: relative;
+        display: inline-flex;
+    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         font-size: 40px;
         line-height: 44px;
     }
 `;
+const FramerSectionTitle = motion(SectionTitle);
 
-const GoldSpan = styled.span`
+const GoldSpan = styled.div`
     color: var(--text-tertiary, #969696);
-    display: block;
+    margin-left: 10px;
 `;
 
 const SectionDescription = styled.p`
@@ -185,7 +289,7 @@ const CardWrapperOuter = styled.div`
         margin-bottom: 20px;
     }
 `;
-
+const MotionCardWrapperOuter = motion(CardWrapperOuter);
 const CardWrapper = styled.div<CardWrapperProps>`
     background: linear-gradient(to top, transparent 55%, #121212 25%);
     overflow: hidden;
@@ -230,7 +334,7 @@ const CardIcon = styled.img`
 
 const CardContent = styled.div`
     color: var(--text-primary, #fff);
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     height: 100%;
@@ -244,6 +348,7 @@ const CardTitle = styled.h3`
     font: 600 30px/40px Conthrax, sans-serif;
     margin: 0;
     margin-bottom: 24px;
+    word-wrap: break-word;
     @media screen and (max-width: 1300px) {
         font-size: 24px;
         margin-bottom: 18px;
@@ -257,15 +362,13 @@ const CardDescription = styled.p`
 `;
 const WhyGoldXSection = styled.section`
     padding: 160px 80px 80px;
-    @media screen and (max-width: ${mobileBreakpoint}px) {
-        padding: 100px 20px 0;
-    }
     @media screen and (max-width: ${smscreenBreakpoint}px) {
         ${SectionTitle} {
             font-size: 46px;
         }
     }
     @media screen and (max-width: ${mobileBreakpoint}px) {
+        padding: 100px 20px 0;
         ${BenefitsContainer} {
             flex-direction: column;
             flex-wrap: unset;

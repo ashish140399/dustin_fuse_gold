@@ -7,32 +7,131 @@ import {
     smallmobileBreakpoint,
     smscreenBreakpoint,
 } from "../../../const";
+import { animate, motion, useAnimation, useMotionValue } from "framer-motion";
 
 const ProofOfReserve: React.FC = () => {
+    const textWavyVariants = {
+        hidden: { opacity: 0, y: -40 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: delayOffset + index * 0.1,
+                duration: 0.3,
+            }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const lineVariants = {
+        hidden: { opacity: 0, y: -30 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: { delay: delayOffset + index * 0.5, duration: 0.3 }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const texts = {
+        titlewhite: "Proof",
+        titlespan: "of reserve",
+        descriptionLines: [
+            "Lorem ipsum dolor sit amet, consectetur elit, do eiusmod tempor",
+            "incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+            "veniam, quis a nostrud exercitation ullamco.",
+        ],
+    };
     return (
         <MiningRightsSection className="paddingsclayoutx paddingsclayouty">
             <ContentWrapper>
                 <TextContent>
                     <SectionTitle>
-                        <GoldSpan>Proof </GoldSpan>of reserve
+                        <GoldSpan>
+                            {" "}
+                            {[...texts.titlewhite].map((char, index) => (
+                                <motion.span
+                                    key={index}
+                                    custom={{ index: index, delayOffset: 0 }}
+                                    viewport={{ once: false, amount: 0.3 }}
+                                    variants={textWavyVariants}
+                                    initial="hidden"
+                                    whileInView="visible"
+                                >
+                                    {char}
+                                </motion.span>
+                            ))}{" "}
+                        </GoldSpan>{" "}
+                        {[...texts.titlespan].map((char, index) => (
+                            <motion.span
+                                key={index}
+                                custom={{ index: index, delayOffset: 0.5 }}
+                                viewport={{ once: false, amount: 0.3 }}
+                                variants={textWavyVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                            >
+                                {char}
+                            </motion.span>
+                        ))}
                     </SectionTitle>
                     <SectionDescription>
-                        Lorem ipsum dolor sit amet, consectetur elit, do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut
-                        enim ad minim veniam, quis a nostrud exercitation
-                        ullamco.
+                        {[...texts.descriptionLines].map((line, index) => (
+                            <motion.div
+                                key={index}
+                                custom={{ index: index, delayOffset: 0.8 }}
+                                variants={lineVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: false, amount: 0.3 }}
+                            >
+                                {line}
+                            </motion.div>
+                        ))}{" "}
                     </SectionDescription>
-                    <ActionButton
-                        label="Read Full Article"
-                        variant="primary"
-                        className="btnwidth100"
-                        // @ts-ignore
-                        icon={<ArrowTransformIcon />}
-                    />
+                    <FramerActionButton
+                        viewport={{ once: false }}
+                        initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }} // Start fully clipped
+                        whileInView={{
+                            opacity: 1,
+                            clipPath: "inset(0 0% 0 0)",
+                        }} // Reveal completely
+                        transition={{
+                            delay: 1,
+                            duration: 0.6,
+                            ease: "easeIn", // Smooth transition
+                        }}
+                    >
+                        <ActionButton
+                            label="Read Full Article"
+                            variant="primary"
+                            className="btnwidth100"
+                            // @ts-ignore
+                            icon={<ArrowTransformIcon />}
+                        />
+                    </FramerActionButton>
                 </TextContent>
                 <ImageWrapper>
                     <MiningImage
-                        src="./images/common/proofofreserve.svg"
+                        as={motion.img}
+                        viewport={{ once: false, amount: 0.3 }}
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{
+                            delay: 0.2,
+                            duration: 0.5,
+                        }}
+                        src="/images/common/proofofreserve.svg"
                         alt="Mining Rights Illustration"
                     />
                     <div className="customer">
@@ -43,6 +142,7 @@ const ProofOfReserve: React.FC = () => {
         </MiningRightsSection>
     );
 };
+const FramerActionButton = motion(styled.div``);
 
 const ContentWrapper = styled.div`
     display: flex;
@@ -145,9 +245,15 @@ const MiningRightsSection = styled.section`
         }
     }
     @media screen and (max-width: ${smallmobileBreakpoint}px) {
-        margin-top: 60px;
-        ${ContentWrapper} {
-            gap: 40px;
+        // padding: 40px 10px;
+        ${SectionTitle} {
+            font-size: 32px;
+            line-height: 40px;
+        }
+        ${SectionDescription} {
+            font-size: 16px;
+            line-height: 24px;
+            margin-top: 0px;
         }
     }
 `;

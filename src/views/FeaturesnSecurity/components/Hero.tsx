@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { ArrowTransformIcon, GetStartedIcon } from "../../../assets/icons";
 import { LandingHeroBG, LandingHeroMobileBG } from "../../../assets/BG/BG";
@@ -15,11 +15,30 @@ import {
 import { mobileBreakpoint, smallmobileBreakpoint } from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
 import { animate, motion, useAnimation, useMotionValue } from "framer-motion";
+interface Props {
+    boxWidth: number; // Optional prop, defaults to '70px' if not provided
+}
+
 const Hero: React.FC = () => {
     const { windowDimensions } = useContext(SiteVariablesContext);
+    const heroWrapperRef = useRef(null);
+    const [heroWidth, setHeroWidth] = useState(0);
+    useEffect(() => {
+        // Function to update width based on window dimensions
+        const updateWidth = () => {
+            const width = heroWrapperRef.current
+                ? // @ts-ignore
+                  heroWrapperRef.current.offsetWidth
+                : 0;
+
+            setHeroWidth(width);
+        };
+
+        updateWidth();
+    }, [windowDimensions]);
     return (
-        <StyledHero>
-            <div className="herobag">
+        <StyledHeroMain boxWidth={heroWidth}>
+            <div className="herobag" ref={heroWrapperRef}>
                 {windowDimensions?.width > mobileBreakpoint ? (
                     <LandingHeroBG
                         src="./images/common/herobg.png"
@@ -41,7 +60,7 @@ const Hero: React.FC = () => {
             </HeroRight>
             <HeroStats />
             <InvestButton />
-        </StyledHero>
+        </StyledHeroMain>
     );
 };
 const textWavyVariants = {
@@ -338,7 +357,11 @@ const Logo = styled.img`
 
 const InvestButton: React.FC = () => {
     return (
-        <ButtonWrapper>
+        <FramerButtonWrapper
+            viewport={{ once: false }}
+            initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }} // Start fully clipped
+            whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
+        >
             <ActionButton
                 label="Terms & Conditions"
                 variant="primary"
@@ -353,7 +376,7 @@ const InvestButton: React.FC = () => {
                 // @ts-ignore
                 icon={<ArrowTransformIcon />}
             />
-        </ButtonWrapper>
+        </FramerButtonWrapper>
     );
 };
 
@@ -372,6 +395,12 @@ const ButtonWrapper = styled(InvestButtonWrapper)`
             margin-top: 14px;
         }
     }
+`;
+const FramerButtonWrapper = motion(ButtonWrapper);
+const StyledHeroMain = styled(StyledHero)<Props>`
+    // ${InvestButtonWrapper} {
+    //     width: ${(props) => `${100 + props?.boxWidth / 4.3}px`};
+    // }
 `;
 
 export default Hero;

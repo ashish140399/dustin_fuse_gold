@@ -1,5 +1,20 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, {
+    useState,
+    useEffect,
+    useRef,
+    useContext,
+    useLayoutEffect,
+    useCallback,
+} from "react";
+import { useWindowSize } from "@react-hook/window-size";
 import styled from "styled-components";
+import { motion, useInView } from "framer-motion";
+import {
+    Link as ScrollLink,
+    animateScroll as scroll,
+    scroller,
+} from "react-scroll";
+// import ScrollMagicPluginGsap from "scrollmagic-plugin-gsap";
 import {
     GoldXFeaturesBottomBG,
     GoldXFeaturesMBBottomBG,
@@ -15,9 +30,10 @@ import {
     mobileBreakpoint,
     smallmobileBreakpoint,
     smscreenBreakpoint,
+    useIsTouchscreen,
 } from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
-
+import throttle from "lodash.throttle";
 interface ProductProps {
     name: string;
     description: string;
@@ -28,10 +44,38 @@ interface ProductProps {
 interface CardWrapperProps {
     bottomsvgWidth?: string; // Optional prop, defaults to '70px' if not provided
 }
+
+const cardInfo = [
+    {
+        title: " Professionally Vaulted & Insured",
+        desc: "",
+    },
+    {
+        title: "goldx explorer",
+        desc: "When you decide to convert your FUSEG tokens back to physical bullion we will buy back the gold at 99% of the spot price. This will  be minus the minimal fee associated with the administration of the FUSEG tokens, thus allowing us to remain competitive.",
+    },
+    {
+        title: "100% Allocated & Individually Segregated",
+        desc: "",
+    },
+    {
+        title: "goldx explorer",
+        desc: "When you decide to convert your FUSEG tokens back to physical bullion we will buy back the gold at 99% of the spot price. This will  be minus the minimal fee associated with the administration of the FUSEG tokens, thus allowing us to remain competitive.",
+    },
+    {
+        title: "100% Allocated & Individually Segregated",
+        desc: "",
+    },
+    {
+        title: "goldx explorer",
+        desc: "GOLDX blockchain ensures rapid and economical transactions with an average block confirmation time of 5 seconds and",
+    },
+];
 const ProtectKey: React.FC = () => {
     const cardWrapperRef = useRef(null);
     const [bottomIconWidth, setBottomIconWidth] = useState(0);
     const { windowDimensions } = useContext(SiteVariablesContext);
+    const isTouchscreen = useIsTouchscreen();
     useEffect(() => {
         // Function to update width based on window dimensions
         const updateWidth = () => {
@@ -45,131 +89,251 @@ const ProtectKey: React.FC = () => {
 
         updateWidth(); // Run once on mount and then whenever window dimensions change
     }, [windowDimensions]); // Dependency on windowDimensions width and height
+    const productsGridRef = useRef<HTMLDivElement>(null);
+    const productsTopRef = useRef<HTMLDivElement>(null);
+    const productsBottomRef = useRef<HTMLDivElement>(null);
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const [isTopVisible, setIsTopVisible] = useState(false);
+    const [isBottomVisible, setIsBottomVisible] = useState(false);
+
+    // Check if any part of the element is in view
+    const isPartiallyInView = useInView(productsGridRef, {
+        margin: "0px", // No viewport adjustment
+        amount: 0, // Trigger when any part of the element is visible
+    });
+    useEffect(() => {
+        const checkVisibility = throttle(() => {
+            if (!productsGridRef.current) return;
+
+            const rect = productsGridRef.current.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Check if the top of the element is visible in the viewport
+            setIsTopVisible(rect.top >= 0 && rect.top <= viewportHeight);
+
+            // Check if the bottom of the element is visible in the viewport
+            setIsBottomVisible(
+                rect.bottom >= 0 && rect.bottom <= viewportHeight
+            );
+        }, 10);
+
+        // Trigger on scroll and resize
+        window.addEventListener("scroll", checkVisibility);
+        window.addEventListener("resize", checkVisibility);
+        checkVisibility();
+        return () => {
+            window.removeEventListener("scroll", checkVisibility);
+            window.removeEventListener("resize", checkVisibility);
+        };
+    }, [isPartiallyInView]);
+    const isInView = isTopVisible && isBottomVisible;
+
+    useEffect(() => {
+        if (!isTouchscreen) {
+            const container = productsGridRef.current;
+
+            const handleScroll = (event: WheelEvent) => {
+                if (!container) return;
+                console.log("i am in handle scroll");
+                const isEndOfHorizontalScroll =
+                    container.scrollLeft + container.clientWidth >=
+                    container.scrollWidth;
+                const isStartOfHorizontalScroll = container.scrollLeft <= 0;
+
+                if (isInView) {
+                    if (isEndOfHorizontalScroll && event.deltaY > 0) {
+                        document.body.removeEventListener(
+                            "wheel",
+                            handleScroll
+                        );
+                        document.body.classList.remove("no-scroll");
+                    } else if (isStartOfHorizontalScroll && event.deltaY < 0) {
+                        document.body.removeEventListener(
+                            "wheel",
+                            handleScroll
+                        );
+                        document.body.classList.remove("no-scroll");
+                    } else {
+                        event.preventDefault();
+                        container.scrollLeft += event.deltaY; // Use mouse wheel delta for horizontal scroll
+                    }
+                } else {
+                    document.body.removeEventListener("wheel", handleScroll);
+                }
+            };
+
+            if (container) {
+                document.body.addEventListener("wheel", handleScroll, {
+                    passive: false,
+                });
+            }
+
+            return () => {
+                if (container) {
+                    document.body.removeEventListener("wheel", handleScroll);
+                }
+            };
+        }
+    }, [isInView, isTouchscreen]);
+
+    useEffect(() => {
+        if (isInView && !isTouchscreen) {
+            document.body.classList.add("no-scroll");
+            if (sectionRef.current) {
+                const topPosition = sectionRef.current.offsetTop; // Get the element's top position
+                const offset = 50; // Define your offset
+
+                // Scroll to the position minus the offset
+                window.scrollTo({
+                    top: topPosition - offset,
+                    behavior: "smooth", // Smooth scrolling
+                });
+            }
+        }
+    }, [isInView, isTouchscreen]);
+
+    const textWavyVariants = {
+        hidden: { opacity: 0, y: -40 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: delayOffset + index * 0.1,
+                duration: 0.3,
+            }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const lineVariants = {
+        hidden: { opacity: 0, y: -30 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: { delay: delayOffset + index * 0.5, duration: 0.3 }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const texts = {
+        titlewhite: "Protect your",
+        titlespan: "KEY",
+        descriptionLines: [
+            "Lorem ipsum dolor sit amet, consectetur,",
+            "incididunt ut labore et dolore magna",
+        ],
+    };
 
     return (
-        <ProductsSection>
+        <ProductsSection className="marginborderboxx">
             <SectionHeader className="paddingsclayoutx">
                 <SectionTitle>
-                    Protect your <GoldSpan>key</GoldSpan>
+                    {[...texts.titlewhite].map((char, index) => (
+                        <motion.span
+                            key={index}
+                            custom={{ index: index, delayOffset: 0 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                            variants={textWavyVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                        >
+                            {char}
+                        </motion.span>
+                    ))}{" "}
+                    <GoldSpan>
+                        {" "}
+                        {[...texts.titlespan].map((char, index) => (
+                            <motion.span
+                                key={index}
+                                custom={{ index: index, delayOffset: 0.5 }}
+                                viewport={{ once: false, amount: 0.3 }}
+                                variants={textWavyVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                            >
+                                {char}
+                            </motion.span>
+                        ))}
+                    </GoldSpan>{" "}
                 </SectionTitle>
                 <SectionDescription>
-                    Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod
-                    tempor incididunt ut
+                    {[...texts.descriptionLines].map((line, index) => (
+                        <motion.div
+                            key={index}
+                            custom={{ index: index, delayOffset: 0.8 }}
+                            variants={lineVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            {line}
+                        </motion.div>
+                    ))}{" "}
                 </SectionDescription>
             </SectionHeader>
             <ProductsGridWrapper>
-                <div className="topimgbg">
+                <div className="topimgbg" ref={productsTopRef}>
                     {windowDimensions?.width > mobileBreakpoint ? (
                         <GoldXFeaturesTopBG />
                     ) : (
                         <GoldXFeaturesMBTopBG />
                     )}
                 </div>
-                <ProductsGridScroll className="horizontalScroll paddingsclayoutx">
+                <ProductsGridScroll
+                    className="horizontalScroll paddingsclayoutx"
+                    id="horizontalScrollContainer"
+                    ref={productsGridRef}
+                >
                     <ProductsGrid>
-                        <CardWrapper
-                            ref={cardWrapperRef}
-                            bottomsvgWidth={`${bottomIconWidth}px`}
-                        >
-                            <CardContent>
-                                <CardTitle>
-                                    Professionally Vaulted & Insured
-                                </CardTitle>
-                                <CardDescription></CardDescription>
-                            </CardContent>
-                            <div className="cardlefticon">
-                                <ProductCardIcon />
-                            </div>
-                            <div className="cardbg">
-                                <ProtectKeyCardBG />
-                            </div>
-                            <div className="bottomicon">
-                                <ProtectKeyCardBottomIcon />
-                            </div>
-                        </CardWrapper>
-                        <CardWrapper bottomsvgWidth={`${bottomIconWidth}px`}>
-                            <CardContent>
-                                <CardTitle>goldx explorer</CardTitle>
-                                <CardDescription>
-                                    When you decide to convert your FUSEG tokens
-                                    back to physical bullion we will buy back
-                                    the gold at 99% of the spot price. This will
-                                    be minus the minimal fee associated with the
-                                    administration of the FUSEG tokens, thus
-                                    allowing us to remain competitive.
-                                </CardDescription>
-                            </CardContent>
-                            <div className="cardlefticon">
-                                <ProductCardIcon />
-                            </div>
-                            <div className="cardbg">
-                                <ProtectKeyCardBG />
-                            </div>
-                            <div className="bottomicon">
-                                <ProtectKeyCardBottomIcon />
-                            </div>
-                        </CardWrapper>
-
-                        <CardWrapper bottomsvgWidth={`${bottomIconWidth}px`}>
-                            <CardContent>
-                                <CardTitle>
-                                    100% Allocated & Individually Segregated
-                                </CardTitle>
-                                <CardDescription></CardDescription>
-                            </CardContent>
-                            <div className="cardlefticon">
-                                <ProductCardIcon />
-                            </div>
-                            <div className="cardbg">
-                                <ProtectKeyCardBG />
-                            </div>
-                            <div className="bottomicon">
-                                <ProtectKeyCardBottomIcon />
-                            </div>
-                        </CardWrapper>
-                        <CardWrapper bottomsvgWidth={`${bottomIconWidth}px`}>
-                            <CardContent>
-                                <CardTitle>goldx explorer</CardTitle>
-                                <CardDescription>
-                                    When you decide to convert your FUSEG tokens
-                                    back to physical bullion we will buy back
-                                    the gold at 99% of the spot price. This will
-                                    be minus the minimal fee associated with the
-                                    administration of the FUSEG tokens, thus
-                                    allowing us to remain competitive.
-                                </CardDescription>
-                            </CardContent>
-                            <div className="cardlefticon">
-                                <ProductCardIcon />
-                            </div>
-                            <div className="cardbg">
-                                <ProtectKeyCardBG />
-                            </div>
-                            <div className="bottomicon">
-                                <ProtectKeyCardBottomIcon />
-                            </div>
-                        </CardWrapper>
-
-                        <CardWrapper bottomsvgWidth={`${bottomIconWidth}px`}>
-                            <CardContent>
-                                <CardTitle>
-                                    100% Allocated & Individually Segregated
-                                </CardTitle>
-                                <CardDescription></CardDescription>
-                            </CardContent>
-                            <div className="cardlefticon">
-                                <ProductCardIcon />
-                            </div>
-                            <div className="cardbg">
-                                <ProtectKeyCardBG />
-                            </div>
-                            <div className="bottomicon">
-                                <ProtectKeyCardBottomIcon />
-                            </div>
-                        </CardWrapper>
+                        {cardInfo.map((item, index) => (
+                            <CardWrapper
+                                key={index}
+                                ref={index === 0 ? cardWrapperRef : null}
+                                bottomsvgWidth={`${bottomIconWidth}px`}
+                                as={motion.div}
+                                // viewport={{ once: true, amount: 0.2 }}
+                                initial={{ opacity: 0, x: "100%" }}
+                                animate={
+                                    isPartiallyInView
+                                        ? { opacity: 1, x: "0%" }
+                                        : {}
+                                }
+                                transition={{
+                                    delay: index * 0.3 + 0.3,
+                                    duration: 0.5,
+                                    ease: "easeInOut",
+                                }}
+                            >
+                                <CardContent>
+                                    <CardTitle>{item.title}</CardTitle>
+                                    <CardDescription>
+                                        {item.desc}
+                                    </CardDescription>
+                                </CardContent>
+                                <div className="cardlefticon">
+                                    <ProductCardIcon />
+                                </div>
+                                <div className="cardbg">
+                                    <ProtectKeyCardBG />
+                                </div>
+                                <div className="bottomicon">
+                                    <ProtectKeyCardBottomIcon />
+                                </div>
+                            </CardWrapper>
+                        ))}
                     </ProductsGrid>
                 </ProductsGridScroll>
-                <div className="bottomimgbg">
+                <div className="bottomimgbg" ref={productsBottomRef}>
                     {windowDimensions?.width > mobileBreakpoint ? (
                         <GoldXFeaturesBottomBG />
                     ) : (
@@ -226,7 +390,9 @@ const GoldSpan = styled.span`
 const SectionDescription = styled.p`
     font: 400 20px/28px Telegraf, sans-serif;
     color: var(--Text-Secondary, #cfcfcf);
-    max-width: 50%;
+    width: 100%;
+    max-width: 400px;
+
     @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         margin-top: 20px;

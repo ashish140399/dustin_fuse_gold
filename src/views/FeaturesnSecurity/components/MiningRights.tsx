@@ -7,32 +7,130 @@ import {
     smallmobileBreakpoint,
     smscreenBreakpoint,
 } from "../../../const";
+import { animate, motion, useAnimation, useMotionValue } from "framer-motion";
 
 const MiningRights: React.FC = () => {
+    const textWavyVariants = {
+        hidden: { opacity: 0, y: -40 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: delayOffset + index * 0.1,
+                duration: 0.3,
+            }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const lineVariants = {
+        hidden: { opacity: 0, y: -30 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: { delay: delayOffset + index * 0.5, duration: 0.3 }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const texts = {
+        titlewhite: "Mining",
+        titlespan: "Rights.",
+        descriptionLines: [
+            "Lorem ipsum dolor sit amet, consectetur elit, do eiusmod tempor",
+            "incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+            "veniam, quis a nostrud exercitation ullamco.",
+        ],
+    };
     return (
         <MiningRightsSection className="paddingscbox">
             <ContentWrapper>
                 <TextContent>
                     <SectionTitle>
-                        <GoldSpan>buy Your </GoldSpan>Mining <br />
-                        Right?
+                        {[...texts.titlewhite].map((char, index) => (
+                            <motion.span
+                                key={index}
+                                custom={{ index: index, delayOffset: 0 }}
+                                viewport={{ once: false, amount: 0.3 }}
+                                variants={textWavyVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                            >
+                                {char}
+                            </motion.span>
+                        ))}{" "}
+                        <GoldSpan>
+                            {" "}
+                            {[...texts.titlespan].map((char, index) => (
+                                <motion.span
+                                    key={index}
+                                    custom={{ index: index, delayOffset: 0.5 }}
+                                    viewport={{ once: false, amount: 0.3 }}
+                                    variants={textWavyVariants}
+                                    initial="hidden"
+                                    whileInView="visible"
+                                >
+                                    {char}
+                                </motion.span>
+                            ))}
+                        </GoldSpan>
                     </SectionTitle>
                     <SectionDescription>
-                        Lorem ipsum dolor sit amet, consectetur elit, do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut
-                        enim ad minim veniam, quis a nostrud exercitation
-                        ullamco.
+                        {[...texts.descriptionLines].map((line, index) => (
+                            <motion.div
+                                key={index}
+                                custom={{ index: index, delayOffset: 0.8 }}
+                                variants={lineVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: false, amount: 0.3 }}
+                            >
+                                {line}
+                            </motion.div>
+                        ))}
                     </SectionDescription>
-                    <ActionButton
-                        label="Buy GOLDX"
-                        variant="primary"
-                        className="btnwidth100"
-                        // @ts-ignore
-                        icon={<ArrowTransformIcon />}
-                    />
+                    <FramerActionButton
+                        viewport={{ once: false }}
+                        initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }} // Start fully clipped
+                        whileInView={{
+                            opacity: 1,
+                            clipPath: "inset(0 0% 0 0)",
+                        }} // Reveal completely
+                        transition={{
+                            delay: 1,
+                            duration: 0.6,
+                            ease: "easeIn", // Smooth transition
+                        }}
+                    >
+                        <ActionButton
+                            label="Buy Mining Rights Right Now"
+                            variant="primary"
+                            className="btnwidth100"
+                            // @ts-ignore
+                            icon={<ArrowTransformIcon />}
+                        />
+                    </FramerActionButton>
                 </TextContent>
                 <ImageWrapper>
                     <MiningImage
+                        as={motion.img}
+                        viewport={{ once: false, amount: 0.3 }}
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{
+                            delay: 0.2,
+                            duration: 0.5,
+                        }}
                         src="/images/common/miningimage.png"
                         alt="Mining Rights Illustration"
                     />
@@ -41,13 +139,13 @@ const MiningRights: React.FC = () => {
         </MiningRightsSection>
     );
 };
+const FramerActionButton = motion(styled.div``);
 
 const ContentWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 78px;
-    box-sizing: border-box;
     @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
     }
@@ -57,9 +155,6 @@ const TextContent = styled.div`
     flex: 1;
     max-width: 600px;
     .fullwidth {
-    }
-    @media screen and (max-width: ${mobileBreakpoint}px) {
-        padding: 0 20px;
     }
 `;
 
@@ -122,12 +217,15 @@ const MiningRightsSection = styled.section`
         }
     }
     @media screen and (max-width: ${smallmobileBreakpoint}px) {
-        padding: 60px 10px 60px;
+        // padding: 40px 10px;
         ${SectionTitle} {
             font-size: 32px;
+            line-height: 40px;
         }
         ${SectionDescription} {
             font-size: 16px;
+            line-height: 24px;
+            margin-top: 0px;
         }
     }
 `;
