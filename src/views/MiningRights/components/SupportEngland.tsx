@@ -7,29 +7,66 @@ import {
     smallmobileBreakpoint,
     smscreenBreakpoint,
 } from "../../../const";
+import { motion } from "framer-motion";
 
 const SupportEngland: React.FC = () => {
     return (
         <MiningRightsSection>
             <ContentWrapper>
                 <TextContent>
-                    <SectionTitle>
+                    <SectionTitle
+                        as={motion.div}
+                        viewport={{ once: false, amount: 0.3 }}
+                        initial={{ opacity: 0, y: 200 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{
+                            delay: 0.4,
+                            duration: 0.5,
+                            type: "spring",
+                            bounce: 0.4,
+                        }}
+                    >
                         We support <br />
                         england!
                     </SectionTitle>
-                    <SectionDescription>
+                    <SectionDescription
+                        as={motion.div}
+                        viewport={{ once: false }}
+                        initial={{ opacity: 0, y: 200 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{
+                            delay: 0.6,
+                            duration: 0.5,
+                            type: "spring",
+                            bounce: 0.4,
+                        }}
+                    >
                         Lorem ipsum dolor sit amet, consectetur elit, do eiusmod
                         tempor incididunt ut labore et dolore magna aliqua. Ut
                         enim ad minim veniam, quis a nostrud exercitation
                         ullamco.
-                    </SectionDescription>
-                    <ActionButton
-                        label="Buy Mining Rights"
-                        variant="primary"
-                        className="btnwidth100"
-                        // @ts-ignore
-                        icon={<ArrowTransformIcon />}
-                    />
+                    </SectionDescription>{" "}
+                    <FramerActionButton
+                        viewport={{ once: false }}
+                        initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }} // Start fully clipped
+                        whileInView={{
+                            opacity: 1,
+                            clipPath: "inset(0 0% 0 0)",
+                        }} // Reveal completely
+                        transition={{
+                            delay: 1,
+                            duration: 0.6,
+                            ease: "easeIn", // Smooth transition
+                        }}
+                    >
+                        <ActionButton
+                            label="Buy Mining Rights"
+                            variant="primary"
+                            className="btnwidth100"
+                            // @ts-ignore
+                            icon={<ArrowTransformIcon />}
+                        />
+                    </FramerActionButton>
                 </TextContent>
                 <ImageWrapper>
                     <img
@@ -42,7 +79,7 @@ const SupportEngland: React.FC = () => {
         </MiningRightsSection>
     );
 };
-
+const FramerActionButton = motion(styled.div``);
 const ContentWrapper = styled.div`
     display: flex;
     justify-content: space-between;

@@ -294,7 +294,7 @@ const CardWrapper = styled.div<CardWrapperProps>`
     // height: 100%;
     box-sizing: border-box;
     position: relative;
-    @media (min-width: ${mobileBreakpoint}px) and (max-width: 1000px) {
+    @media (min-width: ${mobileBreakpoint}px) and (max-width: ${smscreenBreakpoint}px) {
         background: linear-gradient(to top, transparent 40%, #121212 25%);
     }
     .cardbg {

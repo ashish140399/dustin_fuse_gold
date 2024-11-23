@@ -5,31 +5,189 @@ import {
     smallmobileBreakpoint,
     smscreenBreakpoint,
 } from "../../../const";
-
-const Testimonials: React.FC = () => {
+import { motion, useInView } from "framer-motion";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+const TestiMonialSliderBox = ({ rtl }: any) => {
+    const settings = {
+        dots: false,
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        vertical: true,
+        verticalSwiping: true,
+        swipeToSlide: true,
+        autoplay: true,
+        autoplaySpeed: 0,
+        speed: 3400,
+        cssEase: "linear",
+        rtl: rtl,
+    };
     return (
-        <TestimonialsSectionWrapper>
-            <TestimonialsSection>
+        <TestiMonialSliderBoxWrapper>
+            <div className="slider-container">
+                <Slider {...settings}>
+                    {Array.from({ length: 12 }, (_, i) => (
+                        <div className="testicardOuter" key={i}>
+                            <img
+                                src="/images/common/tesimonialcard.png"
+                                alt="Card"
+                            />
+                        </div>
+                    ))}
+                </Slider>
+            </div>
+        </TestiMonialSliderBoxWrapper>
+    );
+};
+const Testimonials: React.FC = () => {
+    const textWavyVariants = {
+        hidden: { opacity: 0, y: -40 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: delayOffset + index * 0.1,
+                duration: 0.3,
+            }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const lineVariants = {
+        hidden: { opacity: 0, y: -30 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: { delay: delayOffset + index * 0.5, duration: 0.3 }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const texts = {
+        titlewhite: " What others",
+        titlespan: "Say?",
+        descriptionLines: [
+            "Lorem ipsum dolor sit amet, consectetur elit, do eiusmod tempor",
+            "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
+            "veniam, quis a nostrud.",
+        ],
+    };
+    return (
+        <TestimonialsSectionWrapper className="marginborderboxx">
+            <TestimonialsSection className=" paddingscbox">
                 <SectionHeader className="paddingsclayoutx">
                     <SectionTitle>
                         <div>
-                            What others <WhiteSpan>Say?</WhiteSpan>
+                            {[...texts.titlewhite].map((char, index) => (
+                                <motion.span
+                                    key={index}
+                                    custom={{ index: index, delayOffset: 0 }}
+                                    viewport={{ once: false, amount: 0.3 }}
+                                    variants={textWavyVariants}
+                                    initial="hidden"
+                                    whileInView="visible"
+                                >
+                                    {char}
+                                </motion.span>
+                            ))}{" "}
+                            <WhiteSpan>
+                                {[...texts.titlespan].map((char, index) => (
+                                    <motion.span
+                                        key={index}
+                                        custom={{
+                                            index: index,
+                                            delayOffset: 0.3,
+                                        }}
+                                        viewport={{ once: false, amount: 0.3 }}
+                                        variants={textWavyVariants}
+                                        initial="hidden"
+                                        whileInView="visible"
+                                    >
+                                        {char}
+                                    </motion.span>
+                                ))}
+                            </WhiteSpan>
                         </div>
                     </SectionTitle>
                     <SectionDescription>
-                        Lorem ipsum dolor sit amet, consectetur elit, do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut
-                        enim ad minim veniam, quis.
+                        {[...texts.descriptionLines].map((line, index) => (
+                            <motion.div
+                                key={index}
+                                custom={{ index: index, delayOffset: 0.4 }}
+                                variants={lineVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: false, amount: 0.3 }}
+                            >
+                                {line}
+                            </motion.div>
+                        ))}
                     </SectionDescription>
                 </SectionHeader>
                 <TestimonialsGrid>
-                    <img src="/images/common/testimonials.svg" alt="" />
+                    {/* <img src="/images/common/testimonials.svg" alt="" /> */}
+                    <TestiMonialSlider>
+                        <TestiMonialSliderBox rtl={false} />
+                        <TestiMonialSliderBox rtl={true} />
+                    </TestiMonialSlider>
                 </TestimonialsGrid>
             </TestimonialsSection>
         </TestimonialsSectionWrapper>
     );
 };
 
+const TestiMonialSlider = styled.div`
+    box-sizing: border-box;
+    width: 100%;
+`;
+const TestiMonialSliderBoxWrapper = styled.div`
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+    &:first-child {
+        padding-left: 0;
+    }
+    &:last-child {
+        padding-right: 0;
+    }
+    .slick-arrow {
+        display: none !important;
+    }
+    .slider-container,
+    .slick-slider,
+    .slick-list {
+        height: 100% !important;
+    }
+    .testicardOuter {
+        margin-bottom: 15px;
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        padding-left: 8px;
+        padding-right: 8px;
+        .testicardOuter {
+            margin-bottom: 10px;
+        }
+    }
+`;
 const TestimonialsSection = styled.section`
     display: flex;
     // background-color: var(--Brand-Dark, #111);
@@ -37,7 +195,9 @@ const TestimonialsSection = styled.section`
     max-height: 700px;
     min-height: 400px;
     padding-right: 30px;
-    padding-left: 100px;
+    padding-top: 0;
+    padding-bottom: 0;
+    justify-content: space-between;
     @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 0px;
     }
@@ -53,8 +213,7 @@ const SectionHeader = styled.div`
 
     @media screen and (min-width: ${mobileBreakpoint}px) {
         padding: 0;
-    }
-    @media screen and (max-width: ${mobileBreakpoint}px) {
+        max-width: unset;
         flex-direction: column;
     }
 `;
@@ -109,19 +268,18 @@ const TestimonialsSectionWrapper = styled.div`
         rgba(231, 214, 162, 0.1) -6.75%,
         rgba(106, 95, 62, 0.1) 101.51%
     );
-    margin: 0 14px;
+    // margin: 0 14px;
     @media screen and (max-width: ${smscreenBreakpoint}px) {
         ${SectionTitle} {
             font-size: 46px;
         }
     }
     @media screen and (max-width: ${mobileBreakpoint}px) {
-        margin-bottom: 50px;
-        margin-top: 50px;
         ${SectionHeader} {
             margin-bottom: 0;
             padding-top: 50px;
             padding-bottom: 50px;
+            max-width: unset;
         }
         ${SectionDescription} {
             width: 100%;

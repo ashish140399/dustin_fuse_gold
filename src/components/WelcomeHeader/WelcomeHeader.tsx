@@ -43,7 +43,9 @@ const DashboardTitle = styled.h1`
 `;
 
 interface WelcomeHeaderProps {
+    heading: string;
     username: string;
+    hideActions?: boolean;
 }
 type ActionButtonType = {
     label?: string;
@@ -53,7 +55,11 @@ type ActionButtonType = {
     onClick?: () => void;
 };
 
-const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ username }) => {
+const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({
+    heading,
+    username,
+    hideActions,
+}) => {
     const navigate = useNavigate();
     const actionButtons: ActionButtonType[] = [
         {
@@ -77,15 +83,16 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ username }) => {
             <>
                 <HeaderContainer>
                     <WelcomeMessage>Welcome Back, {username}!</WelcomeMessage>
-                    <DashboardTitle>Dashboard</DashboardTitle>
+                    <DashboardTitle>{heading}</DashboardTitle>
                 </HeaderContainer>
             </>
-
-            <ActionButtonsContainer>
-                {actionButtons.map((button, index) => (
-                    <ActionButton key={index} {...button} />
-                ))}
-            </ActionButtonsContainer>
+            {!hideActions && (
+                <ActionButtonsContainer>
+                    {actionButtons.map((button, index) => (
+                        <ActionButton key={index} {...button} />
+                    ))}
+                </ActionButtonsContainer>
+            )}
         </DashboardContainer>
     );
 };

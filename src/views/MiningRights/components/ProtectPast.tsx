@@ -19,7 +19,7 @@ import {
     smscreenBreakpoint,
 } from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
-
+import { motion } from "framer-motion";
 interface ProductProps {
     name: string;
     description: string;
@@ -53,14 +53,69 @@ const ProtectPast: React.FC = () => {
             window.removeEventListener("resize", updateWidth); // Cleanup listener
         };
     }, []);
-
+    const textWavyVariants = {
+        hidden: { opacity: 0, y: -40 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: delayOffset + index * 0.1,
+                duration: 0.3,
+            }, // Stagger each line by 0.2s
+        }),
+    };
+    const texts = {
+        titlewhite: " Protect Your Past,",
+        titlespan: "Present & Future.",
+    };
     return (
         <ProductsSection>
             <SectionHeader className="paddingsclayoutx">
                 <SectionTitle>
-                    Protect Your Past, <GoldSpan>Present & Future.</GoldSpan>
+                    {[...texts.titlewhite].map((char, index) => (
+                        <motion.span
+                            key={index}
+                            custom={{ index: index, delayOffset: 0 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                            variants={textWavyVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                        >
+                            {char}
+                        </motion.span>
+                    ))}{" "}
+                    <GoldSpan>
+                        {" "}
+                        {[...texts.titlespan].map((char, index) => (
+                            <motion.span
+                                key={index}
+                                custom={{ index: index, delayOffset: 1.6 }}
+                                viewport={{ once: false, amount: 0.3 }}
+                                variants={textWavyVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                            >
+                                {char}
+                            </motion.span>
+                        ))}
+                    </GoldSpan>
                 </SectionTitle>
-                <SectionDescription>
+                <SectionDescription
+                    as={motion.div}
+                    viewport={{ once: false, amount: 0.3 }}
+                    initial={{ opacity: 0, y: "100px" }}
+                    whileInView={{ opacity: 1, y: "0" }}
+                    transition={{
+                        delay: 0.8,
+                        duration: 0.3,
+                    }}
+                >
                     Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod
                     tempor incididunt ut
                     <ActionButton
@@ -85,6 +140,15 @@ const ProtectPast: React.FC = () => {
                     <CardWrapper
                         ref={cardWrapperRef}
                         bottomsvgWidth={`${bottomIconWidth}px`}
+                        as={motion.div}
+                        viewport={{ once: false, amount: 0.3 }}
+                        initial={{ opacity: 0, x: "100%" }}
+                        whileInView={{ opacity: 1, x: "0%" }}
+                        transition={{
+                            delay: 0.8,
+                            duration: 0.5,
+                            ease: "easeInOut",
+                        }}
                     >
                         <CardContent>
                             <CardTitle>Reserve Transparency</CardTitle>
@@ -104,7 +168,18 @@ const ProtectPast: React.FC = () => {
                             <ProductCardBottomIcon />
                         </div>
                     </CardWrapper>
-                    <CardWrapper bottomsvgWidth={`${bottomIconWidth}px`}>
+                    <CardWrapper
+                        bottomsvgWidth={`${bottomIconWidth}px`}
+                        as={motion.div}
+                        viewport={{ once: false, amount: 0.3 }}
+                        initial={{ opacity: 0, x: "100%" }}
+                        whileInView={{ opacity: 1, x: "0%" }}
+                        transition={{
+                            delay: 1.2,
+                            duration: 0.5,
+                            ease: "easeInOut",
+                        }}
+                    >
                         <CardContent>
                             <CardTitle>Volume Proof</CardTitle>
                             <CardDescription>
@@ -122,7 +197,18 @@ const ProtectPast: React.FC = () => {
                             <ProductCardBottomIcon />
                         </div>
                     </CardWrapper>
-                    <CardWrapper bottomsvgWidth={`${bottomIconWidth}px`}>
+                    <CardWrapper
+                        bottomsvgWidth={`${bottomIconWidth}px`}
+                        as={motion.div}
+                        viewport={{ once: false, amount: 0.3 }}
+                        initial={{ opacity: 0, x: "100%" }}
+                        whileInView={{ opacity: 1, x: "0%" }}
+                        transition={{
+                            delay: 1.4,
+                            duration: 0.5,
+                            ease: "easeInOut",
+                        }}
+                    >
                         <CardContent>
                             <CardTitle>VIP Token Security</CardTitle>
                             <CardDescription>

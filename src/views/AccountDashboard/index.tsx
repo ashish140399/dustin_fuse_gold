@@ -4,10 +4,10 @@ import WelcomeHeader from "../../components/WelcomeHeader/WelcomeHeader";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import MyNFT from "./components/NFTsList";
 import DashboardHeader from "../../components/DashboardHeader/DashboardHeader";
-import GoldXStats from "./components/GoldXStats";
+import GoldXStats from "./components/MyProfile";
 import { useMatch } from "react-router-dom";
+import MyProfile from "./components/MyProfile";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -42,7 +42,7 @@ function a11yProps(index: number) {
     };
 }
 
-const MyDashboard: React.FC<MyNFTProps> = ({}) => {
+const AccountDashboard: React.FC<MyNFTProps> = ({}) => {
     const [tabValue, setTabValue] = React.useState(0);
     const searchpathvalues = useMatch({
         path: "/search",
@@ -57,7 +57,11 @@ const MyDashboard: React.FC<MyNFTProps> = ({}) => {
             <DashboardHeader />
             <Layout>
                 {!searchmatch && (
-                    <WelcomeHeader heading="Dashboard" username="John" />
+                    <WelcomeHeader
+                        heading="My Account"
+                        username="John"
+                        hideActions
+                    />
                 )}
 
                 <Box sx={{ width: "100%", boxSizing: "border-box" }}>
@@ -75,28 +79,28 @@ const MyDashboard: React.FC<MyNFTProps> = ({}) => {
                                 onChange={handleChange}
                                 aria-label="basic tabs example"
                             >
-                                <Tab label="MY NFTS" {...a11yProps(0)} />
-                                <Tab label="GOLDX STATS" {...a11yProps(1)} />
-                                <Tab label="LEADERBOARD" {...a11yProps(2)} />
+                                <Tab label="MY PROFILE" {...a11yProps(0)} />
+                                <Tab label="Favourites" {...a11yProps(1)} />
+                                <Tab label="Collections" {...a11yProps(2)} />
                             </Tabs>
                         </Box>
                     )}
-                    <CustomTabPanelWrapper
-                        value={tabValue}
-                        index={0}
-                        className="paddinglayoutx paddinglayouty"
-                    >
-                        <MyNFT isSearchPage={searchmatch} />
+                    <CustomTabPanelWrapper value={tabValue} index={0}>
+                        <MyProfile />
                     </CustomTabPanelWrapper>
-                    <CustomTabPanelWrapper value={tabValue} index={1}>
-                        <GoldXStats />
+                    <CustomTabPanelWrapper
+                        className="paddinglayoutx paddinglayouty"
+                        value={tabValue}
+                        index={1}
+                    >
+                        Your Favorites will show up here!!
                     </CustomTabPanelWrapper>
                     <CustomTabPanelWrapper
                         value={tabValue}
                         index={2}
                         className="paddinglayoutx paddinglayouty"
                     >
-                        Your Leaderboard will show up here!!
+                        Your Collection will show up here!!
                     </CustomTabPanelWrapper>
                 </Box>
             </Layout>
@@ -112,4 +116,4 @@ const CustomTabPanelWrapper = styled(CustomTabPanel)`
     box-sizing: border-box;
 `;
 
-export default MyDashboard;
+export default AccountDashboard;

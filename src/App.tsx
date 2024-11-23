@@ -14,6 +14,7 @@ import Minting from "./views/Minting";
 import Transfer from "./views/Transfer";
 import { useAnimation } from "framer-motion";
 import styled from "styled-components";
+import AccountDashboard from "./views/AccountDashboard";
 
 function App() {
     const [width, height] = useWindowSize();
@@ -69,6 +70,7 @@ function App() {
                         element={<FeaturesnSecurity />}
                     />
                     <Route path="/miningright" element={<MiningRightsPage />} />
+                    <Route path="/account" element={<AccountDashboard />} />
                     <Route path="/account/create" element={<Account />} />
                     <Route path="/account/login" element={<Account />} />
                     <Route path="/account/transfer" element={<Account />} />
@@ -111,6 +113,6 @@ const ProgressBar = styled.div`
     transform: scaleX(0);
     transition: transform 0.2s ease-out;
     z-index: 1000;
-    width: 100%;
+    width: 100vw;
 `;
 export default App;

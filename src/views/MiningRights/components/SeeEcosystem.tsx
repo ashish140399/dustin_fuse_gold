@@ -8,27 +8,127 @@ import {
     smallmobileBreakpoint,
     smscreenBreakpoint,
 } from "../../../const";
-
+import { motion } from "framer-motion";
 const SeeEcosystem: React.FC = () => {
+    const textWavyVariants = {
+        hidden: { opacity: 0, y: -40 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: delayOffset + index * 0.1,
+                duration: 0.3,
+            }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const lineVariants = {
+        hidden: { opacity: 0, y: -30 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: { delay: delayOffset + index * 0.5, duration: 0.3 }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const texts = {
+        titlewhite: "SEE OUR",
+        titlespan: "ECOSYSTEM",
+        descriptionLines: [
+            "Lorem ipsum dolor sit amet, consectetur elit, sed do",
+            "eiusmod tempor incididunt ut",
+        ],
+    };
     return (
         <EcoSystemSection className="paddingsclayoutx marginsclayouty1">
             <SectionHeader>
                 <SectionTitle>
-                    SEE OUR <GoldSpan>ECOSYSTEM</GoldSpan>
+                    {[...texts.titlewhite].map((char, index) => (
+                        <motion.span
+                            key={index}
+                            custom={{ index: index, delayOffset: 0 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                            variants={textWavyVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                        >
+                            {char}
+                        </motion.span>
+                    ))}{" "}
+                    <GoldSpan>
+                        {" "}
+                        {[...texts.titlespan].map((char, index) => (
+                            <motion.span
+                                key={index}
+                                custom={{ index: index, delayOffset: 0.8 }}
+                                viewport={{ once: false, amount: 0.3 }}
+                                variants={textWavyVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                            >
+                                {char}
+                            </motion.span>
+                        ))}
+                    </GoldSpan>
                 </SectionTitle>
                 <SectionDescription>
-                    Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod
-                    tempor incididunt ut
-                    <ActionButton
-                        label="About Ecosystem"
-                        variant="primary"
-                        className="btnwidth50"
-                        // @ts-ignore
-                        icon={<ArrowTransformIcon />}
-                    />
+                    {[...texts.descriptionLines].map((line, index) => (
+                        <motion.div
+                            key={index}
+                            custom={{ index: index, delayOffset: 0.8 }}
+                            variants={lineVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            {line}
+                        </motion.div>
+                    ))}{" "}
+                    <FramerActionButton
+                        viewport={{ once: false }}
+                        initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }} // Start fully clipped
+                        whileInView={{
+                            opacity: 1,
+                            clipPath: "inset(0 0% 0 0)",
+                        }} // Reveal completely
+                        transition={{
+                            delay: 1.3,
+                            duration: 0.3,
+                            ease: "easeIn", // Smooth transition
+                        }}
+                    >
+                        <ActionButton
+                            label="About Ecosystem"
+                            variant="primary"
+                            className="btnwidth50"
+                            // @ts-ignore
+                            icon={<ArrowTransformIcon />}
+                        />
+                    </FramerActionButton>
                 </SectionDescription>
             </SectionHeader>
-            <EcoSystemImageWrapper>
+            <EcoSystemImageWrapper
+                as={motion.div}
+                viewport={{ once: false, amount: 0.3 }}
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{
+                    delay: 0.2,
+                    duration: 0.5,
+                }}
+            >
                 <img
                     src="/images/common/seeourecosystem.svg"
                     className="seeecosystem"
@@ -38,7 +138,7 @@ const SeeEcosystem: React.FC = () => {
         </EcoSystemSection>
     );
 };
-
+const FramerActionButton = motion(styled.div``);
 const EcoSystemImageWrapper = styled.div`
     .seeecosystem {
         width: 100%;

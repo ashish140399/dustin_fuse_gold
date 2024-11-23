@@ -127,6 +127,13 @@ const ProfileWrapper = styled.div`
     background: var(--background-surface-2, #2e2d2a);
     cursor: pointer;
     position: relative;
+    .accounticon {
+        width: 64px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 `;
 
 const ListBox = styled.div`

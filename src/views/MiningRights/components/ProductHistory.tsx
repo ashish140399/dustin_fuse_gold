@@ -16,9 +16,50 @@ import {
     smscreenBreakpoint,
 } from "../../../const";
 import SiteVariablesContext from "../../../contexts/SiteVariablesContext";
-
+import { motion, useInView } from "framer-motion";
 const ProductHistory: React.FC = () => {
     const { windowDimensions } = useContext(SiteVariablesContext);
+    const textWavyVariants = {
+        hidden: { opacity: 0, y: -40 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: delayOffset + index * 0.1,
+                duration: 0.3,
+            }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const lineVariants = {
+        hidden: { opacity: 0, y: -30 }, // Start off-screen below
+        visible: ({
+            index,
+            delayOffset,
+        }: {
+            index: number;
+            delayOffset: number;
+        }) => ({
+            opacity: 1,
+            y: 0,
+            transition: { delay: delayOffset + index * 0.5, duration: 0.3 }, // Stagger each line by 0.2s
+        }),
+    };
+
+    const texts = {
+        titlewhite: "History",
+        titlespan: "of product.",
+        descriptionLines: [
+            "Lorem ipsum dolor sit amet, consectetur,",
+            "veniam, quis a nostrud.",
+        ],
+    };
     return (
         <HistorySection>
             <div className="topimgbg">
@@ -30,18 +71,75 @@ const ProductHistory: React.FC = () => {
             </div>
             <SectionHeader className="paddingsclayoutx">
                 <SectionTitle>
-                    History <GoldSpan>of product</GoldSpan>
+                    {[...texts.titlewhite].map((char, index) => (
+                        <motion.span
+                            key={index}
+                            custom={{ index: index, delayOffset: 0 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                            variants={textWavyVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                        >
+                            {char}
+                        </motion.span>
+                    ))}{" "}
+                    <GoldSpan>
+                        {" "}
+                        {[...texts.titlespan].map((char, index) => (
+                            <motion.span
+                                key={index}
+                                custom={{ index: index, delayOffset: 0.5 }}
+                                viewport={{ once: false, amount: 0.3 }}
+                                variants={textWavyVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                            >
+                                {char}
+                            </motion.span>
+                        ))}
+                    </GoldSpan>
                 </SectionTitle>
                 <SectionDescription>
-                    Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod
-                    tempor incididunt ut
+                    {[...texts.descriptionLines].map((line, index) => (
+                        <motion.div
+                            key={index}
+                            custom={{ index: index, delayOffset: 0.8 }}
+                            variants={lineVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            {line}
+                        </motion.div>
+                    ))}
                 </SectionDescription>
             </SectionHeader>
             <HistoryContentWrapper className="paddingsclayoutx">
-                <div className="genesiswrapper">GENESIS Round</div>
+                <motion.div
+                    viewport={{ once: false, amount: 0.3 }}
+                    initial={{ opacity: 0, y: "100px" }}
+                    whileInView={{ opacity: 1, y: "0" }}
+                    transition={{
+                        delay: 0.8,
+                        duration: 0.3,
+                    }}
+                    className="genesiswrapper"
+                >
+                    GENESIS Round
+                </motion.div>
+
                 <HistoryLayoutBox>
                     <TimelineContainer>
-                        <TimelineItemWrapper>
+                        <TimelineItemWrapper
+                            as={motion.div}
+                            viewport={{ once: false, amount: 0.3 }}
+                            initial={{ opacity: 0, x: "200px" }}
+                            whileInView={{ opacity: 1, x: "0%" }}
+                            transition={{
+                                delay: 0.8,
+                                duration: 0.5,
+                            }}
+                        >
                             <TimelineIconWrapper>
                                 {windowDimensions?.width > mobileBreakpoint ? (
                                     <ProductTimelineIcon />
@@ -63,7 +161,17 @@ const ProductHistory: React.FC = () => {
                                 </TimelineDetails>
                             </TimelineContent>
                         </TimelineItemWrapper>
-                        <TimelineItemWrapper className="disabled">
+                        <TimelineItemWrapper
+                            className="disabled"
+                            as={motion.div}
+                            viewport={{ once: false, amount: 0.3 }}
+                            initial={{ opacity: 0, x: "200px" }}
+                            whileInView={{ opacity: 0.5, x: "0%" }}
+                            transition={{
+                                delay: 1.2,
+                                duration: 0.5,
+                            }}
+                        >
                             <TimelineIconWrapper>
                                 {windowDimensions?.width > mobileBreakpoint ? (
                                     <ProductTimelineIcon />
@@ -85,7 +193,17 @@ const ProductHistory: React.FC = () => {
                                 </TimelineDetails>
                             </TimelineContent>
                         </TimelineItemWrapper>
-                        <TimelineItemWrapper className="disabled">
+                        <TimelineItemWrapper
+                            className="disabled"
+                            as={motion.div}
+                            viewport={{ once: false, amount: 0.3 }}
+                            initial={{ opacity: 0, x: "200px" }}
+                            whileInView={{ opacity: 0.5, x: "0%" }}
+                            transition={{
+                                delay: 1.3,
+                                duration: 0.5,
+                            }}
+                        >
                             <TimelineIconWrapper>
                                 {windowDimensions?.width > mobileBreakpoint ? (
                                     <ProductTimelineIcon />
@@ -99,9 +217,9 @@ const ProductHistory: React.FC = () => {
                                     <YearText>2019</YearText>
                                 </YearBadge>
                                 <TimelineDetails>
-                                    <div className="newbox">Now</div>
                                     <TimelineTitle>Round 3</TimelineTitle>
                                     <TimelineDescription>
+                                        <div className="newbox">Now</div>
                                         Lorem ipsum dolor sit amet, consectetur
                                         adipiscing elit, sed do eiusmod tempor
                                     </TimelineDescription>
