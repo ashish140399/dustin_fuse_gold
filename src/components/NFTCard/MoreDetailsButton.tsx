@@ -130,10 +130,10 @@ const ListBox = styled.div`
     background: var(--background-surface-2, #2e2d2a);
     min-width: 240px;
     // z-index: 90;
-    padding: 20px 26px;
+    overflow: hidden;
     box-sizing: border-box;
     .item {
-        padding: 16px 0px;
+        padding: 18px 26px;
         border-bottom: 1px solid #383838;
         color: var(--Text-Primary, var(--Typography-Primary-white, #fff));
         /* P2/Regular */
@@ -146,17 +146,21 @@ const ListBox = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
+        transition: all 0.2s ease-in-out;
         svg {
             path {
                 stroke: #fff;
             }
         }
         &:first-child {
-            padding-top: 0;
+            // padding-top: 0;
         }
         &:last-child {
             border-bottom: none;
-            padding-bottom: 0;
+            // padding-bottom: 0;
+        }
+        &:hover {
+            background: rgba(0, 0, 0, 0.2);
         }
     }
 `;

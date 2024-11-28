@@ -10,6 +10,7 @@ import {
     MyCollectionsIcon,
     ReferralsIcon,
     LogOutIcon,
+    SuggestionSearchIcon,
 } from "../../assets/icons";
 import { useNavigate } from "react-router-dom";
 import ReferralModal from "../Modals/ReferralModal";
@@ -172,6 +173,19 @@ const ListBox = styled.div`
 const SearchBar: React.FC<SearchBarProps> = () => {
     const [open, setOpen] = React.useState(false);
     const [iptValue, setIptValue] = React.useState("");
+    const [searchList, setSearchList] = React.useState([
+        "#234343",
+        "#334343",
+        "#634343",
+        "#734343",
+        "#034343",
+    ]);
+    // Handler to remove an item from the list
+    const handleRemove = (itemToRemove: string) => {
+        setSearchList((prevList) =>
+            prevList.filter((item) => item !== itemToRemove)
+        );
+    };
     const navigate = useNavigate();
     return (
         <SearchWrapper>
@@ -197,19 +211,27 @@ const SearchBar: React.FC<SearchBarProps> = () => {
             <SearchButton onClick={() => navigate("/search")}>
                 <SearchIcon />
             </SearchButton>
-            {open && (
+            {open && searchList.length > 0 && (
                 <SearchSuggestionBox>
                     <div className="suggestionheader">
                         <div className="left">Recent Searches</div>
-                        <div className="right">Clear All</div>
+                        <div
+                            className="right"
+                            onClick={() => setSearchList([])}
+                        >
+                            Clear All
+                        </div>
                     </div>
                     <div className="suggestionlistwrapper">
-                        {[1, 2, 3, 4].map((item: any) => (
+                        {searchList.map((item: any) => (
                             <div className="suggestionlistrow" key={item}>
                                 <div className="left">
-                                    <SuggestionTimeIcon /> #242414
+                                    <SuggestionSearchIcon /> {item}
                                 </div>
-                                <div className="right">
+                                <div
+                                    className="right"
+                                    onClick={() => handleRemove(item)}
+                                >
                                     <SuggestionCloseIcon />
                                 </div>
                             </div>
@@ -247,6 +269,11 @@ const SearchWrapper = styled.div`
             stroke: #fff;
         }
     }
+    .left {
+        svg {
+            transform: scale(0.8);
+        }
+    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         width: 100%;
     }
@@ -263,6 +290,10 @@ const SearchInput = styled.input`
     border: none;
     width: 100%;
     box-sizing: border-box;
+
+    &:focus {
+        outline: 1px solid var(--Brand-Gold, #f4e0a3);
+    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 20px;
     }
@@ -365,12 +396,14 @@ const SearchSuggestionBox = styled.div`
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid #383838;
-            padding-top: 12px;
-            margin-top: 12px;
+            padding-top: 8px;
+            margin-top: 8px;
+
             cursor: pointer;
             .left {
                 display: flex;
                 align-items: center;
+                font-size: 14px;
                 svg {
                     margin-right: 10px;
                 }

@@ -158,11 +158,21 @@ const HeroContent: React.FC = () => {
                         duration: 0.5,
                     }}
                 >
-                    <GetStartedIcon />
+                    <div className="getStartedOuter">
+                        <img
+                            className="get_started_arrow"
+                            src="/images/common/get_started_arrow.png"
+                            alt=""
+                        />
+                        <img
+                            className="get_started"
+                            src="/images/common/get_started.png"
+                            alt=""
+                        />
+                    </div>
                 </motion.div>
             </TextContent>{" "}
             <motion.div
-                className="getstartedicon"
                 viewport={{ once: false, amount: 0.3 }}
                 initial={{ opacity: 0, x: -220 }}
                 whileInView={{ opacity: 1, x: 0 }}

@@ -18,6 +18,7 @@ import {
     ArrowTransformIcon,
     BackArrowIcon,
     CustomDropdownIcon,
+    GreenCheckmarkIcon,
     SuggestionCloseIcon,
     UploadIcon,
 } from "../../assets/icons";
@@ -29,10 +30,23 @@ import UploadImage from "./UploadImage";
 import SiteVariablesContext from "../../contexts/SiteVariablesContext";
 import { mobileBreakpoint } from "../../const";
 import NftTransfferdModal from "../../components/Modals/NftTransfferdModal";
+import { useNavigate } from "react-router-dom";
 
 interface NFTsListProps {}
 
 const DataContainer = styled.div`
+    .greencheckmark {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        background: var(--Functional-Success, #5ab79b);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 20px;
+    }
     .MuiAccordion-root {
         background: transparent;
         box-shadow: none;
@@ -42,6 +56,7 @@ const DataContainer = styled.div`
             margin-bottom: 20px;
             padding: 0;
             .MuiAccordionSummary-content {
+                position: relative;
                 border-radius: 32px;
                 background: var(--Brand-Dark, #111);
                 color: #fff;
@@ -290,6 +305,10 @@ const Minting: React.FC<NFTsListProps> = ({}) => {
     const [blockchainnetwork, setBlockchainnetwork] = React.useState("");
     const [category, setCategory] = React.useState("");
     const { windowDimensions } = useContext(SiteVariablesContext);
+    const navigate = useNavigate();
+    const handleGoBack = () => {
+        navigate(-1); // Navigates one step back in the history
+    };
     return (
         <>
             <DashboardHeader />
@@ -299,7 +318,10 @@ const Minting: React.FC<NFTsListProps> = ({}) => {
                         <TopColumn>
                             <PageControls>
                                 <PageControlLeft>
-                                    <div className="backbutton">
+                                    <div
+                                        className="backbutton"
+                                        onClick={handleGoBack}
+                                    >
                                         <BackArrowIcon /> <span>Go Back</span>
                                     </div>
                                 </PageControlLeft>
@@ -324,6 +346,9 @@ const Minting: React.FC<NFTsListProps> = ({}) => {
                                                 id="panel1-header"
                                             >
                                                 Select Draft
+                                                <div className="greencheckmark">
+                                                    <GreenCheckmarkIcon />
+                                                </div>
                                             </AccordionSummary>
                                             <AccordionDetails>
                                                 <DataBox>

@@ -416,7 +416,30 @@ const ContactButton = styled.button`
     font: 500 16px Telegraf, sans-serif;
     background: none;
     cursor: pointer;
-
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            75deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent
+        );
+        transition: 0.4s;
+        transition-delay: 0.2s;
+    }
+    // animation: slideAndReset 0.3s ease-in-out forwards;
+    overflow: hidden;
+    position: relative;
+    &:hover {
+        &:after {
+            left: 100%;
+        }
+    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         padding: 0 20px;
     }

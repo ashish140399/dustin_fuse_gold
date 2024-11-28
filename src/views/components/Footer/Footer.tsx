@@ -314,6 +314,22 @@ const SocialIcons = styled.div`
             height: 24px;
             width: auto;
         }
+        transition: transform 0.3s ease-in-out;
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        &:hover {
+            transform: scale(1.2);
+            animation: pulse 1s infinite;
+        }
     }
     @media screen and (max-width: ${smallmobileBreakpoint}px) {
         a {

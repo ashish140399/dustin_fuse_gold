@@ -99,10 +99,43 @@ const WhyShouldYouBuy: React.FC = () => {
             "stability and innovation of the GOLDX blockchain.",
         ],
     };
+
+    const leftColumnRef = useRef<HTMLDivElement | null>(null);
+    const rightColumnRef = useRef<HTMLDivElement | null>(null);
+
+    const [leftColumnWidth, setLeftColumnWidth] = useState("50%"); // Initial width
+    const [rightColumnWidth, setRightColumnWidth] = useState("50%"); // Initial width
+
+    useEffect(() => {
+        const adjustWidths = () => {
+            // Get the heights of both columns
+            const leftHeight = leftColumnRef.current?.offsetHeight || 0;
+            const rightHeight = rightColumnRef.current?.offsetHeight || 0;
+            console.log("leftHeight", leftHeight, rightHeight);
+            if (leftHeight && rightHeight) {
+                // Calculate widths proportionally
+                const totalHeight = leftHeight + rightHeight;
+                setLeftColumnWidth(`${(leftHeight / totalHeight) * 100}%`);
+                setRightColumnWidth(`${(rightHeight / totalHeight) * 100}%`);
+            }
+        };
+
+        adjustWidths(); // Initial adjustment
+
+        // Recalculate widths on window resize
+        window.addEventListener("resize", adjustWidths);
+        return () => window.removeEventListener("resize", adjustWidths);
+    }, []);
     return (
         <WhyShouldYouBuySection className="paddingsclayoutx ">
             <Container>
-                <LeftColumn>
+                <LeftColumn
+                    ref={leftColumnRef}
+                    style={{
+                        width: leftColumnWidth, // Dynamically calculated width
+                        transition: "width 0.3s ease", // Smooth width transition
+                    }}
+                >
                     <MainHeading>
                         <WhiteText>
                             {" "}
@@ -163,7 +196,13 @@ const WhyShouldYouBuy: React.FC = () => {
                         alt="GOLDX blockchain illustration"
                     />
                 </LeftColumn>
-                <RightColumn>
+                <RightColumn
+                    ref={rightColumnRef}
+                    style={{
+                        width: rightColumnWidth, // Dynamically calculated width
+                        transition: "width 0.3s ease", // Smooth width transition
+                    }}
+                >
                     {benefits.map((benefit, index) => (
                         <CardWrapper
                             key={index}
@@ -202,6 +241,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     gap: 20px;
+    align-items: flex-start;
     @media screen and (max-width: ${mobileBreakpoint}px) {
         flex-direction: column;
         align-items: stretch;

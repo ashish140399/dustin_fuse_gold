@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import ActionButton from "../Buttons/ActionButton/ActionButton";
-import { DollarIcon, ThreeDotsIcon, TransferIcon } from "../../assets/icons";
+import {
+    DollarIcon,
+    MYNFTsIcon,
+    ThreeDotsIcon,
+    TransferIcon,
+} from "../../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { mobileBreakpoint } from "../../const";
 
@@ -61,6 +66,7 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({
     hideActions,
 }) => {
     const navigate = useNavigate();
+    const [showList, setShowList] = React.useState(false);
     const actionButtons: ActionButtonType[] = [
         {
             label: "Buy",
@@ -76,6 +82,7 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({
         {
             icon: <ThreeDotsIcon />,
             variant: "tertiary",
+            onClick: () => setShowList(!showList),
         },
     ];
     return (
@@ -91,11 +98,69 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({
                     {actionButtons.map((button, index) => (
                         <ActionButton key={index} {...button} />
                     ))}
+                    {showList && (
+                        <ListBox>
+                            <div
+                                className="item"
+                                onClick={() => {
+                                    navigate("/minting");
+                                }}
+                            >
+                                Mint NFT <MYNFTsIcon />
+                            </div>
+                            <div
+                                className="item"
+                                onClick={() => {
+                                    navigate("/transfer");
+                                }}
+                            >
+                                Transfer <TransferIcon />
+                            </div>
+                        </ListBox>
+                    )}
                 </ActionButtonsContainer>
             )}
         </DashboardContainer>
     );
 };
+
+const ListBox = styled.div`
+    position: absolute;
+    top: 80px;
+    right: 0;
+    border-radius: 16px;
+    border: 1px solid var(--Lines-Divider, #383838);
+    background: var(--background-surface-2, #2e2d2a);
+    min-width: 240px;
+    z-index: 5;
+
+    .item {
+        padding: 20px 24px;
+        color: #fff;
+        border-bottom: 1px solid #383838;
+        font-weight: 400;
+        font-family: "Telegraf", sans-serif;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        svg {
+            path {
+                stroke: #fff;
+            }
+        }
+        &:first-child {
+            // padding-top: 0;
+        }
+        &:last-child {
+            // padding-bottom: 0;
+            border-bottom: 0;
+        }
+        &:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+    }
+`;
 
 const DashboardContainer = styled.main`
     display: flex;
@@ -119,6 +184,7 @@ const ActionButtonsContainer = styled.section`
     justify-content: flex-start;
     flex-wrap: wrap;
     margin: auto 0;
+    position: relative;
 `;
 
 export default WelcomeHeader;

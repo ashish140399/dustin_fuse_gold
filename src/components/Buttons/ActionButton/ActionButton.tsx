@@ -190,24 +190,6 @@ const ButtonWrapper = styled.div<{ variant: string }>`
         }
     }
 
-    @keyframes slideAndReset {
-        0% {
-            transform: translate(0, 0);
-            opacity: 1; /* Fully visible */
-        }
-        50% {
-            transform: translate(100px, -100px);
-            opacity: 0; /* Fade out while moving right */
-        }
-        51% {
-            transform: translate(-100px, 100px);
-            opacity: 0; /* Invisible while resetting to the left */
-        }
-        100% {
-            transform: translate(0, 0);
-            opacity: 1; /* Fade back in */
-        }
-    }
     &:hover {
         ${IconWrapper} {
             svg {

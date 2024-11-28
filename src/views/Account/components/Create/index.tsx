@@ -17,7 +17,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import AccountCreatedModal from "../../../../components/Modals/AccountCreatedModal";
 import { useNavigate } from "react-router-dom";
-import { mobileBreakpoint } from "../../../../const";
+import { mobileBreakpoint, smallmobileBreakpoint } from "../../../../const";
 
 interface NFTsListProps {}
 
@@ -105,20 +105,36 @@ const CreatePasswordBox = () => {
                     </PageDescription>
                 </PageHeading>
                 <DataContainer>
-                    <div className="flexbox">
-                        <DataBox>
-                            <Label>First Name</Label>
-                            <InputBox placeholder="John" />
-                        </DataBox>
-                        <DataBox>
-                            <Label>Last Name</Label>
-                            <InputBox placeholder="Doe" />
-                        </DataBox>
-                    </div>
                     <DataBox>
-                        <Label>
-                            Wallet Address <span>Optional</span>
-                        </Label>
+                        <Label>Password</Label>
+                        <StyledOutlinedInput
+                            id="outlined-adornment-password"
+                            type={showPassword ? "text" : "password"}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label={
+                                            showPassword
+                                                ? "hide the password"
+                                                : "display the password"
+                                        }
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        onMouseUp={handleMouseUpPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? (
+                                            <VisibilityOff />
+                                        ) : (
+                                            <Visibility />
+                                        )}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                    </DataBox>
+                    <DataBox>
+                        <Label>Confirm Password</Label>
                         <StyledOutlinedInput
                             id="outlined-adornment-password"
                             type={showPassword ? "text" : "password"}
@@ -183,6 +199,7 @@ const InputBox = styled.input`
 `;
 const StyledOutlinedInput = styled(OutlinedInput)`
     width: 100%;
+    color: #fff !important;
     border-radius: 18px !important;
     overflow: hidden !important;
     .MuiInputBase-root {
@@ -250,7 +267,36 @@ const CreateAccount: React.FC<NFTsListProps> = ({}) => {
                                         <BackArrowIcon /> <span>Go Back</span>
                                     </div>
                                 </PageControlLeft>
-                                <PageControlRight></PageControlRight>
+                                <PageControlRight>
+                                    {" "}
+                                    <div className="progressbar">
+                                        <div
+                                            className={`item ${
+                                                stepno > 1 ? "active" : ""
+                                            }`}
+                                        >
+                                            <div className="value">1</div>Email{" "}
+                                            <div className="line"></div>
+                                        </div>
+                                        <div
+                                            className={`item ${
+                                                stepno > 2 ? "active" : ""
+                                            }`}
+                                        >
+                                            <div className="value">2</div>
+                                            Personal Details
+                                            <div className="line"></div>
+                                        </div>
+                                        <div
+                                            className={`item ${
+                                                stepno > 3 ? "active" : ""
+                                            }`}
+                                        >
+                                            <div className="value">3</div>
+                                            Password
+                                        </div>
+                                    </div>
+                                </PageControlRight>
                             </PageControls>
 
                             {stepno === 1 && <CreateAccountBox />}
@@ -302,13 +348,11 @@ const CreateAccount: React.FC<NFTsListProps> = ({}) => {
     );
 };
 
-const PageControls = styled.div`
+const PageControlLeft = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 30px;
-`;
-const PageControlLeft = styled.div`
+
     .backbutton {
         display: flex;
         align-items: center;
@@ -342,8 +386,56 @@ const PageControlLeft = styled.div`
         }
     }
 `;
-const PageControlRight = styled.div``;
-
+const PageControlRight = styled.div`
+    .progressbar {
+        display: flex;
+        align-items: center;
+        .item {
+            display: flex;
+            align-items: center;
+            color: #707070;
+            .value {
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                font-size: 10px;
+                margin-right: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid #707070;
+                line-height: 10px;
+            }
+            .line {
+                margin: 0 10px;
+                width: 30px;
+                height: 1.6px;
+                background: #383838;
+                border-radius: 2px;
+            }
+            &.active {
+                color: #fff;
+                .value {
+                    color: #ebd27e;
+                    border-color: #ebd27e;
+                }
+            }
+        }
+    }
+`;
+const PageControls = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    @media screen and (max-width: ${smallmobileBreakpoint}px) {
+        flex-direction: column;
+        align-items: flex-start;
+        ${PageControlRight} {
+            margin-top: 10px;
+        }
+    }
+`;
 const LeftColumn = styled.div`
     box-sizing: border-box;
     padding-right: 20px;

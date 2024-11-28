@@ -56,6 +56,20 @@ export const ModalMainWrapper = styled.div<ModalMainWrapperProp>`
         font-weight: 600;
         text-transform: uppercase;
     }
+    @keyframes bounce {
+        0% {
+            transform: translateY(0); /* Start and end at original position */
+        }
+        50% {
+            transform: translateY(-10px); /* Move up */
+        }
+        100% {
+            transform: translateY(0px); /* Move up */
+        }
+    }
+    .transactioncompletedimg {
+        animation: bounce 1.5s ease-in-out infinite;
+    }
 `;
 export const ModalFooter = styled.div`
     margin-top: 35px;

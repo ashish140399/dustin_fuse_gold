@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { HeartIcon } from "../../assets/icons";
 
 interface NFTCardDetailsProps {
     title: string;
@@ -39,11 +40,9 @@ const NFTCardDetails: React.FC<NFTCardDetailsProps> = ({
                         <span className="unit">K</span>
                     </LikesCount>
                 </LikesWrapper>
-                <CollectionIcon
-                    loading="lazy"
-                    src="/images/common/icons/likes.svg"
-                    alt="Collection"
-                />
+                <CollectionIcon>
+                    <HeartIcon />
+                </CollectionIcon>
             </StatsWrapper>
         </DetailsWrapper>
     );
@@ -128,7 +127,13 @@ const LikesCount = styled.div`
     }
 `;
 
-const CollectionIcon = styled.img`
+const CollectionIcon = styled.div`
+    border-radius: 40px;
+    border: 1px solid var(--Lines-Border, #5d5c5a);
+    background: var(--background-surface-2, #2e2d2a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     aspect-ratio: 1;
     object-fit: contain;
     object-position: center;
@@ -137,6 +142,19 @@ const CollectionIcon = styled.img`
     position: absolute;
     right: 0;
     bottom: -20px;
+    transition: all 0.3s linear;
+    cursor: pointer;
+    border-radius: 50%;
+    svg {
+        transition: all 0.3s linear;
+    }
+    &:hover {
+        svg {
+            path {
+                fill: red;
+            }
+        }
+    }
 `;
 
 export default NFTCardDetails;

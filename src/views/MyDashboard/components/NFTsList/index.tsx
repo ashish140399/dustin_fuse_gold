@@ -24,6 +24,7 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import { Box, TableContainer, TableContainerProps } from "@mui/material";
 import { mobileBreakpoint } from "../../../../const";
+import { useNavigate } from "react-router-dom";
 interface StyledTableContainerProps extends TableContainerProps {
     // any additional props here
 }
@@ -159,14 +160,17 @@ const NFTsList: React.FC<NFTsListProps> = ({ isSearchPage }) => {
             },
         ],
     };
-
+    const navigate = useNavigate();
+    const handleGoBack = () => {
+        navigate(-1); // Navigates one step back in the history
+    };
     return (
         <Layout>
             {layoutSelector === "distribute" && <GlobalStyle />}
 
             {nftcards?.length > 0 && (
                 <OptionsWrapper className={isSearchPage ? "searchpage" : ""}>
-                    <div className="backbutton">
+                    <div className="backbutton" onClick={handleGoBack}>
                         <BackArrowIcon /> <span>Go Back</span>
                     </div>
                     <div className="leftwrapper">

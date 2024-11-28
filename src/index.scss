@@ -32,7 +32,24 @@
     box-shadow: none; /* Remove any default shadows */
   }
 }
-
+@keyframes slideAndReset {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1; /* Fully visible */
+  }
+  50% {
+    transform: translate(100px, -100px);
+    opacity: 0; /* Fade out while moving right */
+  }
+  51% {
+    transform: translate(-100px, 100px);
+    opacity: 0; /* Invisible while resetting to the left */
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1; /* Fade back in */
+  }
+}
 :root {
   --brand-gold: radial-gradient(
     458.07% 144.86% at 13.25% 21.87%,

@@ -141,7 +141,7 @@ const ProtectPast: React.FC = () => {
                         ref={cardWrapperRef}
                         bottomsvgWidth={`${bottomIconWidth}px`}
                         as={motion.div}
-                        viewport={{ once: false, amount: 0.3 }}
+                        viewport={{ once: false }}
                         initial={{ opacity: 0, x: "100%" }}
                         whileInView={{ opacity: 1, x: "0%" }}
                         transition={{
@@ -171,7 +171,7 @@ const ProtectPast: React.FC = () => {
                     <CardWrapper
                         bottomsvgWidth={`${bottomIconWidth}px`}
                         as={motion.div}
-                        viewport={{ once: false, amount: 0.3 }}
+                        viewport={{ once: false }}
                         initial={{ opacity: 0, x: "100%" }}
                         whileInView={{ opacity: 1, x: "0%" }}
                         transition={{
@@ -200,7 +200,7 @@ const ProtectPast: React.FC = () => {
                     <CardWrapper
                         bottomsvgWidth={`${bottomIconWidth}px`}
                         as={motion.div}
-                        viewport={{ once: false, amount: 0.3 }}
+                        viewport={{ once: false }}
                         initial={{ opacity: 0, x: "100%" }}
                         whileInView={{ opacity: 1, x: "0%" }}
                         transition={{
@@ -337,6 +337,13 @@ const CardWrapper = styled.div<CardWrapperProps>`
         svg {
             width: ${(props) => props.bottomsvgWidth || "70px"};
             height: auto;
+        }
+        cursor: pointer;
+        z-index: 3;
+        transform-origin: bottom right;
+        transition: transform 0.3s ease-in-out;
+        &:hover {
+            transform: scale(1.05);
         }
     }
     .cardlefticon {

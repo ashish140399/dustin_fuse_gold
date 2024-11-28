@@ -945,6 +945,22 @@ export const SuggestionTimeIcon: React.FC = () => (
         />
     </svg>
 );
+export const SuggestionSearchIcon: React.FC = () => (
+    <svg
+        width="40"
+        height="40"
+        viewBox="0 0 40 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <circle cx="20" cy="20" r="20" fill="#2E2D2A" />
+        <path
+            d="M28.9166 19.5833L27.2505 21.25L25.5833 19.5833M27.4542 20.8333C27.4845 20.5597 27.5 20.2817 27.5 20C27.5 15.8579 24.1421 12.5 20 12.5C15.8579 12.5 12.5 15.8579 12.5 20C12.5 24.1421 15.8579 27.5 20 27.5C22.3561 27.5 24.4584 26.4136 25.8333 24.7144M20 15.8333V20L22.5 21.6667"
+            stroke="#969696"
+            stroke-linecap="square"
+        />
+    </svg>
+);
 export const SuggestionCloseIcon: React.FC = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -1474,6 +1490,57 @@ export const CloseIcon: React.FC = () => (
         <path
             d="M34 22L22 34M22 22L34 34"
             stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="square"
+        />
+    </svg>
+);
+
+export const MultiplyIcon: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <path
+            d="M18 6L6 18M6 6L18 18"
+            stroke="#111111"
+            stroke-width="1.5"
+            stroke-linecap="square"
+        />
+    </svg>
+);
+export const HeartIcon: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="22"
+        height="20"
+        viewBox="0 0 22 20"
+        fill="none"
+    >
+        <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M10.9932 3.13581C8.9938 0.7984 5.65975 0.169643 3.15469 2.31001C0.649644 4.45038 0.296968 8.02898 2.2642 10.5604C3.89982 12.6651 8.84977 17.1041 10.4721 18.5408C10.6536 18.7016 10.7444 18.7819 10.8502 18.8135C10.9426 18.8411 11.0437 18.8411 11.1361 18.8135C11.2419 18.7819 11.3327 18.7016 11.5142 18.5408C13.1365 17.1041 18.0865 12.6651 19.7221 10.5604C21.6893 8.02898 21.3797 4.42787 18.8316 2.31001C16.2835 0.192157 12.9925 0.7984 10.9932 3.13581Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="square"
+        />
+    </svg>
+);
+export const GreenCheckmarkIcon: React.FC = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+    >
+        <path
+            d="M13.3327 4L5.99935 11.3333L2.66602 8"
+            stroke="#111111"
             stroke-width="1.5"
             stroke-linecap="square"
         />

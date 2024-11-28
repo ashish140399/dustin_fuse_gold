@@ -26,7 +26,26 @@ export const HeroLeft = styled.div`
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
+                transition: transform 0.3s ease-in-out;
+
                 margin-top: 5px;
+                @keyframes pulse {
+                    0% {
+                        transform: scale(1);
+                    }
+                    50% {
+                        transform: scale(1.3);
+                    }
+                    100% {
+                        transform: scale(1);
+                    }
+                }
+                &:hover {
+                    svg {
+                        transform: scale(1.3);
+                        animation: pulse 1s infinite;
+                    }
+                }
             }
         }
     }
@@ -87,7 +106,32 @@ export const HeroContentWrapper = styled.section`
     padding: 50px 0 50px 64px;
     box-sizing: border-box;
     height: calc(100% - 163px);
-
+    .getStartedOuter {
+        width: 100px;
+        position: Relative;
+        cursor: pointer;
+        z-index: 6;
+        @keyframes rotateIcon {
+            from {
+                transform: rotate(0deg); /* Starting point */
+            }
+            to {
+                transform: rotate(360deg); /* Full rotation */
+            }
+        }
+        .get_started_arrow {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 37px;
+        }
+        .get_started {
+            width: 100%;
+            transition: all 0.3s linear;
+            animation: rotateIcon 5s linear infinite;
+        }
+    }
     @media screen and (max-width: ${mobileBreakpoint}px) {
         max-width: 100%;
         margin-top: 40px;
@@ -107,6 +151,7 @@ export const InvestButtonWrapper = styled.div`
     bottom: 10px;
     left: 10px;
     width: 27.5vw;
+    z-index: 5;
     @media screen and (max-width: ${mobileBreakpoint}px) {
         position: relative;
         position: relative;

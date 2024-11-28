@@ -480,6 +480,13 @@ const CardWrapper = styled.div<CardWrapperProps>`
             width: ${(props) => props.bottomsvgWidth || "70px"};
             height: auto;
         }
+        cursor: pointer;
+        z-index: 3;
+        transform-origin: bottom right;
+        transition: transform 0.3s ease-in-out;
+        &:hover {
+            transform: scale(1.05);
+        }
     }
     .cardlefticon {
         position: absolute;

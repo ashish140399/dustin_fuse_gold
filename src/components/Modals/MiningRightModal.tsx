@@ -37,6 +37,7 @@ import { useNavigate } from "react-router-dom";
 import { Height } from "@mui/icons-material";
 import SiteVariablesContext from "../../contexts/SiteVariablesContext";
 import { mobileBreakpoint } from "../../const";
+import Slider from "@mui/material/Slider";
 
 const style = {
     position: "absolute",
@@ -47,6 +48,12 @@ const style = {
     bgcolor: "transparent",
     border: 0,
     outline: 0,
+    // height: "100%",
+    // maxHeight: "97vh",
+    // overflowY: "auto",
+    // display: "flex",
+    // justifyContent: "center",
+    // flexDirection: "column",
 };
 
 const stylemobile = {
@@ -202,7 +209,43 @@ const StepText = styled.p`
         }
     }
 `;
-
+const CustomSlider = styled(Slider)({
+    // Customize the track
+    "& .MuiSlider-track": {
+        height: 8, // Increase track height
+        borderRadius: 8, // Optional for rounded track
+        backgroundColor: "#b5fdf7", // Set track color
+        borderColor: "transparent",
+    },
+    // Customize the rail (inactive track)
+    "& .MuiSlider-rail": {
+        height: 8,
+        borderRadius: 8,
+        backgroundColor: "#b5fdf7", // Set rail color
+        borderColor: "transparent",
+    },
+    // Customize the thumb
+    "& .MuiSlider-thumb": {
+        width: 16, // Increase thumb size
+        height: 16,
+        backgroundColor: "#111", // Thumb color
+        border: "4px solid #b5fdf7", // Optional border
+        "&:hover, &.Mui-focusVisible, &.Mui-active": {
+            boxShadow: "0px 0px 0px 8px rgba(255, 255, 255, 0.16)", // Hover effect
+        },
+    },
+    // Add styling for marks
+    "& .MuiSlider-mark": {
+        width: 16, // Increase thumb size
+        height: 16,
+        backgroundColor: "#111", // Thumb color
+        border: "4px solid #b5fdf7", // Optional border
+        borderRadius: "50%",
+        boxSizing: "border-box",
+        transform: "translateY(-50%) translateX(-50%)",
+        // opacity:1
+    },
+});
 const MiningRightModal: React.FC<ModalControlProps> = ({
     type,
     modalopen,
@@ -210,11 +253,19 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
 }) => {
     const { windowDimensions } = useContext(SiteVariablesContext);
     const [modalstate, setModalstate] = React.useState("");
+    const [accountselected, setAccountselected] = React.useState("");
+    // 1. withwallet 2.withoutwallet
+    const [paymethodselected, setPaymethodselected] = React.useState("");
+    // 1. gpay 2.paypal 3. cards
     const [dropdownMoreOptions, setDropdownMoreOptions] = React.useState("");
     const [priceval, setPriceval] = React.useState(0.0005);
     const increasedecreasevalue = 0.0005;
     // For add mining rights type = "add"
+    // in case of with wallet accountselected = withwallet
     // 1. buyamountques 2.areyousure 3.finalstep 4.transactioncompleted
+
+    // in case of without wallet accountselected = withoutwallet
+    // 1. buyamountques 2.areyousure 3.finalstep 3.finalstepcard 4.transactioncompleted
 
     // purchaseoptions
 
@@ -292,11 +343,14 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                                                 label="Connect Your Wallet"
                                                 variant="secondary"
                                                 className="btnwidth100"
-                                                onClick={() =>
+                                                onClick={() => {
                                                     setModalstate(
                                                         "buyamountques"
-                                                    )
-                                                }
+                                                    );
+                                                    setAccountselected(
+                                                        "withwallet"
+                                                    );
+                                                }}
                                                 // @ts-ignore
                                                 icon={<ArrowTransformIcon />}
                                             />
@@ -306,11 +360,14 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                                                 label="Continue Without Account"
                                                 variant="primary"
                                                 className="btnwidth100"
-                                                onClick={() =>
+                                                onClick={() => {
                                                     setModalstate(
                                                         "buyamountques"
-                                                    )
-                                                }
+                                                    );
+                                                    setAccountselected(
+                                                        "withoutwallet"
+                                                    );
+                                                }}
                                                 // @ts-ignore
                                                 icon={<ArrowTransformIcon />}
                                             />
@@ -440,21 +497,28 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                                             </Box>
                                         </Box>
                                         <Box className="slidebarbox">
-                                            <div className="line"></div>
+                                            <CustomSlider
+                                                aria-label="Amount"
+                                                defaultValue={50}
+                                                // valueLabelDisplay="auto"
+                                                shiftStep={50}
+                                                step={50}
+                                                marks
+                                                min={0}
+                                                max={100}
+                                            />
+
                                             <div className="left">
-                                                <div className="point"></div>
                                                 <div className="val">
                                                     Lowest: <span>52,445</span>
                                                 </div>
                                             </div>
                                             <div className="middle">
-                                                <div className="point"></div>
                                                 <div className="val">
                                                     Medium: <span>202,445</span>
                                                 </div>
                                             </div>
                                             <div className="right">
-                                                <div className="point"></div>
                                                 <div className="val">
                                                     Highest:{" "}
                                                     <span>502,445</span>
@@ -680,18 +744,346 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                                 </ModalWrapper>
                             </>
                         )}
-                        {modalstate === "finalstep" && (
+
+                        {modalstate === "finalstep" &&
+                            (accountselected === "withoutwallet" ? (
+                                <>
+                                    <div className="modalbg">
+                                        {windowDimensions?.width <
+                                        mobileBreakpoint ? (
+                                            <img
+                                                src="/images/common/bg/AddMintingRights/mobile.png"
+                                                alt=""
+                                            />
+                                        ) : (
+                                            <img
+                                                src="/images/common/bg/AddMintingRights/2.png"
+                                                alt=""
+                                            />
+                                        )}
+                                    </div>
+                                    <ModalWrapper>
+                                        <ModalHeading>
+                                            <ModalTitle>Final Step</ModalTitle>
+                                            <ModalDescription>
+                                                Select your Payment Method
+                                            </ModalDescription>
+                                        </ModalHeading>
+                                        <ModalContent className="buyamountques finalstep">
+                                            <Box className="paymethodselector">
+                                                <div
+                                                    className={`payrow ${
+                                                        paymethodselected ===
+                                                        "gpay"
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                    onClick={() =>
+                                                        setPaymethodselected(
+                                                            "gpay"
+                                                        )
+                                                    }
+                                                >
+                                                    <div className="left">
+                                                        <div className="circlbox"></div>
+                                                        Google Pay
+                                                    </div>
+                                                    <div className="right">
+                                                        <img
+                                                            src="/images/common/gpay.png"
+                                                            alt=""
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    className={`payrow ${
+                                                        paymethodselected ===
+                                                        "paypal"
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                    onClick={() =>
+                                                        setPaymethodselected(
+                                                            "paypal"
+                                                        )
+                                                    }
+                                                >
+                                                    <div className="left">
+                                                        <div className="circlbox"></div>
+                                                        PayPal
+                                                    </div>
+                                                    <div className="right">
+                                                        <img
+                                                            src="/images/common/paypal.png"
+                                                            alt=""
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    className={`payrow ${
+                                                        paymethodselected ===
+                                                        "card"
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                    onClick={() =>
+                                                        setPaymethodselected(
+                                                            "card"
+                                                        )
+                                                    }
+                                                >
+                                                    <div className="left">
+                                                        <div className="circlbox"></div>
+                                                        Credit or Debit Card
+                                                    </div>
+                                                    <div className="right">
+                                                        <img
+                                                            src="/images/common/visa.png"
+                                                            alt=""
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Box>
+                                        </ModalContent>
+                                        <ModalFooter>
+                                            <div className="gobackbutton">
+                                                <ActionButton
+                                                    label="Go Back"
+                                                    variant="secondary"
+                                                    onClick={() =>
+                                                        setModalstate(
+                                                            "areyousure"
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="buttonbottom">
+                                                <ActionButton
+                                                    label="Next"
+                                                    variant="primary"
+                                                    className="btnwidth100"
+                                                    onClick={() => {
+                                                        paymethodselected ===
+                                                        "card"
+                                                            ? setModalstate(
+                                                                  "finalstepcard"
+                                                              )
+                                                            : setModalstate(
+                                                                  "transactioncompleted"
+                                                              );
+                                                    }}
+                                                    // @ts-ignore
+                                                    icon={
+                                                        <ArrowTransformIcon />
+                                                    }
+                                                />
+                                            </div>
+                                        </ModalFooter>
+                                    </ModalWrapper>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="modalbg">
+                                        {windowDimensions?.width <
+                                        mobileBreakpoint ? (
+                                            <img
+                                                src="/images/common/bg/AddMintingRights/mobile_3.png"
+                                                alt=""
+                                            />
+                                        ) : (
+                                            <img
+                                                src="/images/common/bg/AddMintingRights/3.png"
+                                                alt=""
+                                            />
+                                        )}
+                                    </div>
+                                    <ModalWrapper>
+                                        <ModalHeading>
+                                            <ModalTitle>Final Step</ModalTitle>
+                                            <ModalDescription>
+                                                Your transaction has been
+                                                received we need a little bit
+                                                more time. Confirmation usually
+                                                takes 2-15 min
+                                            </ModalDescription>
+                                        </ModalHeading>
+                                        <ModalContent className="buyamountques finalstep">
+                                            <Box className="qrcodebox">
+                                                <div className="overlay">
+                                                    <div className="checkicon">
+                                                        <CheckIcon />
+                                                    </div>
+                                                </div>
+                                                <div className="leftbox">
+                                                    <h3>Amount</h3>
+                                                    <div className="value">
+                                                        $0.0005 USD
+                                                    </div>
+                                                    <h3>To this address</h3>
+                                                    <div className="address">
+                                                        9en283737dm04948GBhBCh892388bfjhwfb3iu4
+                                                    </div>
+                                                </div>
+                                                <div className="rightbox">
+                                                    <QRCodeIcon />
+                                                </div>
+                                            </Box>
+                                            <Box className="moreinformationbox">
+                                                <Accordion>
+                                                    <AccordionSummary
+                                                        expandIcon={
+                                                            <ArrowDownIcon />
+                                                        }
+                                                        aria-controls="panel1-content"
+                                                        id="panel1-header"
+                                                    >
+                                                        Other change USTD to
+                                                        ETH?
+                                                    </AccordionSummary>
+                                                    <AccordionDetails>
+                                                        <ul>
+                                                            <li>
+                                                                Estimate Earned
+                                                            </li>
+                                                            <li>
+                                                                55 Mining
+                                                                contracts
+                                                            </li>
+                                                            <li>
+                                                                2 Prospector
+                                                                contracts, 5
+                                                                Miners, 2
+                                                                Refiners{" "}
+                                                            </li>
+                                                            <li>
+                                                                Timeline to
+                                                                Return 2 month
+                                                            </li>
+                                                            <li>
+                                                                At any point you
+                                                                can merge your
+                                                                NFTs or Contact
+                                                                Us for more
+                                                                complex
+                                                                transactions
+                                                            </li>
+                                                        </ul>
+                                                        <div className="warning">
+                                                            *This is an estimate
+                                                            based on current
+                                                            live information
+                                                        </div>
+                                                    </AccordionDetails>
+                                                </Accordion>
+                                            </Box>
+
+                                            <Box className="ordertrackerbox">
+                                                <OrderProgressTracker />
+                                            </Box>
+
+                                            <Box className="getreceivebox">
+                                                <div className="leftbox">
+                                                    <h3>You Get</h3>0.2345395
+                                                    ETH
+                                                </div>
+                                                <div className="rightbox">
+                                                    <h3>Recipient Wallet</h3>
+                                                    9en283737dm04948GBhBCh892388bfjhwfb3iu4
+                                                </div>
+                                            </Box>
+
+                                            <Box className="moreinformationbox">
+                                                <Accordion>
+                                                    <AccordionSummary
+                                                        expandIcon={
+                                                            <ArrowDownIcon />
+                                                        }
+                                                        aria-controls="panel1-content"
+                                                        id="panel1-header"
+                                                    >
+                                                        More Information
+                                                    </AccordionSummary>
+                                                    <AccordionDetails>
+                                                        <ul>
+                                                            <li>
+                                                                Estimate Earned
+                                                            </li>
+                                                            <li>
+                                                                55 Mining
+                                                                contracts
+                                                            </li>
+                                                            <li>
+                                                                2 Prospector
+                                                                contracts, 5
+                                                                Miners, 2
+                                                                Refiners{" "}
+                                                            </li>
+                                                            <li>
+                                                                Timeline to
+                                                                Return 2 month
+                                                            </li>
+                                                            <li>
+                                                                At any point you
+                                                                can merge your
+                                                                NFTs or Contact
+                                                                Us for more
+                                                                complex
+                                                                transactions
+                                                            </li>
+                                                        </ul>
+                                                        <div className="warning">
+                                                            *This is an estimate
+                                                            based on current
+                                                            live information
+                                                        </div>
+                                                    </AccordionDetails>
+                                                </Accordion>
+                                            </Box>
+                                        </ModalContent>
+                                        <ModalFooter>
+                                            <div className="gobackbutton">
+                                                <ActionButton
+                                                    label="Go Back"
+                                                    variant="secondary"
+                                                    onClick={() =>
+                                                        setModalstate(
+                                                            "areyousure"
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="buttonbottom">
+                                                <ActionButton
+                                                    label="Next"
+                                                    variant="primary"
+                                                    className="btnwidth100"
+                                                    onClick={() =>
+                                                        setModalstate(
+                                                            "transactioncompleted"
+                                                        )
+                                                    }
+                                                    // @ts-ignore
+                                                    icon={
+                                                        <ArrowTransformIcon />
+                                                    }
+                                                />
+                                            </div>
+                                        </ModalFooter>
+                                    </ModalWrapper>
+                                </>
+                            ))}
+                        {modalstate === "finalstepcard" && (
                             <>
                                 <div className="modalbg">
                                     {windowDimensions?.width <
                                     mobileBreakpoint ? (
                                         <img
-                                            src="/images/common/bg/AddMintingRights/mobile_3.png"
+                                            src="/images/common/bg/AddMintingRights/mobile.png"
                                             alt=""
                                         />
                                     ) : (
                                         <img
-                                            src="/images/common/bg/AddMintingRights/3.png"
+                                            src="/images/common/bg/AddMintingRights/2.png"
                                             alt=""
                                         />
                                     )}
@@ -700,128 +1092,33 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                                     <ModalHeading>
                                         <ModalTitle>Final Step</ModalTitle>
                                         <ModalDescription>
-                                            Your transaction has been received
-                                            we need a little bit more time.
-                                            Confirmation usually takes 2-15 min
+                                            Select your Payment Method
                                         </ModalDescription>
                                     </ModalHeading>
                                     <ModalContent className="buyamountques finalstep">
-                                        <Box className="qrcodebox">
-                                            <div className="overlay">
-                                                <div className="checkicon">
-                                                    <CheckIcon />
-                                                </div>
+                                        <Box className="paymethodinput">
+                                            <div className="row row1">
+                                                <DataBox>
+                                                    <Label>Card Number</Label>
+                                                    <InputBox placeholder="1234  5678  9101  1121" />
+                                                </DataBox>
                                             </div>
-                                            <div className="leftbox">
-                                                <h3>Amount</h3>
-                                                <div className="value">
-                                                    $0.0005 USD
-                                                </div>
-                                                <h3>To this address</h3>
-                                                <div className="address">
-                                                    9en283737dm04948GBhBCh892388bfjhwfb3iu4
-                                                </div>
+                                            <div className="row row2">
+                                                <DataBox>
+                                                    <Label>
+                                                        Expiration Date
+                                                    </Label>
+                                                    <InputBox placeholder="MM/YY" />
+                                                </DataBox>
+                                                <DataBox>
+                                                    <Label>CVV</Label>
+                                                    <InputBox placeholder="123" />
+                                                </DataBox>
                                             </div>
-                                            <div className="rightbox">
-                                                <QRCodeIcon />
+                                            <div className="carddetails">
+                                                <div className="circlbox"></div>
+                                                Save card details
                                             </div>
-                                        </Box>
-                                        <Box className="moreinformationbox">
-                                            <Accordion>
-                                                <AccordionSummary
-                                                    expandIcon={
-                                                        <ArrowDownIcon />
-                                                    }
-                                                    aria-controls="panel1-content"
-                                                    id="panel1-header"
-                                                >
-                                                    Other change USTD to ETH?
-                                                </AccordionSummary>
-                                                <AccordionDetails>
-                                                    <ul>
-                                                        <li>Estimate Earned</li>
-                                                        <li>
-                                                            55 Mining contracts
-                                                        </li>
-                                                        <li>
-                                                            2 Prospector
-                                                            contracts, 5 Miners,
-                                                            2 Refiners{" "}
-                                                        </li>
-                                                        <li>
-                                                            Timeline to Return 2
-                                                            month
-                                                        </li>
-                                                        <li>
-                                                            At any point you can
-                                                            merge your NFTs or
-                                                            Contact Us for more
-                                                            complex transactions
-                                                        </li>
-                                                    </ul>
-                                                    <div className="warning">
-                                                        *This is an estimate
-                                                        based on current live
-                                                        information
-                                                    </div>
-                                                </AccordionDetails>
-                                            </Accordion>
-                                        </Box>
-
-                                        <Box className="ordertrackerbox">
-                                            <OrderProgressTracker />
-                                        </Box>
-
-                                        <Box className="getreceivebox">
-                                            <div className="leftbox">
-                                                <h3>You Get</h3>0.2345395 ETH
-                                            </div>
-                                            <div className="rightbox">
-                                                <h3>Recipient Wallet</h3>
-                                                9en283737dm04948GBhBCh892388bfjhwfb3iu4
-                                            </div>
-                                        </Box>
-
-                                        <Box className="moreinformationbox">
-                                            <Accordion>
-                                                <AccordionSummary
-                                                    expandIcon={
-                                                        <ArrowDownIcon />
-                                                    }
-                                                    aria-controls="panel1-content"
-                                                    id="panel1-header"
-                                                >
-                                                    More Information
-                                                </AccordionSummary>
-                                                <AccordionDetails>
-                                                    <ul>
-                                                        <li>Estimate Earned</li>
-                                                        <li>
-                                                            55 Mining contracts
-                                                        </li>
-                                                        <li>
-                                                            2 Prospector
-                                                            contracts, 5 Miners,
-                                                            2 Refiners{" "}
-                                                        </li>
-                                                        <li>
-                                                            Timeline to Return 2
-                                                            month
-                                                        </li>
-                                                        <li>
-                                                            At any point you can
-                                                            merge your NFTs or
-                                                            Contact Us for more
-                                                            complex transactions
-                                                        </li>
-                                                    </ul>
-                                                    <div className="warning">
-                                                        *This is an estimate
-                                                        based on current live
-                                                        information
-                                                    </div>
-                                                </AccordionDetails>
-                                            </Accordion>
                                         </Box>
                                     </ModalContent>
                                     <ModalFooter>
@@ -830,7 +1127,7 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                                                 label="Go Back"
                                                 variant="secondary"
                                                 onClick={() =>
-                                                    setModalstate("areyousure")
+                                                    setModalstate("finalstep")
                                                 }
                                             />
                                         </div>
@@ -852,6 +1149,9 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
                                 </ModalWrapper>
                             </>
                         )}
+                        {/* {modalstate === "finalstep" && (
+                           
+                        )} */}
                         {modalstate === "transactioncompleted" && (
                             <>
                                 <div className="modalbg">
@@ -958,12 +1258,119 @@ const MiningRightModal: React.FC<ModalControlProps> = ({
         </>
     );
 };
+const DataBox = styled.div`
+    margin-bottom: 20px;
+`;
+const Label = styled.div`
+    color: var(--Text-Primary, var(--Typography-Primary-white, #fff));
 
+    /* S1/Medium */
+    font-family: Telegraf;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 133.333% */
+    margin-bottom: 10px;
+    span {
+        color: var(--Text-Tertiary, var(--Typography-Primary-white, #969696));
+    }
+`;
+const InputBox = styled.input`
+    border-radius: 18px;
+    background: Transparent;
+    // outline: 0 !important;
+    border: 2px solid rgba(255, 255, 255, 0.04) !important;
+    color: var(--Text-Tertiary, #969696);
+    text-align: left;
+    text-transform: capitalize;
+    padding: 20px 28px;
+    font: 400 16px Telegraf, sans-serif !important;
+    width: 100%;
+    box-sizing: border-box;
+`;
 const ModalContent = styled.div`
     .flexbox {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
+    }
+    .paymethodinput {
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        ${DataBox} {
+            width: 100%;
+        }
+        .row2 {
+            ${DataBox} {
+                width: calc(50% - 10px);
+            }
+        }
+        .carddetails {
+            display: flex;
+            align-items: center;
+            .circlbox {
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                border: 1px solid #707070;
+                // box-sizing: border-box;
+                margin-right: 8px;
+                margin-bottom: -3px;
+            }
+        }
+    }
+    .paymethodselector {
+        .payrow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 32px;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.08) 0%,
+                rgba(255, 255, 255, 0.05) 100%
+            );
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.3s linear;
+            margin-bottom: 20px;
+            .left {
+                display: flex;
+                align-items: center;
+                .circlbox {
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 50%;
+                    border: 2px solid #707070;
+                    // box-sizing: border-box;
+                    margin-right: 8px;
+                    margin-bottom: -2px;
+                }
+            }
+            .right {
+                display: flex;
+                align-items: center;
+                img {
+                    height: 18px;
+                }
+            }
+            &.active {
+                .circlbox {
+                    background: #e0c26f;
+                    border-color: #cba145;
+                }
+            }
+            &:hover {
+                background: linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.1) 0%,
+                    rgba(255, 255, 255, 0.09) 100%
+                );
+            }
+        }
     }
     &.buyamountques {
         position: relative;
@@ -1031,6 +1438,16 @@ const ModalContent = styled.div`
             width: fit-content;
             padding: 0 20px;
             margin-top: 24px;
+            .MuiOutlinedInput-root {
+                .MuiOutlinedInput-notchedOutline {
+                    border: 0 !important;
+                }
+            }
+            .MuiMenuItem-root {
+                padding-top: 9px;
+                padding-bottom: 9px !important;
+                font-size: 10px !important;
+            }
             .flexbox {
                 justify-content: flex-start;
                 align-items: center;
@@ -1075,24 +1492,15 @@ const ModalContent = styled.div`
             align-items: center;
             justify-content: space-between;
             position: relative;
-            margin-top: 24px;
-            .line {
+            margin-top: 50px;
+
+            .MuiSlider-root {
                 position: absolute;
-                top: 3px;
-                width: 100%;
-                height: 8px;
-                border-radius: 32px;
-                border: 0.75px solid rgba(255, 255, 255, 0);
-                background: #b5fdf7;
-                backdrop-filter: blur(16px);
-            }
-            .point {
-                width: 8px;
-                height: 8px;
-                background: #111;
-                border: 4px solid #b5fdf7;
-                border-radius: 50%;
-                margin-bottom: 15px;
+                top: -27px;
+                padding: 0;
+                width: calc(100% - 20px);
+                left: 50%;
+                transform: translateX(-50%);
             }
 
             .val {

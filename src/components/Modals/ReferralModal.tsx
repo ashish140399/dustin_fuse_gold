@@ -365,7 +365,7 @@ const ModalContent = styled.div`
                 border-radius: 16px !important;
                 width: 100% !important;
                 font-family: Telegraf !important;
-                background: linear-gradient(
+                background: linear-(
                     90deg,
                     rgba(255, 255, 255, 0.08) 0%,
                     rgba(255, 255, 255, 0.05) 100%

@@ -33,7 +33,18 @@ import {
 } from "recharts";
 import { mobileBreakpoint } from "../../../../const";
 import SiteVariablesContext from "../../../../contexts/SiteVariablesContext";
+const GlobalStyle = createGlobalStyle`
+  body {
+ background: url(/images/common/dashboard_distribute_bg.png);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: 100% 80vh;
+    background-size: cover;
+    min-height:100vh
+  }
 
+
+`;
 const dataarea = [
     {
         name: "",
@@ -568,6 +579,7 @@ const GoldXStats: React.FC<NFTsListProps> = ({}) => {
 
     return (
         <Layout>
+            {layoutSelector === "distribute" && <GlobalStyle />}
             <OptionsWrapper className="paddinglayoutx paddinglayouty">
                 {layoutSelector === "grid" ? (
                     <SelectBoxWrapper>

@@ -207,6 +207,9 @@ const Transfer: React.FC<CompProps> = ({}) => {
                                             <InputBox
                                                 value={`$890.0 USD`}
                                                 readOnly
+                                                style={{
+                                                    pointerEvents: "none",
+                                                }}
                                             />
                                         </DataBox>
                                         <DataBox className="fromtobox">

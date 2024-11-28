@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { HeartIcon } from "../../assets/icons";
 
 interface NFTImageProps {
     src: string;
@@ -10,11 +11,9 @@ interface NFTImageProps {
 const NFTImage: React.FC<NFTImageProps> = ({ src, alt, className }) => {
     return (
         <ImageWrapper className={className}>
-            <LikesIcon
-                loading="lazy"
-                src="/images/common/icons/likes.svg"
-                alt="Collection"
-            />
+            <LikesIcon>
+                <HeartIcon />
+            </LikesIcon>
             <div className="sqboxwrapper">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +72,14 @@ const ImageWrapper = styled.div`
         }
     }
 `;
-const LikesIcon = styled.img`
+
+const LikesIcon = styled.div`
+    border-radius: 40px;
+    border: 1px solid var(--Lines-Border, #5d5c5a);
+    background: var(--background-surface-2, #2e2d2a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     aspect-ratio: 1;
     object-fit: contain;
     object-position: center;
@@ -82,5 +88,18 @@ const LikesIcon = styled.img`
     position: absolute;
     top: 0;
     left: 0;
+    transition: all 0.3s linear;
+    cursor: pointer;
+    border-radius: 50%;
+    svg {
+        transition: all 0.3s linear;
+    }
+    &:hover {
+        svg {
+            path {
+                fill: red;
+            }
+        }
+    }
 `;
 export default NFTImage;

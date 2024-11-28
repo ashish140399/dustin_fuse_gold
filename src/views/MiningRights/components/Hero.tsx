@@ -42,12 +42,12 @@ const Hero: React.FC = () => {
             <div className="herobag" ref={heroWrapperRef}>
                 {windowDimensions?.width > mobileBreakpoint ? (
                     <LandingHeroBG
-                        src="./images/common/herobg.png"
+                        src="./images/common/miningright.png"
                         alt="Hero BG"
                     />
                 ) : (
                     <LandingHeroMobileBG
-                        src="./images/common/herobg.png"
+                        src="./images/common/miningright.png"
                         alt="Hero BG"
                     />
                 )}
@@ -159,7 +159,18 @@ const HeroContent: React.FC = () => {
                         duration: 0.5,
                     }}
                 >
-                    <GetStartedIcon />
+                    <div className="getStartedOuter">
+                        <img
+                            className="get_started_arrow"
+                            src="/images/common/get_started_arrow.png"
+                            alt=""
+                        />
+                        <img
+                            className="get_started"
+                            src="/images/common/get_started.png"
+                            alt=""
+                        />
+                    </div>
                 </motion.div>
             </TextContent>{" "}
             <motion.div
@@ -222,10 +233,10 @@ const HeroStats: React.FC = () => {
         >
             <StatContent>
                 <IncreasingNumber value={250} duration={2} delay={2} />
-                <StatLabel>Market Cap</StatLabel>
+                <StatLabel>client trust us</StatLabel>
             </StatContent>
             <StatImage
-                src="/images/common/herograph.svg"
+                src="/images/common/clienttrust.png"
                 alt="Market Cap Illustration"
             />
         </FramerStatsWrapper>

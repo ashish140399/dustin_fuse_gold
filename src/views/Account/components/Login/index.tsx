@@ -82,12 +82,24 @@ const LoginPasswordBox = () => {
                             }
                         />
                     </DataBox>
+                    <ForgotPassword>Forgot Password?</ForgotPassword>
                 </DataContainer>
             </ContentWrapper>
         </PersaonalDetailBoxWrapper>
     );
 };
 
+const ForgotPassword = styled.div`
+    /* S1/Medium */
+    font-family: Telegraf;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px; /* 133.333% */
+    color: #dcbc65;
+    cursor: pointer;
+    text-decoration: underline;
+`;
 const DataContainer = styled.div``;
 const DataBox = styled.div`
     margin-bottom: 20px;
@@ -110,15 +122,22 @@ const InputBox = styled.input`
     border-radius: 18px;
     background: Transparent;
     border: 2px solid rgba(255, 255, 255, 0.04);
-    color: var(--Text-Tertiary, #969696);
+    color: var(--Text-Tertiary, #fff);
     text-align: left;
     text-transform: capitalize;
     padding: 20px 28px;
     font: 400 16px Telegraf, sans-serif;
     width: 100%;
     box-sizing: border-box;
+    &::placeholder {
+        color: var(--Text-Tertiary, #969696);
+    }
 `;
 const StyledOutlinedInput = styled(OutlinedInput)`
+    color: var(--Text-Tertiary, #fff) !important;
+    font: 400 16px Telegraf, sans-serif;
+    text-align: left;
+    text-transform: capitalize;
     width: 100%;
     border-radius: 18px !important;
     overflow: hidden !important;
@@ -333,20 +352,23 @@ const BottomColumn = styled.div`
         line-height: 24px; /* 150% */
         text-transform: capitalize;
         a {
-            background: var(
-                --Brand-Gold,
-                radial-gradient(
-                    458.07% 144.86% at 13.25% 21.87%,
-                    #f4e0a3 0%,
-                    #dcbc65 37.37%,
-                    #ca9f43 63.89%,
-                    #fef0a0 79.39%,
-                    #8e5f1e 100%
-                )
-            );
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            // background: var(
+            //     --Brand-Gold,
+            //     radial-gradient(
+            //         458.07% 144.86% at 13.25% 21.87%,
+            //         #f4e0a3 0%,
+            //         #dcbc65 37.37%,
+            //         #ca9f43 63.89%,
+            //         #fef0a0 79.39%,
+            //         #8e5f1e 100%
+            //     )
+            // );
+            color: #dcbc65;
+            // background-clip: text;
+            // -webkit-background-clip: text;
+            // -webkit-text-fill-color: transparent;
+            text-decoration: underline;
+            padding-left: 0;
         }
     }
 `;
